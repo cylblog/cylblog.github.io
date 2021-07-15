@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="线段树 概念：线段树是一种二叉搜索树，每个单元区间对应线段树中的一个叶节点。使用线段树可以快速地查找某一个节点在若干线段中出现的次数，时间复杂度为 O(logN) 。而未优化的空间复杂度为2N，实际应用时一般还要开4N的数组以免越界。 注意：线段树不是一颗完全二叉树，但是线段树是一颗二叉平衡树。 它的存储方式如图所示：     我们使用数组存储最大堆，因为最大堆是一棵完全二叉树，那么我们可以使用数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线段树">
+<meta property="og:url" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="线段树 概念：线段树是一种二叉搜索树，每个单元区间对应线段树中的一个叶节点。使用线段树可以快速地查找某一个节点在若干线段中出现的次数，时间复杂度为 O(logN) 。而未优化的空间复杂度为2N，实际应用时一般还要开4N的数组以免越界。 注意：线段树不是一颗完全二叉树，但是线段树是一颗二叉平衡树。 它的存储方式如图所示：     我们使用数组存储最大堆，因为最大堆是一棵完全二叉树，那么我们可以使用数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/1.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/2.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/3.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/4.png">
+<meta property="article:published_time" content="2021-07-15T08:00:15.575Z">
+<meta property="article:modified_time" content="2021-07-15T14:59:15.985Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/1.png">
+
+<link rel="canonical" href="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>线段树 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线段树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-15 16:00:15 / Modified: 22:59:15" itemprop="dateCreated datePublished" datetime="2021-07-15T16:00:15+08:00">2021-07-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><em><strong>线段树</strong></em></p>
+<p>概念：线段树是一种二叉搜索树，每个单元区间对应线段树中的一个叶节点。使用线段树可以快速地查找某一个节点在若干线段中出现的次数，时间复杂度为 O(logN) 。而未优化的空间复杂度为2N，实际应用时一般还要开4N的数组以免越界。</p>
+<p>注意：线段树不是一颗完全二叉树，但是线段树是一颗二叉平衡树。</p>
+<p>它的存储方式如图所示：</p>
+<p><img src="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/1.png"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/2.png"></p>
+<p>  我们使用数组存储最大堆，因为最大堆是一棵完全二叉树，那么我们可以使用数组表示线段树吗？当然可以，只不过我们需要完善这棵树，将倒数第二层补充上左右孩子，使其成为一棵完全二叉树。如图所示</p>
+<p><img src="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/3.png"></p>
+<p>在上图的基础上我们可以估算一下如果区间有n个元素，我们数组需要多少空间呢？</p>
+<p>1.满二叉树k层一共有2^k-1节点；</p>
+<p>2.最后一层节点数为2^(k-1)个节点；</p>
+<p>3.所以得出最后一层中所有节点数约等于前面所有层的节点数之和。</p>
+<p><img src="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/4.png"></p>
+<p>接下来我们再来看看关于线段树的几个基础知识点：</p>
+<p><strong>1.存储</strong></p>
+<p>线段树要用结构体存储</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tree</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> l,r;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> pre,add;</span><br><span class="line">&#125;t[<span class="number">4</span>*maxn];  <span class="comment">//前面我们分析过要用4n大的数组来存储</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.建树</strong></p>
+<p>对于一个区间（编号为p），它的左儿子为2p，右儿子为2p+1</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bulid</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    t[p].l=l;t[p].r=r;<span class="comment">//以p为编号的节点维护的区间为l到r</span></span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;<span class="comment">//l=r的话，这个区间就只有一个数，直接让区间维护的值等于a[i]</span></span><br><span class="line">        t[p].pre=a[l];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;<span class="comment">//否则维护的值等于左儿子加右儿子</span></span><br><span class="line">    <span class="keyword">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">bulid</span>(p*<span class="number">2</span>,l,mid);</span><br><span class="line">    <span class="built_in">bulid</span>(p*<span class="number">2</span>+<span class="number">1</span>,mid+<span class="number">1</span>,r);</span><br><span class="line">    t[p].pre=t[p*<span class="number">2</span>].pre+t[p*<span class="number">2</span>+<span class="number">1</span>].pre;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3.懒标记</strong></p>
+<p> 懒标记的精髓就是打标记和下传操作，由于我们要做的操作是区间加一个数，所以我们不妨在区间进行修改时为该区间打上一个标记，就不必再修改他的儿子所维护区间，等到要使用该节点的儿子节点维护的值时，再将懒标记下放即可，可以节省很多时间，对于每次区间修改和查询，将懒标记下传，可以节省很多时间 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spread</span><span class="params">(<span class="keyword">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t[p].add)&#123;<span class="comment">//如果懒标记不为0，就将其下传，修改左右儿子维护的值</span></span><br><span class="line">        t[p*<span class="number">2</span>].pre+=t[p].add*(t[p*<span class="number">2</span>].r-t[p*<span class="number">2</span>].l+<span class="number">1</span>);</span><br><span class="line">        t[p*<span class="number">2</span>+<span class="number">1</span>].pre+=t[p].add*(t[p*<span class="number">2</span>+<span class="number">1</span>].r-t[p*<span class="number">2</span>+<span class="number">1</span>].l+<span class="number">1</span>);</span><br><span class="line">        t[p*<span class="number">2</span>].add+=t[p].add;<span class="comment">//为该节点的左右儿子打上标记</span></span><br><span class="line">        t[p*<span class="number">2</span>+<span class="number">1</span>].add+=t[p].add;</span><br><span class="line">        t[p].add=<span class="number">0</span>;<span class="comment">//下传之后将该节点的懒标记清0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>4.区间修改</strong></p>
+<p> 考虑将一个区间加上一个数，我们可以从根节点不断向下查找，当发现我们要修改的区间覆盖了当前节点时，我们就把这个区间给修改，并打上懒标记（由于懒标记存在，我们就不必再修改他的儿子节点），否则下传懒标记，继续向下找 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> z)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=t[p].l &amp;&amp; y&gt;=t[p].r)&#123;<span class="comment">//被覆盖的话，就对其进行修改</span></span><br><span class="line">        t[p].pre+=(<span class="keyword">long</span> <span class="keyword">long</span>)z*(t[p].r-t[p].l+<span class="number">1</span>);</span><br><span class="line">        t[p].add+=z;<span class="comment">//打上懒标记</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">spread</span>(p);<span class="comment">//如果发现没有被覆盖，那就需要继续向下找，考虑儿子所维护的区间可能因为懒标记的存在而没有修改，因此将懒标记下放</span></span><br><span class="line">    <span class="keyword">int</span> mid=t[p].l+t[p].r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=mid) <span class="built_in">change</span>(p*<span class="number">2</span>,x,y,z);<span class="comment">//如果要修改的区间覆盖了左儿子，就修改左儿子</span></span><br><span class="line">    <span class="keyword">if</span>(y&gt;mid) <span class="built_in">change</span>(p*<span class="number">2</span>+<span class="number">1</span>,x,y,z);<span class="comment">//右儿子同理</span></span><br><span class="line">    t[p].pre=t[p*<span class="number">2</span>].pre+t[p*<span class="number">2</span>+<span class="number">1</span>].pre;<span class="comment">//最终维护的值等于左儿子的值+右儿子的值   </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>5.区间查询</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">ask</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=t[p].l &amp;&amp; y&gt;=t[p].r) <span class="keyword">return</span> t[p].pre;<span class="comment">//如果被覆盖，就返回维护的值</span></span><br><span class="line">    <span class="built_in">spread</span>(p);<span class="comment">//下传懒标记，并查询左右儿子</span></span><br><span class="line">    <span class="keyword">int</span> mid=t[p].l+t[p].r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=mid) ans+=<span class="built_in">ask</span>(p*<span class="number">2</span>,x,y);</span><br><span class="line">    <span class="keyword">if</span>(y&gt;mid) ans+=<span class="built_in">ask</span>(p*<span class="number">2</span>+<span class="number">1</span>,x,y);<span class="comment">//累加答案，返回左右儿子的和</span></span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>线段树模板题链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">https://www.luogu.com.cn/problem/P3372</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tree</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l, r;</span><br><span class="line">	ll val, lazy;</span><br><span class="line">&#125;t[maxn * <span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	t[p].l = l, t[p].r = r;  <span class="comment">//初始化节点p的区间为[l,r];</span></span><br><span class="line">	<span class="keyword">if</span> (l == r)</span><br><span class="line">	&#123;</span><br><span class="line">		t[p].val = a[l];</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">build</span>(p &lt;&lt; <span class="number">1</span>, l, mid);</span><br><span class="line">	<span class="built_in">build</span>(p &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r);</span><br><span class="line">	t[p].val = t[p * <span class="number">2</span>].val + t[p * <span class="number">2</span> + <span class="number">1</span>].val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spread</span><span class="params">(<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (t[p].lazy)</span><br><span class="line">	&#123;</span><br><span class="line">		t[p * <span class="number">2</span>].val += t[p].lazy * (t[p * <span class="number">2</span>].r - t[p * <span class="number">2</span>].l + <span class="number">1</span>);</span><br><span class="line">		t[p * <span class="number">2</span> + <span class="number">1</span>].val += t[p].lazy * (t[p * <span class="number">2</span> + <span class="number">1</span>].r - t[p * <span class="number">2</span> + <span class="number">1</span>].l + <span class="number">1</span>);</span><br><span class="line">		t[p * <span class="number">2</span>].lazy += t[p].lazy;</span><br><span class="line">		t[p * <span class="number">2</span> + <span class="number">1</span>].lazy += t[p].lazy;</span><br><span class="line">		t[p].lazy = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;   <span class="comment">//包含在要查找的子区间内</span></span><br><span class="line">	<span class="keyword">if</span> (x &lt;= t[p].l &amp;&amp; t[p].r&lt;=y)</span><br><span class="line">	&#123;</span><br><span class="line">		t[p].val += (ll)num * (t[p].r - t[p].l+<span class="number">1</span>);</span><br><span class="line">		t[p].lazy += num;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//否则继续下传</span></span><br><span class="line">	<span class="built_in">spread</span>(p);</span><br><span class="line">	<span class="keyword">int</span> mid = (t[p].l + t[p].r )&gt;&gt; <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span> (x &lt;= mid) <span class="built_in">change</span>(p * <span class="number">2</span>, x, y, num);</span><br><span class="line">	<span class="keyword">if</span> (y &gt; mid)<span class="built_in">change</span>(p * <span class="number">2</span> + <span class="number">1</span>, x, y, num);</span><br><span class="line">	t[p].val = t[p * <span class="number">2</span>].val + t[p * <span class="number">2</span> + <span class="number">1</span>].val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x &lt;= t[p].l &amp;&amp; t[p].r &lt;= y) <span class="keyword">return</span> t[p].val;</span><br><span class="line">	<span class="built_in">spread</span>(p);</span><br><span class="line">	<span class="keyword">int</span> mid =( t[p].l + t[p].r )&gt;&gt; <span class="number">1</span>;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (x &lt;= mid)ans += <span class="built_in">query</span>(p * <span class="number">2</span>, x, y);</span><br><span class="line">	<span class="keyword">if</span> (y &gt; mid)ans += <span class="built_in">query</span>(p * <span class="number">2</span> + <span class="number">1</span>, x, y);</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, m;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">build</span>(<span class="number">1</span>, <span class="number">1</span>, n);</span><br><span class="line">	<span class="keyword">int</span> a, b, c, d;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line">		<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;b, &amp;c, &amp;d); <span class="comment">//区间修改</span></span><br><span class="line">			<span class="built_in">change</span>(<span class="number">1</span>, b, c, d);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;b, &amp;c);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, <span class="built_in">query</span>(<span class="number">1</span>, b, c));  <span class="comment">//单点查询</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<p>原文链接1：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25343557/article/details/88725383">https://blog.csdn.net/qq_25343557/article/details/88725383</a></p>
+<p>原文链接2：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/derren/solution-p3372">https://www.luogu.com.cn/blog/derren/solution-p3372</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/10/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89/" rel="prev" title="迪杰斯特拉">
+      <i class="fa fa-chevron-left"></i> 迪杰斯特拉
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
