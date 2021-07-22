@@ -21,19 +21,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。  首先来大概了解一下什么是闭包： 有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。 我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2021/06/15/hello-world/index.html">
+<meta property="og:title" content="JavaScript闭包">
+<meta property="og:url" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。  首先来大概了解一下什么是闭包： 有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。 我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-06-15T13:04:27.562Z">
-<meta property="article:modified_time" content="2021-06-15T13:04:27.563Z">
+<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
+<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png">
+<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png">
+<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png">
+<meta property="article:published_time" content="2021-07-19T12:27:06.285Z">
+<meta property="article:modified_time" content="2021-07-19T13:33:23.895Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
 
-<link rel="canonical" href="http://example.com/2021/06/15/hello-world/">
+<link rel="canonical" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
 
 
 <script id="page-configurations">
@@ -46,7 +51,7 @@
   };
 </script>
 
-  <title>Hello World | Hexo</title>
+  <title>JavaScript闭包 | Hexo</title>
   
 
 
@@ -151,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -164,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          JavaScript闭包
         </h1>
 
         <div class="post-meta">
@@ -173,8 +178,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-06-15 21:04:27" itemprop="dateCreated datePublished" datetime="2021-06-15T21:04:27+08:00">2021-06-15</time>
+              <time title="Created: 2021-07-19 20:27:06 / Modified: 21:33:23" itemprop="dateCreated datePublished" datetime="2021-07-19T20:27:06+08:00">2021-07-19</time>
             </span>
 
           
@@ -188,19 +194,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。</p>
+<ul>
+<li><p>首先来大概了解一下什么是闭包：</p>
+<p>有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。</p>
+<p>我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？</p>
+</li>
+</ul>
+<ul>
+<li>原因大致有两个：</li>
+</ul>
+<ol>
+<li>全局变量不好控制，可以在任何地方进行读写，意味着可能会被不相干的程序改写。</li>
+<li>全局变量占用内存的生命周期长，一般局部变量（定义在函数中的变量），在函数调用完成之后与之对应的执行环境会被推出执行栈，回收机制会每隔一段时间进行一次回收操作，释放不需要被占用的内存。执行环境出栈就是在告诉回收机制“这些变量我不需要了，可以回收了”。而全局变量因为随时可以被任何程序在任何地方读写，所以回收机制很难统计何时需要释放全局变量所占用的内存，也就导致全局变量一般只在全局执行环境被销毁时才释放。</li>
+</ol>
+<p>没错，闭包真是利用了变量由于只是无法回收，但是可以使用，为了使用，不让系统回收。</p>
+<ul>
+<li>因此我们可以得知闭包的作用：延长变量的作用范围。</li>
+</ul>
+<ul>
+<li> 接下来我一起看一下全局变量和闭包使用的区别：</li>
+</ul>
+<p><strong>声明为全局变量</strong></p>
+<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png"></p>
+<p>我们查看在控制台的输出结果，如图：</p>
+<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png"></p>
+<p><strong>声明为局部变量</strong></p>
+<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png"></p>
+<p>注意：</p>
+<p><em>当我们通过doCounterFn间接调用doCounter时，虽然doCounterFn的作用域链上并不存在变量second，但doCounter被执行时依旧能访问它的作用域链上的变量，也就是它声明时所在的作用域内的任何变量。</em></p>
+<p><em>通过counter和doCounter两个函数的嵌套，形成作用域的嵌套，被嵌套的函数需要对所在作用域进行访问，再将被嵌套的函数在另一个作用域中调用，这一整个过程就是我们所说的闭包。</em></p>
+<p>再次查看控制台输出信息：</p>
+<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png"></p>
+<p>我们从上面可以看到闭包可以达到和声明为全局变量一样的效果！</p>
+<ul>
+<li>通过上面我们还可以得知闭包形成的条件：</li>
+</ul>
+<ol>
+<li>需要访问作用域</li>
+<li>函数嵌套</li>
+<li>被嵌套函数在另一个作用域中被调用</li>
+</ol>
+<p>所以，当我们需要重复使用一个对象，但又想保护这个对象不被污染其它代码污染时我们可以选择使用闭包。</p>
+<ul>
+<li>关于闭包的缺点：比起普通函数，闭包占用内存多，因此建议在使用完毕后，可以手动赋空标记回收。</li>
+</ul>
+<p>最后，附上视频链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413">https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413</a>  </p>
+<p>视频虽短，干货满满，建议大家反复观看(<em>^__^</em>) ！</p>
 
     </div>
 
@@ -215,11 +256,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/06/17/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="next" title="并查集">
-      并查集 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="prev" title="线段树">
+      <i class="fa fa-chevron-left"></i> 线段树
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -278,7 +319,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
