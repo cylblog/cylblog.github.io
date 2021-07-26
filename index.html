@@ -146,6 +146,226 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">浅析JavaScript箭头函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-26 11:26:36 / Modified: 13:14:00" itemprop="dateCreated datePublished" datetime="2021-07-26T11:26:36+08:00">2021-07-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="浅析JavaScript箭头函数"><a href="#浅析JavaScript箭头函数" class="headerlink" title="浅析JavaScript箭头函数"></a>浅析JavaScript箭头函数</h1><p>学习JavaScript的过程中又发现了一个有趣的难点，那就是箭头函数，下面是我学习过后对JavaScript箭头函数的浅析。</p>
+<ul>
+<li>在学习箭头函数之前，我们需要来学习一下this的指向规则。this的指向规则主要有以下几种形式。</li>
+</ul>
+<p><strong>1.默认this绑定window</strong></p>
+<p>在全局的上下文中调用this，此时this指向是默认的window。如图</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/1.png"></p>
+<p>输出结果为：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/2.png"></p>
+<p><strong>2.隐式绑定this</strong></p>
+<p>隐式绑定是指，<em>谁绑定就指向谁！</em> 如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/3.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/4.png"></p>
+<p>注意：如果在fun函数中再加一个函数，结果为：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/5.png"></p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/6.png"></p>
+<p>这表明，fun中的this指向的是obj，但fun1中的this指向的是window。也就是说fun1在fun内部，但两个this没有关系，仍然是被谁调用就指向谁，fun1没有指明谁调用所以默认指向window。</p>
+<p><strong>3.显式绑定call、apply、bind</strong></p>
+<p>三者都是用来显式指定this的指向，主要区别在于传参方式不同。如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/7.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/8.png"></p>
+<p><strong>4.new绑定</strong></p>
+<p>当使用构造函数创建对象是，this指向新创建的对象</p>
+<p>var obj=new fun();</p>
+<p>这时this指向新创建的对象obj</p>
+<p><strong>5.this指向的几个补充</strong></p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/11.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/12.png"></p>
+<ul>
+<li>在上面四种this指向的优先级中：new&gt;显式&gt;隐式&gt;默认</li>
+<li>现在我们可以来了解一下什么是箭头函数了</li>
+</ul>
+<p>***定义方式： 函数名 = () =&gt; {函数体} ***</p>
+<p>注意：</p>
+<ol>
+<li>没有参数或者参数不止一个时一定要写<code>()</code>，只有一个参数可以不写 </li>
+<li> 函数体只有一条语句，可以不用<code>&#123;&#125;</code>，默认返回结果；函数体有多个语句, 需要用<code>&#123;&#125;</code>，若需要返回值，则自己手动写<code>return</code>。 </li>
+</ol>
+<p>使用场景：多用来定义回调函数</p>
+<ul>
+<li><p>现在我们来看看箭头函数和普通函数到底有什么区别：</p>
+<p>区别：箭头函数的内部是没有this的指向的，箭头函数中的this实际上是向外一级一级地查找作用域中的this</p>
+<p>（直到this有指向）</p>
+<p>划重点：<strong>箭头函数的this的指向不是调用的时候决定的，而是在定义的时候所处的对象就是它的this，普通函数是被谁调用就指向谁</strong></p>
+<p>一个很简单的辨别方法：看箭头函数的this外层是否有函数</p>
+<p>如果有，外层函数的this就是内部函数的箭头函数的this，</p>
+<p>如果没有，则箭头函数的this是window。</p>
+<p>如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/9.png"></p>
+<p>输出结果：</p>
+</li>
+</ul>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/10.png"></p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wakaka112233/article/details/112793697?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%20%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-.nonecase&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/wakaka112233/article/details/112793697?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%20%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-.nonecase&amp;spm=1018.2226.3001.4187</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/22/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/22/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/" class="post-title-link" itemprop="url">JavaScript闭包</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-22 21:39:35" itemprop="dateCreated datePublished" datetime="2021-07-22T21:39:35+08:00">2021-07-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。</p>
+<ul>
+<li><p>首先来大概了解一下什么是闭包：</p>
+<p>有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。</p>
+<p>我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？</p>
+</li>
+</ul>
+<ul>
+<li>原因大致有两个：</li>
+</ul>
+<ol>
+<li>全局变量不好控制，可以在任何地方进行读写，意味着可能会被不相干的程序改写。</li>
+<li>全局变量占用内存的生命周期长，一般局部变量（定义在函数中的变量），在函数调用完成之后与之对应的执行环境会被推出执行栈，回收机制会每隔一段时间进行一次回收操作，释放不需要被占用的内存。执行环境出栈就是在告诉回收机制“这些变量我不需要了，可以回收了”。而全局变量因为随时可以被任何程序在任何地方读写，所以回收机制很难统计何时需要释放全局变量所占用的内存，也就导致全局变量一般只在全局执行环境被销毁时才释放。</li>
+</ol>
+<p>没错，闭包真是利用了变量由于只是无法回收，但是可以使用，为了使用，不让系统回收。</p>
+<ul>
+<li>因此我们可以得知闭包的作用：延长变量的作用范围。</li>
+</ul>
+<ul>
+<li> 接下来我一起看一下全局变量和闭包使用的区别：</li>
+</ul>
+<p><strong>声明为全局变量</strong></p>
+<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/1.png"></p>
+<p>我们查看在控制台的输出结果，如图：</p>
+<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/2.png"></p>
+<p><strong>声明为局部变量</strong></p>
+<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/3.png"></p>
+<p>注意：</p>
+<p><em>当我们通过doCounterFn间接调用doCounter时，虽然doCounterFn的作用域链上并不存在变量second，但doCounter被执行时依旧能访问它的作用域链上的变量，也就是它声明时所在的作用域内的任何变量。</em></p>
+<p><em>通过counter和doCounter两个函数的嵌套，形成作用域的嵌套，被嵌套的函数需要对所在作用域进行访问，再将被嵌套的函数在另一个作用域中调用，这一整个过程就是我们所说的闭包。</em></p>
+<p>再次查看控制台输出信息：</p>
+<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/4.png"></p>
+<p>我们从上面可以看到闭包可以达到和声明为全局变量一样的效果！</p>
+<ul>
+<li>通过上面我们还可以得知闭包形成的条件：</li>
+</ul>
+<ol>
+<li>需要访问作用域</li>
+<li>函数嵌套</li>
+<li>被嵌套函数在另一个作用域中被调用</li>
+</ol>
+<p>所以，当我们需要重复使用一个对象，但又想保护这个对象不被污染其它代码污染时我们可以选择使用闭包。</p>
+<ul>
+<li>关于闭包的缺点：比起普通函数，闭包占用内存多，因此建议在使用完毕后，可以手动赋空标记回收。</li>
+</ul>
+<p>最后，附上视频链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413">https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413</a>  </p>
+<p>视频虽短，干货满满，建议大家反复观看(<em>^__^</em>) ！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -990,7 +1210,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

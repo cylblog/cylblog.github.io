@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="浅析JavaScript箭头函数学习JavaScript的过程中又发现了一个有趣的难点，那就是箭头函数，下面是我学习过后对JavaScript箭头函数的浅析。  在学习箭头函数之前，我们需要来学习一下this的指向规则。this的指向规则主要有以下几种形式。  1.默认this绑定window 在全局的上下文中调用this，此时this指向是默认的window。如图  输出结果为：  2.隐式绑定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析JavaScript箭头函数">
+<meta property="og:url" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="浅析JavaScript箭头函数学习JavaScript的过程中又发现了一个有趣的难点，那就是箭头函数，下面是我学习过后对JavaScript箭头函数的浅析。  在学习箭头函数之前，我们需要来学习一下this的指向规则。this的指向规则主要有以下几种形式。  1.默认this绑定window 在全局的上下文中调用this，此时this指向是默认的window。如图  输出结果为：  2.隐式绑定">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/1.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/2.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/3.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/4.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/5.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/6.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/7.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/8.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/11.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/12.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/9.png">
+<meta property="og:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/10.png">
+<meta property="article:published_time" content="2021-07-26T03:26:36.533Z">
+<meta property="article:modified_time" content="2021-07-26T05:14:00.402Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/1.png">
+
+<link rel="canonical" href="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>浅析JavaScript箭头函数 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅析JavaScript箭头函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-26 11:26:36 / Modified: 13:14:00" itemprop="dateCreated datePublished" datetime="2021-07-26T11:26:36+08:00">2021-07-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="浅析JavaScript箭头函数"><a href="#浅析JavaScript箭头函数" class="headerlink" title="浅析JavaScript箭头函数"></a>浅析JavaScript箭头函数</h1><p>学习JavaScript的过程中又发现了一个有趣的难点，那就是箭头函数，下面是我学习过后对JavaScript箭头函数的浅析。</p>
+<ul>
+<li>在学习箭头函数之前，我们需要来学习一下this的指向规则。this的指向规则主要有以下几种形式。</li>
+</ul>
+<p><strong>1.默认this绑定window</strong></p>
+<p>在全局的上下文中调用this，此时this指向是默认的window。如图</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/1.png"></p>
+<p>输出结果为：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/2.png"></p>
+<p><strong>2.隐式绑定this</strong></p>
+<p>隐式绑定是指，<em>谁绑定就指向谁！</em> 如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/3.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/4.png"></p>
+<p>注意：如果在fun函数中再加一个函数，结果为：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/5.png"></p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/6.png"></p>
+<p>这表明，fun中的this指向的是obj，但fun1中的this指向的是window。也就是说fun1在fun内部，但两个this没有关系，仍然是被谁调用就指向谁，fun1没有指明谁调用所以默认指向window。</p>
+<p><strong>3.显式绑定call、apply、bind</strong></p>
+<p>三者都是用来显式指定this的指向，主要区别在于传参方式不同。如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/7.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/8.png"></p>
+<p><strong>4.new绑定</strong></p>
+<p>当使用构造函数创建对象是，this指向新创建的对象</p>
+<p>var obj=new fun();</p>
+<p>这时this指向新创建的对象obj</p>
+<p><strong>5.this指向的几个补充</strong></p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/11.png"></p>
+<p>输出结果：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/12.png"></p>
+<ul>
+<li>在上面四种this指向的优先级中：new&gt;显式&gt;隐式&gt;默认</li>
+<li>现在我们可以来了解一下什么是箭头函数了</li>
+</ul>
+<p>***定义方式： 函数名 = () =&gt; {函数体} ***</p>
+<p>注意：</p>
+<ol>
+<li>没有参数或者参数不止一个时一定要写<code>()</code>，只有一个参数可以不写 </li>
+<li> 函数体只有一条语句，可以不用<code>&#123;&#125;</code>，默认返回结果；函数体有多个语句, 需要用<code>&#123;&#125;</code>，若需要返回值，则自己手动写<code>return</code>。 </li>
+</ol>
+<p>使用场景：多用来定义回调函数</p>
+<ul>
+<li><p>现在我们来看看箭头函数和普通函数到底有什么区别：</p>
+<p>区别：箭头函数的内部是没有this的指向的，箭头函数中的this实际上是向外一级一级地查找作用域中的this</p>
+<p>（直到this有指向）</p>
+<p>划重点：<strong>箭头函数的this的指向不是调用的时候决定的，而是在定义的时候所处的对象就是它的this，普通函数是被谁调用就指向谁</strong></p>
+<p>一个很简单的辨别方法：看箭头函数的this外层是否有函数</p>
+<p>如果有，外层函数的this就是内部函数的箭头函数的this，</p>
+<p>如果没有，则箭头函数的this是window。</p>
+<p>如图：</p>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/9.png"></p>
+<p>输出结果：</p>
+</li>
+</ul>
+<p><img src="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/10.png"></p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wakaka112233/article/details/112793697?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%20%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-.nonecase&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/wakaka112233/article/details/112793697?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%20%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-.nonecase&amp;spm=1018.2226.3001.4187</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/22/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/" rel="prev" title="JavaScript闭包">
+      <i class="fa fa-chevron-left"></i> JavaScript闭包
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">浅析JavaScript箭头函数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
