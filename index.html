@@ -261,111 +261,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/22/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/22/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/" class="post-title-link" itemprop="url">JavaScript闭包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-22 21:39:35" itemprop="dateCreated datePublished" datetime="2021-07-22T21:39:35+08:00">2021-07-22</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。</p>
-<ul>
-<li><p>首先来大概了解一下什么是闭包：</p>
-<p>有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。</p>
-<p>我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？</p>
-</li>
-</ul>
-<ul>
-<li>原因大致有两个：</li>
-</ul>
-<ol>
-<li>全局变量不好控制，可以在任何地方进行读写，意味着可能会被不相干的程序改写。</li>
-<li>全局变量占用内存的生命周期长，一般局部变量（定义在函数中的变量），在函数调用完成之后与之对应的执行环境会被推出执行栈，回收机制会每隔一段时间进行一次回收操作，释放不需要被占用的内存。执行环境出栈就是在告诉回收机制“这些变量我不需要了，可以回收了”。而全局变量因为随时可以被任何程序在任何地方读写，所以回收机制很难统计何时需要释放全局变量所占用的内存，也就导致全局变量一般只在全局执行环境被销毁时才释放。</li>
-</ol>
-<p>没错，闭包真是利用了变量由于只是无法回收，但是可以使用，为了使用，不让系统回收。</p>
-<ul>
-<li>因此我们可以得知闭包的作用：延长变量的作用范围。</li>
-</ul>
-<ul>
-<li> 接下来我一起看一下全局变量和闭包使用的区别：</li>
-</ul>
-<p><strong>声明为全局变量</strong></p>
-<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/1.png"></p>
-<p>我们查看在控制台的输出结果，如图：</p>
-<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/2.png"></p>
-<p><strong>声明为局部变量</strong></p>
-<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/3.png"></p>
-<p>注意：</p>
-<p><em>当我们通过doCounterFn间接调用doCounter时，虽然doCounterFn的作用域链上并不存在变量second，但doCounter被执行时依旧能访问它的作用域链上的变量，也就是它声明时所在的作用域内的任何变量。</em></p>
-<p><em>通过counter和doCounter两个函数的嵌套，形成作用域的嵌套，被嵌套的函数需要对所在作用域进行访问，再将被嵌套的函数在另一个作用域中调用，这一整个过程就是我们所说的闭包。</em></p>
-<p>再次查看控制台输出信息：</p>
-<p><img src="../..source/images/JavaScript%E7%9A%84%E9%97%AD%E5%8C%85/4.png"></p>
-<p>我们从上面可以看到闭包可以达到和声明为全局变量一样的效果！</p>
-<ul>
-<li>通过上面我们还可以得知闭包形成的条件：</li>
-</ul>
-<ol>
-<li>需要访问作用域</li>
-<li>函数嵌套</li>
-<li>被嵌套函数在另一个作用域中被调用</li>
-</ol>
-<p>所以，当我们需要重复使用一个对象，但又想保护这个对象不被污染其它代码污染时我们可以选择使用闭包。</p>
-<ul>
-<li>关于闭包的缺点：比起普通函数，闭包占用内存多，因此建议在使用完毕后，可以手动赋空标记回收。</li>
-</ul>
-<p>最后，附上视频链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413">https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413</a>  </p>
-<p>视频虽短，干货满满，建议大家反复观看(<em>^__^</em>) ！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1210,7 +1105,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
