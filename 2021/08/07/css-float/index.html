@@ -21,24 +21,29 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。  首先来大概了解一下什么是闭包： 有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。 我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？">
+  <meta name="description" content="学习css的时候看到float元素的时候很懵逼，于是上网学习了一波，现在简单分享一下自己的学习成果。  首先要知道，在html中div是块级元素，在页面中独占一行，自上而下排。如图：   我们从图中可以看出，即使每个div后面有很多的空间，后面的元素也不会上来填充，这就是标准流的的div。 而float可以理解为让某个div元素脱离标准流，漂浮在标准流之上，和标准流不是一个层次。  比如说，上图中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript闭包">
-<meta property="og:url" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/index.html">
+<meta property="og:title" content="浅析 CSS float布局">
+<meta property="og:url" content="http://example.com/2021/08/07/css-float/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。  首先来大概了解一下什么是闭包： 有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。 我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？">
+<meta property="og:description" content="学习css的时候看到float元素的时候很懵逼，于是上网学习了一波，现在简单分享一下自己的学习成果。  首先要知道，在html中div是块级元素，在页面中独占一行，自上而下排。如图：   我们从图中可以看出，即使每个div后面有很多的空间，后面的元素也不会上来填充，这就是标准流的的div。 而float可以理解为让某个div元素脱离标准流，漂浮在标准流之上，和标准流不是一个层次。  比如说，上图中">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png">
-<meta property="article:published_time" content="2021-07-19T12:27:06.285Z">
-<meta property="article:modified_time" content="2021-07-19T13:33:23.895Z">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/1.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/2.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/3.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/4.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/5.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/6.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/7.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/8.png">
+<meta property="og:image" content="http://example.com/2021/08/07/css-float/9.png">
+<meta property="article:published_time" content="2021-08-07T02:38:32.590Z">
+<meta property="article:modified_time" content="2021-08-07T03:36:42.926Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
+<meta name="twitter:image" content="http://example.com/2021/08/07/css-float/1.png">
 
-<link rel="canonical" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
+<link rel="canonical" href="http://example.com/2021/08/07/css-float/">
 
 
 <script id="page-configurations">
@@ -51,7 +56,7 @@
   };
 </script>
 
-  <title>JavaScript闭包 | Hexo</title>
+  <title>浅析 CSS float布局 | Hexo</title>
   
 
 
@@ -156,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/07/css-float/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JavaScript闭包
+          浅析 CSS float布局
         </h1>
 
         <div class="post-meta">
@@ -180,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-07-19 20:27:06 / Modified: 21:33:23" itemprop="dateCreated datePublished" datetime="2021-07-19T20:27:06+08:00">2021-07-19</time>
+              <time title="Created: 2021-08-07 10:38:32 / Modified: 11:36:42" itemprop="dateCreated datePublished" datetime="2021-08-07T10:38:32+08:00">2021-08-07</time>
             </span>
 
           
@@ -194,54 +199,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。</p>
+        <p>学习css的时候看到float元素的时候很懵逼，于是上网学习了一波，现在简单分享一下自己的学习成果。</p>
 <ul>
-<li><p>首先来大概了解一下什么是闭包：</p>
-<p>有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。</p>
-<p>我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？</p>
-</li>
+<li>首先要知道，在html中div是块级元素，在页面中独占一行，自上而下排。如图：</li>
 </ul>
+<p><img src="/2021/08/07/css-float/1.png"></p>
+<p>我们从图中可以看出，即使每个div后面有很多的空间，后面的元素也不会上来填充，这就是标准流的的div。</p>
+<p>而<em><strong>float</strong></em>可以理解为让某个div元素脱离标准流，漂浮在标准流之上，和标准流不是一个层次。</p>
 <ul>
-<li>原因大致有两个：</li>
+<li>比如说，上图中的div2设置为float，但是div1、div3、div4仍然在标准流当中，所以div3会自动上移，占据div2的位置，如图：</li>
 </ul>
+<p><img src="/2021/08/07/css-float/2.png"></p>
+<p>图中的div3相比之前变“矮”了，这是因为div3上移了。不过要注意的是我们这里设置的是左浮动（float:left），为了看的更清楚些，我们设置把div2设置成右浮动：</p>
+<p><img src="/2021/08/07/css-float/3.png"></p>
+<p>此时的div2漂浮在右边，div3不会被div2遮挡。</p>
+<ul>
+<li>在上面我们只设置了一个float，如果我们设置多个float会是什么样子呢？</li>
+</ul>
+<p>如图，我们把div2和div3都设置为左浮动：</p>
+<p><img src="/2021/08/07/css-float/4.png"></p>
+<p>我们可以看到div3紧跟在div2后面，而div4上移了。</p>
+<p>这是由于div2和div3浮动，它们不再属于标准流，因此div4会自动上移，与div1组成一个新的标准流，</p>
+<p>而浮动是漂浮在标准流之上，因此div2遮挡了div4.</p>
+<ul>
+<li>重点来了，当同时对div2、div3设置了浮动之后，div3紧跟div2，div2在每个例子中都是浮动的，但是都没有j紧跟在div1的后面。这里我们可以得出一个重要的结论：<em><strong>假设某个div元素A是浮动的，如果A的上一个元素也是浮动的，那么A元素会紧跟在上一个元素的后边（如果一行放不下这两个元素，那么A元素会被挤到下一行）。如果A元素上一个元素是标准流中的元素，那么A的相对垂直位置不会改变，也就是说A的顶部总是和上一个元素的底部对齐。</strong></em></li>
+</ul>
+<p>为了更好理解，</p>
 <ol>
-<li>全局变量不好控制，可以在任何地方进行读写，意味着可能会被不相干的程序改写。</li>
-<li>全局变量占用内存的生命周期长，一般局部变量（定义在函数中的变量），在函数调用完成之后与之对应的执行环境会被推出执行栈，回收机制会每隔一段时间进行一次回收操作，释放不需要被占用的内存。执行环境出栈就是在告诉回收机制“这些变量我不需要了，可以回收了”。而全局变量因为随时可以被任何程序在任何地方读写，所以回收机制很难统计何时需要释放全局变量所占用的内存，也就导致全局变量一般只在全局执行环境被销毁时才释放。</li>
+<li>现在我们把div2、div3、div4都设置成左浮动：</li>
 </ol>
-<p>没错，闭包真是利用了变量由于只是无法回收，但是可以使用，为了使用，不让系统回收。</p>
-<ul>
-<li>因此我们可以得知闭包的作用：延长变量的作用范围。</li>
-</ul>
-<ul>
-<li> 接下来我一起看一下全局变量和闭包使用的区别：</li>
-</ul>
-<p><strong>声明为全局变量</strong></p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png"></p>
-<p>我们查看在控制台的输出结果，如图：</p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png"></p>
-<p><strong>声明为局部变量</strong></p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png"></p>
-<p>注意：</p>
-<p><em>当我们通过doCounterFn间接调用doCounter时，虽然doCounterFn的作用域链上并不存在变量second，但doCounter被执行时依旧能访问它的作用域链上的变量，也就是它声明时所在的作用域内的任何变量。</em></p>
-<p><em>通过counter和doCounter两个函数的嵌套，形成作用域的嵌套，被嵌套的函数需要对所在作用域进行访问，再将被嵌套的函数在另一个作用域中调用，这一整个过程就是我们所说的闭包。</em></p>
-<p>再次查看控制台输出信息：</p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png"></p>
-<p>我们从上面可以看到闭包可以达到和声明为全局变量一样的效果！</p>
-<ul>
-<li>通过上面我们还可以得知闭包形成的条件：</li>
-</ul>
-<ol>
-<li>需要访问作用域</li>
-<li>函数嵌套</li>
-<li>被嵌套函数在另一个作用域中被调用</li>
+<p><img src="/2021/08/07/css-float/5.png"></p>
+<p>我们看图再来分析一波：先从div4开始，div4发现上边的div3是浮动的所以紧跟div3；div3发现上边的div2也是浮动，所以紧跟div2；div2发现上边的div1是标准流中的元素，因此div2的相对垂直位置不变，顶部元素仍然和底部对齐。</p>
+<ol start="2">
+<li>如果设置成右浮动：</li>
 </ol>
-<p>所以，当我们需要重复使用一个对象，但又想保护这个对象不被污染其它代码污染时我们可以选择使用闭包。</p>
+<p><img src="/2021/08/07/css-float/6.png"></p>
+<p>这里我们只需要注意靠近页面的边缘是<strong>前</strong>就可以。</p>
+<ol start="3">
+<li>设置div2和div4为左浮动：</li>
+</ol>
+<p><img src="/2021/08/07/css-float/7.png"></p>
+<p>1）由于div1是标准流，div2不动，由于div2是浮动的，所以div3上移了。</p>
+<p>2）div4也是浮动的，div3是标准流，div3的底部和div4的顶部始终对齐，所以div4会跟着div3上移。</p>
 <ul>
-<li>关于闭包的缺点：比起普通函数，闭包占用内存多，因此建议在使用完毕后，可以手动赋空标记回收。</li>
+<li>最后，还有一个清除浮动的功能，清除浮动可以理解为打破横向排列</li>
 </ul>
-<p>最后，附上视频链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413">https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413</a>  </p>
-<p>视频虽短，干货满满，建议大家反复观看(<em>^__^</em>) ！</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">清除浮动的关键字是<span class="attribute">clear</span>，官方定义如下：</span><br><span class="line"></span><br><span class="line">语法：</span><br><span class="line"></span><br><span class="line"><span class="attribute">clear</span> : none | left | right | both</span><br><span class="line"></span><br><span class="line">取值：</span><br><span class="line"></span><br><span class="line">none  :  默认值。允许两边都可以有浮动对象</span><br><span class="line"></span><br><span class="line">left   :  不允许左边有浮动对象</span><br><span class="line"></span><br><span class="line">right  :  不允许右边有浮动对象</span><br><span class="line"></span><br><span class="line">both  :  不允许有浮动对象</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>假设页面中只有div1和div2且都是左浮动，如图：</p>
+<p><img src="/2021/08/07/css-float/8.png"></p>
+<p>如果我们希望div2能够在div1的下面，就像div1没有浮动，div2左浮动那样。</p>
+<p>所以我们不想div2的左边有浮动，所以可以设置div2为 clear:left（这里的意思是指定div2的左边不允许有浮动元素）。效果如图：</p>
+<p><img src="/2021/08/07/css-float/9.png"></p>
+<p>注意：<strong>我们要设置的div2本身，而不是div1</strong></p>
+<p>最后附上原文链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html">https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html</a></p>
 
     </div>
 
@@ -257,13 +270,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="prev" title="线段树">
-      <i class="fa fa-chevron-left"></i> 线段树
+    <a href="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="prev" title="浅析JavaScript箭头函数">
+      <i class="fa fa-chevron-left"></i> 浅析JavaScript箭头函数
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="next" title="浅析JavaScript箭头函数">
-      浅析JavaScript箭头函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
