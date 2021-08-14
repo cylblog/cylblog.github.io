@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这一周学习的是flex布局，以下是学习总结：   flex布局表示弹性布局，为盒状模型提供最大的灵活性。  适用范围：任何一种元素都可以指定为flex布局。  注意点：1. 如果是webkit内核的浏览器，需要加上-webkit前缀  在父元素设置为flex布局之后，子元素的float、clear、vertical-align属性都将失效， 所以在flex布局时不应该先设置子元素布局后在使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex布局">
+<meta property="og:url" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这一周学习的是flex布局，以下是学习总结：   flex布局表示弹性布局，为盒状模型提供最大的灵活性。  适用范围：任何一种元素都可以指定为flex布局。  注意点：1. 如果是webkit内核的浏览器，需要加上-webkit前缀  在父元素设置为flex布局之后，子元素的float、clear、vertical-align属性都将失效， 所以在flex布局时不应该先设置子元素布局后在使用。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/1.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/2.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/3.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/4.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/5.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/6.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/7.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/8.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/9.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/10.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/11.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/12.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/13.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/14.png">
+<meta property="og:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/15.png">
+<meta property="article:published_time" content="2021-08-12T13:51:22.535Z">
+<meta property="article:modified_time" content="2021-08-12T16:17:13.654Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/1.png">
+
+<link rel="canonical" href="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>flex布局 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          flex布局
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-12 21:51:22" itemprop="dateCreated datePublished" datetime="2021-08-12T21:51:22+08:00">2021-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-13 00:17:13" itemprop="dateModified" datetime="2021-08-13T00:17:13+08:00">2021-08-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这一周学习的是flex布局，以下是学习总结：</p>
+<hr>
+<ul>
+<li><p>flex布局表示弹性布局，为盒状模型提供最大的灵活性。</p>
+<blockquote>
+<p>适用范围：任何一种元素都可以指定为flex布局。 </p>
+<p>注意点：1. 如果是webkit内核的浏览器，需要加上-webkit前缀</p>
+<ol start="2">
+<li><p>在父元素设置为flex布局之后，子元素的float、clear、vertical-align属性都将失效，</p>
+<p>所以在flex布局时不应该先设置子元素布局后在使用。  </p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>基本概念</p>
+<blockquote>
+<p>容器：采用flex布局的元素被称为容器</p>
+<p>项目：在flex布局中的子元素被称为项目</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>设置在容器上的常用六大属性：</p>
+<blockquote>
+<ul>
+<li>flex-direction</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><em><strong>1.flex-direction</strong></em></p>
+<p>设置容器主轴的方向，包含四个属性</p>
+<ol>
+<li><p>row：默认值，表示沿水平方向，由左到右</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/1.png"></p>
+</li>
+<li><p>row-reverse：表示沿水平方向，由右到左</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/2.png"></p>
+</li>
+<li><p>column：表示垂直方向，由上到下</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/3.png"></p>
+</li>
+<li><p>column：表示垂直方向，由下到上</p>
+</li>
+</ol>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/4.png"></p>
+<p><em><strong>2.flex-wrap</strong></em></p>
+<p>设置当前项目中一行无法显示的时候如何处理，包含三个属性</p>
+<ol>
+<li><p>wrap：正常换行，第一个位于第一行的第一个</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/5.png"></p>
+</li>
+<li><p>nowrap：表示不换行</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/6.png"></p>
+</li>
+<li><p>wrap-reverse：向上换行，第一个位于下方</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/7.png"></p>
+</li>
+</ol>
+<p><em><strong>3.flex-row</strong></em></p>
+<p>该属性是flex-direction和flex-wrap属性的缩写，默认为【row，nowrap】</p>
+<p><em><strong>4.justify-content</strong></em></p>
+<p>用于项目在容器中的对齐方式，包含五个属性</p>
+<ol>
+<li><p>flex-start：默认值，左对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/8.png"></p>
+</li>
+<li><p>flex-end：右对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/9.png"></p>
+</li>
+<li><p>center：居中对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/10.png"></p>
+</li>
+<li><p>space-between：两端对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/11.png"></p>
+</li>
+<li><p>space-around：两个项目的两侧间距相等</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/12.png"></p>
+</li>
+</ol>
+<p><em><strong>5.align-items</strong></em></p>
+<p>设置项目在交叉轴上是如何对齐显示的，包含五个属性</p>
+<ol>
+<li><p>flex-start：交叉轴的起点对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/13.png"></p>
+</li>
+<li><p>flex-end：交叉轴的重点对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/14.png"></p>
+</li>
+<li><p>center居中对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/15.png"></p>
+</li>
+<li><p>baseline：项目的第一行文字的基线对齐</p>
+</li>
+<li><p>stretch：如果项目未设置高度或者高度为auto，将占满整个高度</p>
+</li>
+</ol>
+<hr>
+<ul>
+<li>设置在项目上的一些属性：</li>
+</ul>
+<blockquote>
+<ul>
+<li>order：设置项目排序的位置，默认为0数值越小越靠前</li>
+</ul>
+<ul>
+<li>flex-grow：控制当前项目是否被放大。默认为0，即使有剩余空间也不放大；设为1，平均分摊后放大</li>
+</ul>
+<ul>
+<li><p>flex-shrink：表示元素的缩小比例。默认为1，如果空间不够用时，所有项目同比缩小。若设为0，空间</p>
+<p>不如时该项目也不缩小。</p>
+</li>
+</ul>
+<ul>
+<li>flex-basis：表示项目占据主轴空间的值。默认为auto，表示当前默认项目的大小。如果设为一个固定值，则该项目在容器中占据固定的大小。</li>
+</ul>
+<ul>
+<li>flex：flex-grow、flex-shrink、flex-basis的简写，默认为： 0 1 auto</li>
+</ul>
+<ul>
+<li>align-self：表示当前项目可以和其他项目拥有不一样的对齐方式</li>
+</ul>
+</blockquote>
+<hr>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41305441/article/details/90213419?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162874845216780357283203%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162874845216780357283203&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90213419.first_rank_v2_pc_rank_v29&amp;utm_term=flex%E5%B8%83%E5%B1%80&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/weixin_41305441/article/details/90213419?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162874845216780357283203%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162874845216780357283203&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90213419.first_rank_v2_pc_rank_v29&amp;utm_term=flex%E5%B8%83%E5%B1%80&amp;spm=1018.2226.3001.4187</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/07/css-float/" rel="prev" title="浅析 CSS float布局">
+      <i class="fa fa-chevron-left"></i> 浅析 CSS float布局
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

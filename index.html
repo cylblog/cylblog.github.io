@@ -146,6 +146,203 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/12/flex%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">flex布局</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-12 21:51:22" itemprop="dateCreated datePublished" datetime="2021-08-12T21:51:22+08:00">2021-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-13 00:17:13" itemprop="dateModified" datetime="2021-08-13T00:17:13+08:00">2021-08-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这一周学习的是flex布局，以下是学习总结：</p>
+<hr>
+<ul>
+<li><p>flex布局表示弹性布局，为盒状模型提供最大的灵活性。</p>
+<blockquote>
+<p>适用范围：任何一种元素都可以指定为flex布局。 </p>
+<p>注意点：1. 如果是webkit内核的浏览器，需要加上-webkit前缀</p>
+<ol start="2">
+<li><p>在父元素设置为flex布局之后，子元素的float、clear、vertical-align属性都将失效，</p>
+<p>所以在flex布局时不应该先设置子元素布局后在使用。  </p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>基本概念</p>
+<blockquote>
+<p>容器：采用flex布局的元素被称为容器</p>
+<p>项目：在flex布局中的子元素被称为项目</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>设置在容器上的常用六大属性：</p>
+<blockquote>
+<ul>
+<li>flex-direction</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><em><strong>1.flex-direction</strong></em></p>
+<p>设置容器主轴的方向，包含四个属性</p>
+<ol>
+<li><p>row：默认值，表示沿水平方向，由左到右</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/1.png"></p>
+</li>
+<li><p>row-reverse：表示沿水平方向，由右到左</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/2.png"></p>
+</li>
+<li><p>column：表示垂直方向，由上到下</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/3.png"></p>
+</li>
+<li><p>column：表示垂直方向，由下到上</p>
+</li>
+</ol>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/4.png"></p>
+<p><em><strong>2.flex-wrap</strong></em></p>
+<p>设置当前项目中一行无法显示的时候如何处理，包含三个属性</p>
+<ol>
+<li><p>wrap：正常换行，第一个位于第一行的第一个</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/5.png"></p>
+</li>
+<li><p>nowrap：表示不换行</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/6.png"></p>
+</li>
+<li><p>wrap-reverse：向上换行，第一个位于下方</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/7.png"></p>
+</li>
+</ol>
+<p><em><strong>3.flex-row</strong></em></p>
+<p>该属性是flex-direction和flex-wrap属性的缩写，默认为【row，nowrap】</p>
+<p><em><strong>4.justify-content</strong></em></p>
+<p>用于项目在容器中的对齐方式，包含五个属性</p>
+<ol>
+<li><p>flex-start：默认值，左对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/8.png"></p>
+</li>
+<li><p>flex-end：右对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/9.png"></p>
+</li>
+<li><p>center：居中对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/10.png"></p>
+</li>
+<li><p>space-between：两端对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/11.png"></p>
+</li>
+<li><p>space-around：两个项目的两侧间距相等</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/12.png"></p>
+</li>
+</ol>
+<p><em><strong>5.align-items</strong></em></p>
+<p>设置项目在交叉轴上是如何对齐显示的，包含五个属性</p>
+<ol>
+<li><p>flex-start：交叉轴的起点对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/13.png"></p>
+</li>
+<li><p>flex-end：交叉轴的重点对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/14.png"></p>
+</li>
+<li><p>center居中对齐</p>
+<p><img src="/2021/08/12/flex%E5%B8%83%E5%B1%80/15.png"></p>
+</li>
+<li><p>baseline：项目的第一行文字的基线对齐</p>
+</li>
+<li><p>stretch：如果项目未设置高度或者高度为auto，将占满整个高度</p>
+</li>
+</ol>
+<hr>
+<ul>
+<li>设置在项目上的一些属性：</li>
+</ul>
+<blockquote>
+<ul>
+<li>order：设置项目排序的位置，默认为0数值越小越靠前</li>
+</ul>
+<ul>
+<li>flex-grow：控制当前项目是否被放大。默认为0，即使有剩余空间也不放大；设为1，平均分摊后放大</li>
+</ul>
+<ul>
+<li><p>flex-shrink：表示元素的缩小比例。默认为1，如果空间不够用时，所有项目同比缩小。若设为0，空间</p>
+<p>不如时该项目也不缩小。</p>
+</li>
+</ul>
+<ul>
+<li>flex-basis：表示项目占据主轴空间的值。默认为auto，表示当前默认项目的大小。如果设为一个固定值，则该项目在容器中占据固定的大小。</li>
+</ul>
+<ul>
+<li>flex：flex-grow、flex-shrink、flex-basis的简写，默认为： 0 1 auto</li>
+</ul>
+<ul>
+<li>align-self：表示当前项目可以和其他项目拥有不一样的对齐方式</li>
+</ul>
+</blockquote>
+<hr>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41305441/article/details/90213419?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162874845216780357283203%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162874845216780357283203&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90213419.first_rank_v2_pc_rank_v29&amp;utm_term=flex%E5%B8%83%E5%B1%80&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/weixin_41305441/article/details/90213419?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162874845216780357283203%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162874845216780357283203&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90213419.first_rank_v2_pc_rank_v29&amp;utm_term=flex%E5%B8%83%E5%B1%80&amp;spm=1018.2226.3001.4187</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/07/css-float/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1219,7 +1416,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
