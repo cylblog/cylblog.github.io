@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这周学习的是css的四大特性，接下来是学习的内容。     css主要有一下四大特性：   层叠性 继承性 优先级 特殊性      ​      首先介绍的是层叠性 所谓层叠性是指样式的叠加。例如：如果一个属性通过两个相同选择器设置到同一个元素上，那么这个时候一个属性就会被另一个属性层叠掉。    一般情况下，如果出现样式冲突，最会按照以下原则执行  遵循的原则是就近原则。哪一个样式离着结构近">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Css特性">
+<meta property="og:url" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这周学习的是css的四大特性，接下来是学习的内容。     css主要有一下四大特性：   层叠性 继承性 优先级 特殊性      ​      首先介绍的是层叠性 所谓层叠性是指样式的叠加。例如：如果一个属性通过两个相同选择器设置到同一个元素上，那么这个时候一个属性就会被另一个属性层叠掉。    一般情况下，如果出现样式冲突，最会按照以下原则执行  遵循的原则是就近原则。哪一个样式离着结构近">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/4.png">
+<meta property="og:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/5.png">
+<meta property="og:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/1.png">
+<meta property="og:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/2.png">
+<meta property="og:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/3.png">
+<meta property="article:published_time" content="2021-08-21T06:44:28.299Z">
+<meta property="article:modified_time" content="2021-08-21T07:54:56.133Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/4.png">
+
+<link rel="canonical" href="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Css特性 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Css特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-21 14:44:28 / Modified: 15:54:56" itemprop="dateCreated datePublished" datetime="2021-08-21T14:44:28+08:00">2021-08-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><p>这周学习的是css的四大特性，接下来是学习的内容。</p>
+<br>
+
+<br>
+
+<p>css主要有一下四大特性：</p>
+<blockquote>
+<ul>
+<li>层叠性</li>
+<li>继承性</li>
+<li>优先级</li>
+<li>特殊性</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>​    </p>
+<ul>
+<li><p>首先介绍的是层叠性</p>
+<p>所谓层叠性是指样式的叠加。例如：如果一个属性通过两个相同选择器设置到同一个元素上，那么这个时候一个属性就会被另一个属性层叠掉。</p>
+</li>
+</ul>
+<blockquote>
+<p>一般情况下，如果出现样式冲突，最会按照以下原则执行</p>
+<ol>
+<li>遵循的原则是就近原则。哪一个样式离着结构近，就执行哪一个样式</li>
+<li>样式不冲突，不会层叠</li>
+</ol>
+<p>口诀：长江后浪推前浪，前浪死在沙滩上。</p>
+</blockquote>
+<hr>
+<p>​    </p>
+<p>​    </p>
+<ul>
+<li>其次是继承性</li>
+</ul>
+<p> 所谓继承性就是书写css样式时，子标签会继承父标签的某些样式。如果想要设置一个可继承的属性，只需要将它应用于父元素即可。</p>
+<blockquote>
+<p>使用继承的好处：</p>
+<ul>
+<li>简化代码，降低css的复杂性，子元素可以继承父元素的样式</li>
+<li>这里的继承是指属性的继承，不要和权重的继承搞混淆，权重的继承为0不代表就不继承。</li>
+</ul>
+</blockquote>
+<hr>
+<p>​    </p>
+<p>​    </p>
+<ul>
+<li>然后是css 的优先级</li>
+</ul>
+<p> 定义css样式时，经常出现两个或者更多的规则应用在一个元素上，这时会出现优先级的问题。</p>
+<blockquote>
+<p>注意事项：</p>
+<ul>
+<li><p>继承样式的权重为0。即在嵌套结构中，不管父元素的样式权重多大，被子元素继承时，他的权重都为0，也就是说子元素定义的样式会覆盖继承来的样式</p>
+</li>
+<li><p>行内样式优先。应用style属性的元素，其行内元素的权重非常高，可以理解为大于100。总之，他拥有比其他的选择器更高的优先级。</p>
+</li>
+<li><p>权重相同的时候，css遵循就近原则。也就是说靠近元素样式具有非常大的优先级，或者说排在最后的优先级最大。</p>
+</li>
+<li><p>css定义了一个叫做 !important的命令，被赋予最大的优先级。也就是说无论权重如何以及样式位置的远近，!important都具有最大的优先级。但是!important应用时应当慎重，不到万不得已尽量少用。</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p>​    <br></p>
+<p>请看下面的例子：第一个粉色是因为离它最近的p标签是粉色。</p>
+<p>第二个显示的是红色，这是因为子类的颜色覆盖了父亲的颜色，并且类选择器的优先级更高。</p>
+<p>这个例子很好的解释了：层叠性、继承性和优先级。</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/4.png"></p>
+<p>​    </p>
+<p>​    <br></p>
+<p>效果如图：</p>
+<p>​        <img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/5.png"></p>
+<ul>
+<li>最后是特殊性</li>
+</ul>
+<blockquote>
+<p>关于权重，我们需要一套计算公式去计算，这个就是css特性。它是一个权衡css值优先级的一个标准。</p>
+</blockquote>
+<p>特殊性是用一个四位数来表示的，就好像四个级别，值从左到右，左面的值最大，依次往左边递减。</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/1.png"></p>
+<p>​    </p>
+<p>​    </p>
+<p>重点是权重是可以叠加的，下面是叠加的例子：</p>
+<br>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span>  ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> -----&gt;    <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>    ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span>       ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">p</span>     ------&gt;   <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<blockquote>
+<p>注意点：</p>
+<ul>
+<li>数位之间是没有进制的。比如说： 0 0 0 5+ 0 0 0 5=0 0 0 10 而不是0 0 1 0，所以不会出现10个div能赶上一个类选择器的情况。</li>
+<li>继承的权重是0，但是属性依然会继承，权重只是我们用来计数的。</li>
+</ul>
+</blockquote>
+<p>如下面的例子：</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/2.png"></p>
+<br>
+
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/3.png"></p>
+<hr>
+<p>学习链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45525272/article/details/107027237?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=css3%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-6-.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/weixin_45525272/article/details/107027237?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=css3%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-6-.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/12/flex%E5%B8%83%E5%B1%80/" rel="prev" title="flex布局">
+      <i class="fa fa-chevron-left"></i> flex布局
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

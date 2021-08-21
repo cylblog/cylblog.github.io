@@ -146,6 +146,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">Css特性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-21 14:44:28 / Modified: 15:54:56" itemprop="dateCreated datePublished" datetime="2021-08-21T14:44:28+08:00">2021-08-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>这周学习的是css的四大特性，接下来是学习的内容。</p>
+<br>
+
+<br>
+
+<p>css主要有一下四大特性：</p>
+<blockquote>
+<ul>
+<li>层叠性</li>
+<li>继承性</li>
+<li>优先级</li>
+<li>特殊性</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>​    </p>
+<ul>
+<li><p>首先介绍的是层叠性</p>
+<p>所谓层叠性是指样式的叠加。例如：如果一个属性通过两个相同选择器设置到同一个元素上，那么这个时候一个属性就会被另一个属性层叠掉。</p>
+</li>
+</ul>
+<blockquote>
+<p>一般情况下，如果出现样式冲突，最会按照以下原则执行</p>
+<ol>
+<li>遵循的原则是就近原则。哪一个样式离着结构近，就执行哪一个样式</li>
+<li>样式不冲突，不会层叠</li>
+</ol>
+<p>口诀：长江后浪推前浪，前浪死在沙滩上。</p>
+</blockquote>
+<hr>
+<p>​    </p>
+<p>​    </p>
+<ul>
+<li>其次是继承性</li>
+</ul>
+<p> 所谓继承性就是书写css样式时，子标签会继承父标签的某些样式。如果想要设置一个可继承的属性，只需要将它应用于父元素即可。</p>
+<blockquote>
+<p>使用继承的好处：</p>
+<ul>
+<li>简化代码，降低css的复杂性，子元素可以继承父元素的样式</li>
+<li>这里的继承是指属性的继承，不要和权重的继承搞混淆，权重的继承为0不代表就不继承。</li>
+</ul>
+</blockquote>
+<hr>
+<p>​    </p>
+<p>​    </p>
+<ul>
+<li>然后是css 的优先级</li>
+</ul>
+<p> 定义css样式时，经常出现两个或者更多的规则应用在一个元素上，这时会出现优先级的问题。</p>
+<blockquote>
+<p>注意事项：</p>
+<ul>
+<li><p>继承样式的权重为0。即在嵌套结构中，不管父元素的样式权重多大，被子元素继承时，他的权重都为0，也就是说子元素定义的样式会覆盖继承来的样式</p>
+</li>
+<li><p>行内样式优先。应用style属性的元素，其行内元素的权重非常高，可以理解为大于100。总之，他拥有比其他的选择器更高的优先级。</p>
+</li>
+<li><p>权重相同的时候，css遵循就近原则。也就是说靠近元素样式具有非常大的优先级，或者说排在最后的优先级最大。</p>
+</li>
+<li><p>css定义了一个叫做 !important的命令，被赋予最大的优先级。也就是说无论权重如何以及样式位置的远近，!important都具有最大的优先级。但是!important应用时应当慎重，不到万不得已尽量少用。</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p>​    <br></p>
+<p>请看下面的例子：第一个粉色是因为离它最近的p标签是粉色。</p>
+<p>第二个显示的是红色，这是因为子类的颜色覆盖了父亲的颜色，并且类选择器的优先级更高。</p>
+<p>这个例子很好的解释了：层叠性、继承性和优先级。</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/4.png"></p>
+<p>​    </p>
+<p>​    <br></p>
+<p>效果如图：</p>
+<p>​        <img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/5.png"></p>
+<ul>
+<li>最后是特殊性</li>
+</ul>
+<blockquote>
+<p>关于权重，我们需要一套计算公式去计算，这个就是css特性。它是一个权衡css值优先级的一个标准。</p>
+</blockquote>
+<p>特殊性是用一个四位数来表示的，就好像四个级别，值从左到右，左面的值最大，依次往左边递减。</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/1.png"></p>
+<p>​    </p>
+<p>​    </p>
+<p>重点是权重是可以叠加的，下面是叠加的例子：</p>
+<br>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span>  ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> -----&gt;    <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>    ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span>       ------&gt;   <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">p</span>     ------&gt;   <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<blockquote>
+<p>注意点：</p>
+<ul>
+<li>数位之间是没有进制的。比如说： 0 0 0 5+ 0 0 0 5=0 0 0 10 而不是0 0 1 0，所以不会出现10个div能赶上一个类选择器的情况。</li>
+<li>继承的权重是0，但是属性依然会继承，权重只是我们用来计数的。</li>
+</ul>
+</blockquote>
+<p>如下面的例子：</p>
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/2.png"></p>
+<br>
+
+<p><img src="/2021/08/21/css%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/3.png"></p>
+<hr>
+<p>学习链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45525272/article/details/107027237?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=css3%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-6-.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/weixin_45525272/article/details/107027237?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=css3%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-6-.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/12/flex%E5%B8%83%E5%B1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1280,78 +1445,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-15 21:04:27" itemprop="dateCreated datePublished" datetime="2021-06-15T21:04:27+08:00">2021-06-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1416,7 +1514,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
