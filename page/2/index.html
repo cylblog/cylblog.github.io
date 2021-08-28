@@ -146,6 +146,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/17/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/17/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-title-link" itemprop="url">并查集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-06-17 22:26:52 / Modified: 23:18:20" itemprop="dateCreated datePublished" datetime="2021-06-17T22:26:52+08:00">2021-06-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>并查集算法在很多算法中都会简单的涉及，比如最小生成树的kruskal算法等。</p>
+<p>并查集是一种树形的数据结构，并查集也称为不相交集数据结构，可以用于处理一些不相交集合的合并及查询问题，是一种用来管理元素分组情况的数据结构。“并”“查”“集”这三个字分别取自Union（合并）、Find(查询)、Set（集合）这三个单词。也就是说，并查集支持合并及查询操作。</p>
+<p>并查集两个主要操作：<br>1.合并（Union）：把两个不相交的集合合并为一个集合。<br>2.查询（Find）：确定元素属于哪一个集合，可以用来判断两个元素是否在同一个集合中</p>
+<p>并查集是通过一个一维数组f[]来实现，其中 f[i] 表示元素i的父结点，而父结点本身也是这个集合中的元素。例如：f[1] = 2，表示元素1的父结点是元素2，即元素1和元素2属于同一个集合。另外，如果f[i] == i, 则说明元素i是该集合的根结点，对于同一个集合来说有且只有一个根结点，故可将其作为所属集合的标识。</p>
+<p>我们可以举个例子来理解一下并查集的应用</p>
+<blockquote>
+<p>题目背景<br>若某个家族人员过于庞大，要判断两个是否是亲戚，确实还很不容易，现在给出某个亲戚关系图，求任意给出的两个人是否具有亲戚关系。</p>
+<p>题目描述<br>规定：x和y是亲戚，y和z是亲戚，那么x和z也是亲戚。如果x,y是亲戚，那么x的亲戚都是y的亲戚，y的亲戚也都是x的亲戚。</p>
+<p>输入格式<br>第一行：三个整数n,m,p，（n&lt;=5000,m&lt;=5000,p&lt;=5000），分别表示有n个人，m个亲戚关系，询问p对亲戚关系。</p>
+<p>以下m行：每行两个数Mi，Mj，1&lt;=Mi，Mj&lt;=N，表示Mi和Mj具有亲戚关系。</p>
+<p>接下来p行：每行两个数Pi，Pj，询问Pi和Pj是否具有亲戚关系。</p>
+<p>输出格式<br>P行，每行一个’Yes’或’No’。表示第i个询问的答案为“具有”或“不具有”亲戚关系。</p>
+</blockquote>
+<p>题目来源：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1551">https://www.luogu.com.cn/problem/P1551</a></p>
+<p>对于这个问题，我们就可以考虑用并查集将所有人划分到若干个不相交的集合中，每个集合里的人彼此是亲戚，为了判断两个人是否是亲戚，则只需判断他们是否属于同一个集合即可。</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>总的来说，并查集的使用需要先初始化f[]数组，然后再根据需要进行查询或合并的操作。</p>
+<p>1.初始化<br>一开始，我们认为每个元素都是独立的一个集合，因此需要令所有的f[i] = i 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> f[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        f[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.查询<br>由于规定同一个集合中有且只有一个根结点，因此查询操作就是对给定的结点寻找其根结点的过程，即反复寻找父结点，直到找到根结点（即f[i] == i的点)，可以用while循环或者递归实现。判断两个元素是否属于同一个集合，只需要看他们的根结点是否相同即可。<br>while循环实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(x != f[x])</span><br><span class="line">        x = f[x];</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>递归实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x == f[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Find</span>(f[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">finf</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x==f[x]?x:f[x]=<span class="built_in">find</span>(f[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.合并<br>合并是指把两个不同元素a和b所在的集合合并成一个新的集合。一般是先判断两个元素是否属于同一个集合，只有当两个元素属于不同集合时才合并，合并的过程一般是把其中一个集合的根结点的父结点指向另一个集合的根结点。<br>第一步：对于给定两个元素a和b，调用Find函数判断a和b是否属于同一集合<br>第二步：在第一步已经获得了两个元素a和b的根结点fa和fb的情况下，只需要把其中一个的父结点指向另一个结点，例如可以令f[fa] = fb，也可以令f[fb] = fa</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fa = <span class="built_in">Find</span>(a);</span><br><span class="line">    <span class="keyword">int</span> fb = <span class="built_in">Find</span>(b);</span><br><span class="line">    <span class="keyword">if</span>(fa != fb)</span><br><span class="line">        f[fa] = fb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码可以简写为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f[<span class="built_in">Find</span>(a)] = <span class="built_in">Find</span>(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是并查集最基本的操作，但是这样创建出来的树可能会严重不平衡，像下面这棵树，如果我们越加越深，树会越来越复杂，每次调用Find函数所花费的时间就越来越多了。<br><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/72790292/105739135-befb9000-5f72-11eb-9b17-3b3869a2074e.png"><img src="/2021/06/17/%E5%B9%B6%E6%9F%A5%E9%9B%86/105739135-befb9000-5f72-11eb-9b17-3b3869a2074e.png" alt="1536438-20190630220137322-1307970441"></a></p>
+<p>而经过优化其中一条路径之后，树就变成了下面这样，可以看出来，优化之后的树层次感更加明显，复杂度也降低了。<br><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/72790292/105739574-36c9ba80-5f73-11eb-9df0-b5478f68677d.png"><img src="/2021/06/17/%E5%B9%B6%E6%9F%A5%E9%9B%86/105739574-36c9ba80-5f73-11eb-9df0-b5478f68677d.png" alt="1536438-20190630220147478-568155827"></a></p>
+<p>总的来说，我们优化并查集的方法有路径压缩和按秩合并两种方法。</p>
+<h2 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h2><p>上面讲解的并查集查询函数是没有经过优化的，当题目给出的元素数量很多并且形成一条链时，这个查询函数的效率是非常低的。</p>
+<p>那么如何优化查询操作呢？这里我们可以使用路径压缩，路径压缩是一种在执行“查找”时扁平化树结构的方法。既然我们只关心一个元素对应的根结点，那我们希望每个元素到根结点的路径尽可能短，最好只需要一步，关键就在于路径上的每个结点都可以直接连接到根上。<br>例如下面这个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">3</span>] = <span class="number">2</span>;</span><br><span class="line">f[<span class="number">4</span>] = <span class="number">3</span>;</span><br><span class="line">f[<span class="number">5</span>] = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以等价为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">3</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">4</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">5</span>] = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这就是路径压缩，相当于我们只需要在查询的过程中把当前查询结点的路径上所有结点的父结点都设为根结点即可，这样就可以为以后直接或间接引用结点的操作加速</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> a = x; <span class="comment">//由于在下面的while中x的值会变为根结点，所以先把原先的x保存一下</span></span><br><span class="line"><span class="keyword">while</span>(x != f[x])</span><br><span class="line">    &#123;</span><br><span class="line">        x = f[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//到这里x存放的时根结点，接下来把路径上所有结点的father都改为根结点</span></span><br><span class="line">    <span class="keyword">while</span>(a != f[a])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> z = a; <span class="comment">//因为a要被f[a]覆盖，所以先保存a的值，以便修改f[a]</span></span><br><span class="line">        a = f[a]; <span class="comment">//a回溯父结点</span></span><br><span class="line">        f[z] = x; <span class="comment">//将原先的结点a的父结点改为根结点x</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x <span class="comment">//返回根结点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>递归写法（需要注意栈溢出的问题）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x == f[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        f[x] = <span class="built_in">Find</span>(f[x]); <span class="comment">//路径压缩</span></span><br><span class="line">        <span class="keyword">return</span> f[x];           <span class="comment">//返回根结点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上递归代码通常简写为一行：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x == f[x] ? x : (f[x] = <span class="built_in">Find</span>(f[x]))</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>路径压缩优化后，并查集的时间复杂度已经比较低了，绝大多数不相交集合的合并及查询问题都能够解决。但是对于某些时间卡得很紧的题目，我们还可以进一步优化。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -281,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
