@@ -146,6 +146,370 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/01/DOM%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/01/DOM%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">DOM学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-01 10:47:09 / Modified: 14:55:55" itemprop="dateCreated datePublished" datetime="2021-09-01T10:47:09+08:00">2021-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<ul>
+<li>DOM简介</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>当网页被加载的时候，浏览器会创建页面的文档对象模型，即DOM。</p>
+</li>
+<li><p>DOM 模型被构造为对象的树。</p>
+</li>
+</ul>
+<p>如图：  <img src="/2021/09/01/DOM%E5%AD%A6%E4%B9%A0/1.gif"></p>
+<p>通过编程的对象模型，JavaScript获得了足够的能力来创建动态HTML。</p>
+<ul>
+<li>JavaScript能够改变HTML中的元素。</li>
+<li>JavaScript能过改变HTML 中的属性。</li>
+<li>JavaScript嫩能够改变CSS样式。</li>
+<li>JavaScript能够对页面中的所有时间做出反应。</li>
+</ul>
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>查找HTML元素方法：</p>
+<ol>
+<li>通过id查找</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<ol start="2">
+<li>通过标签名查找</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="built_in">document</span>.getElementById(<span class="string">&quot;main&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> y=x.getElementsByTagName(<span class="string">&quot;p&quot;</span>);</span><br><span class="line"><span class="comment">//先查找所有id=&quot;main&quot;的元素，然后查找id=&quot;main&quot;元素中的所有&lt;p&gt;元素</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<ol start="3">
+<li>通过类名查找</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;intro&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ul>
+<li>DOM改变HTML</li>
+</ul>
+<blockquote>
+<ul>
+<li>改变html输出流：使用document.write()可用于向html输出书写内容。</li>
+</ul>
+<p>注意：不要在DOM加载完整之后使用，否则会覆盖文档。</p>
+<hr>
+<ul>
+<li>改变HTML输出内容：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">document</span>.getElementById(id).innerHTML=新的HTML</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>我是span元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">       	<span class="built_in">document</span>.getElementById(<span class="string">&quot;p1&quot;</span>).innerHTML=<span class="string">&quot;我被改变了&quot;</span>;</span></span><br><span class="line"><span class="javascript">   	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span>  </span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子改变了span标签的内容。</p>
+<hr>
+<ul>
+<li>改变HTML属性</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">document</span>.getElementByID(id).attribute=<span class="string">&quot;新的属性值&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;smiley,gif&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">           <span class="built_in">document</span>.getElementById(<span class="string">&quot;image&quot;</span>).src=<span class="string">&quot;landscape.jpg&quot;</span>;</span></span><br><span class="line"><span class="javascript">       </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子通过id获取img并改变它的src属性。</p>
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li>改变HTML样式</li>
+</ul>
+<blockquote>
+<ul>
+<li>语法格式：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">document</span>.getElementById(id).style.property=新的样式</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">title</span>&gt;</span>DOM学习<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">           <span class="built_in">document</span>.getElementById(<span class="string">&quot;p2&quot;</span>).style.color=<span class="string">&quot;blue&quot;</span>;</span></span><br><span class="line"><span class="javascript">       </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>使用事件：HTML允许我们通过触发事件来执行代码。</li>
+</ul>
+<p>例如：1. 元素被点击。</p>
+<ol start="2">
+<li>页面加载完成。</li>
+<li>输入框被修改。</li>
+<li>…..</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">&quot;id1&quot;</span>&gt;</span></span><br><span class="line">           标题</span><br><span class="line">       <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;document.getElementById(&#x27;id1&#x27;).style.color=&#x27;red&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">   </span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述例子中：当标题被点击时，颜色会发生变化。</p>
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li>HTML DOM事件</li>
+</ul>
+<blockquote>
+<ul>
+<li>对事件做出反应：在事件发生时执行JavaScript，比如当用户在HTML元素上点击时。</li>
+</ul>
+<p>如果需要在用户点击某个元素时执行代码，可以向一个HTML事件属性添加JavaScript代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;onclick=JavaScript</span><br></pre></td></tr></table></figure>
+
+<p>HTML事件的例子:</p>
+<ul>
+<li>当用户点击鼠标时</li>
+<li>当页面已加载时</li>
+<li>当图片已加载时。</li>
+<li>当鼠标移动到元素上时</li>
+<li>当输入字段被改变时</li>
+<li>当提交form表单时</li>
+<li>当用户触发按键时</li>
+</ul>
+<p>例1：点击h1时，会改变其内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">&quot;this.innerHTML=&#x27;Ooops!&#x27;&quot;</span>&gt;</span></span><br><span class="line">           点击文本</span><br><span class="line">       <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>例2：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">           <span class="function"><span class="keyword">function</span> <span class="title">changeText</span>(<span class="params">id</span>)</span></span></span><br><span class="line"><span class="function"><span class="javascript">       	</span>&#123;</span></span><br><span class="line"><span class="javascript">       		id.innerHTML=<span class="string">&quot;change!&quot;</span></span></span><br><span class="line"><span class="javascript">      		&#125;</span></span><br><span class="line"><span class="javascript">       </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">&quot;changeText(this)&quot;</span>&gt;</span></span><br><span class="line">           点击文本！</span><br><span class="line">       <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>HTML事件属性</li>
+</ul>
+<p>向buttun元素分配onclick事件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">buttun</span> <span class="attr">onclick</span>=<span class="string">&quot;displayDate()&quot;</span>&gt;</span>点击这里<span class="tag">&lt;/<span class="name">buttun</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>使用HTML DOM来分配事件</li>
+</ul>
+<p>将名为displayDate的函数分配给id=”myBtn“的HTML元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="built_in">document</span>.getElementById(<span class="string">&quot;myBtn&quot;</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;displayDate()&#125;;</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>其它事件：</li>
+</ul>
+<blockquote>
+<ul>
+<li>onload事件和onunload事件：</li>
+</ul>
+<p>分别会在用户进入页面和离开页面时被触发。</p>
+<ul>
+<li>onchange事件：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;fname&quot;</span> <span class="attr">onchange</span>=<span class="string">&quot;upperCase()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当用户改变输入字段的内容时，会调用upperCase()函数。</p>
+<ul>
+<li>onmousedown  onmouseup  onclick 事件：</li>
+</ul>
+<p>分别构成了鼠标点击事件的所有部分。首先当鼠标点击按钮时，会触发onmousedown事件，当释放按钮时，会触发onmouseup事件，最后，当完成鼠标点击时，会触发onclick事件。</p>
+<ul>
+<li>onmouseover  onmouseout事件：</li>
+</ul>
+<p>可用于在用户的鼠标移至html元素上方或移除元素时触发函数。</p>
+</blockquote>
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li>HTML DOM 元素</li>
+</ul>
+<blockquote>
+<ul>
+<li>创建新的节点-appendChild()</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> node = <span class="built_in">document</span>.createTextNode(<span class="string">&quot;这是一个新的段落。&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;para.appendChild(node);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(<span class="string">&quot;div1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;element.appendChild(para);</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述例子首先创建一个新的元素，然后在已存在的元素中添加它。</p>
+<hr>
+<ul>
+<li>insertBefore()</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> node = <span class="built_in">document</span>.createTextNode(<span class="string">&quot;这是一个新的段落。&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;para.appendChild(node);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(<span class="string">&quot;div1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> child = <span class="built_in">document</span>.getElementById(<span class="string">&quot;p1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;element.insertBefore(para, child);</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述例子是将新元素添加到开始的位置。</p>
+<hr>
+<ul>
+<li>移除已存在的元素-removeChild()</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> parent = <span class="built_in">document</span>.getElementById(<span class="string">&quot;div1&quot;</span>);</span></span><br><span class="line"><span class="javascript">   <span class="comment">//首先要知道父元素</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> child = <span class="built_in">document</span>.getElementById(<span class="string">&quot;p1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;parent.removeChild(child);</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>替换元素-replaceChild()</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> node = <span class="built_in">document</span>.createTextNode(<span class="string">&quot;这是一个新的段落。&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;para.appendChild(node);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> parent = <span class="built_in">document</span>.getElementById(<span class="string">&quot;div1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">var</span> child = <span class="built_in">document</span>.getElementById(<span class="string">&quot;p1&quot;</span>);</span></span><br><span class="line"><span class="javascript">&gt;parent.replaceChild(para, child);</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li>HTML DOM 集合</li>
+</ul>
+<blockquote>
+<ul>
+<li>HTMLCollection对象</li>
+</ul>
+<blockquote>
+<p>getElementsByTagName()方法返回HTMLcollection对象，类似包含一个HTML元素的一个数组</p>
+<p>以下代码获取文档所有的p元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;<span class="keyword">var</span> x=<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;p&quot;</span>);</span><br><span class="line">&gt;&gt;<span class="comment">//集合中的元素可以通过索引（以0为起始位置）来访问</span></span><br><span class="line">&gt;&gt;<span class="comment">//例如访问第二个p标签</span></span><br><span class="line">&gt;&gt;y=x[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+</blockquote>
+<hr>
+<ul>
+<li>HTMLCollection对象的length属性：定义了集合中的元素的数量。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">var</span> myCollection=<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;p&quot;</span>);</span><br><span class="line">&gt;<span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML=myCollection.length;</span><br></pre></td></tr></table></figure>
+
+<p>上述例子获取了p元素的集合，然后显示集合元素的个数。 集合length常用于便利集合中的元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">var</span> myCollection=<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;p&quot;</span>);</span><br><span class="line">&gt;<span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;myCollection.length;i++)&#123;</span><br><span class="line">   myCollection[i].style.backgroundColor=<span class="string">&quot;red&quot;</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line"><span class="comment">//修改所有p标签的背景颜色   </span></span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li>HTML DOM EventListener</li>
+</ul>
+<blockquote>
+<ul>
+<li>addEventListener（）方法：当用户点击按钮时触发监听事件。</li>
+</ul>
+<hr>
+<ul>
+<li>语法格式——element.addEventListener(event,function,useCapture)。</li>
+</ul>
+<blockquote>
+<ul>
+<li>第一个参数是事件的类型（如cilck或者mousedown）。</li>
+<li>第二个参数是事件触发后调用的函数。</li>
+<li>第三个参数是个布尔值，用于描述事件是冒泡还是捕获（可选）</li>
+</ul>
+<p>注意：不要使用 “on”前缀。例如，使用”click”，而不是 “onclick”。</p>
+</blockquote>
+<hr>
+<ul>
+<li>向原元素添加事件句柄。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;element.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">&quot;Hello World!&quot;</span>); &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用函数名，来引用外部函数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;element.addEventListener(<span class="string">&quot;click&quot;</span>, myFunction);</span><br><span class="line"></span><br><span class="line">&gt;<span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   alert (<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>​    </p>
+<ul>
+<li>向一个元素中添加多个事件句柄。</li>
+</ul>
+<blockquote>
+<ul>
+<li>addEventListener()允许向同一个元素添加多个事件，且不会覆盖已存在的事件。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;element.addEventListener(<span class="string">&quot;click&quot;</span>, myFunction);</span><br><span class="line">&gt;element.addEventListener(<span class="string">&quot;click&quot;</span>, mySecondFunction);</span><br></pre></td></tr></table></figure>
+
+<hr>
+</blockquote>
+<p>​    </p>
+<ul>
+<li>向window对象添加事件句柄。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML = sometext;</span><br><span class="line">&gt;&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>​    </p>
+<ul>
+<li>传递参数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;element.addEventListener(<span class="string">&quot;click&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;myFunction(p1,p2);&#125;);</span><br><span class="line">&gt;<span class="comment">//使用&quot;匿名函数&quot;调用带参数的函数</span></span><br></pre></td></tr></table></figure>
+
+<p>事件冒泡还是事件捕获？</p>
+<p>事件传递有两种方式：冒泡与捕获。</p>
+<p>事件传递定义了元素事件触发的顺序。 如果你将 p 元素插入到 div 元素中，用户点击 p元素, 哪个元素的 “click” 事件先被触发呢？</p>
+<p>在 <em>冒泡</em> 中，内部元素的事件会先被触发，然后再触发外部元素，即： p 元素的点击事件先触发，然后会触发 div元素的点击事件。</p>
+<p>在 <em>捕获</em> 中，外部元素的事件会先被触发，然后才会触发内部元素的事件，即： div 元素的点击事件先触发 ，然后再触发 p 元素的点击事件。</p>
+<p>addEventListener() 方法可以指定 “useCapture” 参数来设置传递类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;addEventListener(event, <span class="function"><span class="keyword">function</span>, <span class="title">useCapture</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>​    </p>
+<ul>
+<li>removeEventListener()方法</li>
+</ul>
+<blockquote>
+<ul>
+<li>该方法移除由addEventListener()方法添加的事件句柄</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;element.removeEventListener(<span class="string">&quot;mousemove&quot;</span>, myFunction);</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+</blockquote>
+<p>​    </p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/28/html%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1451,119 +1815,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" class="post-title-link" itemprop="url">最小生成树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-20 21:18:40" itemprop="dateCreated datePublished" datetime="2021-06-20T21:18:40+08:00">2021-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-25 22:17:52" itemprop="dateModified" datetime="2021-06-25T22:17:52+08:00">2021-06-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>1.Kruskal算法</strong>又称“<strong>加边法</strong>”，用于边数较少的稀疏图。</p>
-<p>步骤：首先将该图上的所有边按从小到大排序，每次选择最小的边，判断该边连接的两个点的父节点是否相同，如果父节点不相同，那么将利用<strong>并查集</strong>知识把这两点合并再一个集合里面。如果相同，那么直接加入图中。重复上述过程，直到这个图变成一个联通图为止。</p>
-<p> 接下来我们模拟一下最小生成树形成的过程：</p>
-<p>1.首先将图中的所有边按权值从大到小进行排序</p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/a.jpg"></p>
-<p>2.其次找到图中的最小边加入图中。</p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/b.jpg"></p>
-<p>3.重复上述过程即可。</p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/c.jpg"></p>
-<p>4.注意：相同权值任选其中一个即可，但是<strong>不允许出现闭合回路</strong>的情况</p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/d.jpg"></p>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/problem/17509">https://ac.nowcoder.com/acm/problem/17509</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a, b, dis;   <span class="comment">//两点及其之间的距离</span></span><br><span class="line">&#125;road[maxn * <span class="number">5</span>];  <span class="comment">//可挖边数</span></span><br><span class="line"><span class="keyword">int</span> n, m, k = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> father[maxn]; <span class="comment">//据点个数</span></span><br><span class="line">ll sum = <span class="number">0</span>;  <span class="comment">//最短路径总长</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node s1, node s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.dis &lt; s2.dis;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (father[x] == x ? x : father[x] = <span class="built_in">find</span>(father[x]));</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;road[i].a, &amp;road[i].b, &amp;road[i].dis);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        father[i] = i;  <span class="comment">//初始化父节点为自己；</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">sort</span>(road+<span class="number">1</span>, road +<span class="number">1</span>+ m, cmp);  <span class="comment">//将边进行升序排列</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="built_in">find</span>(road[i].a);</span><br><span class="line">        <span class="keyword">int</span> b = <span class="built_in">find</span>(road[i].b);</span><br><span class="line">        <span class="keyword">if</span> (a != b)</span><br><span class="line">        &#123;</span><br><span class="line">            father[b] = a;</span><br><span class="line">            sum += road[i].dis;</span><br><span class="line">            cnt++;   <span class="comment">//记录边数</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(k==n)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, sum);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-<p><strong>2.Prime算法（适用于稠密图）</strong></p>
-<p>Prime算法又叫“加点法”，最开始找到一个点，然后从这个点开始，查询所有与这个点相邻的边，找到一条最小的边，把这条边加入到已经找到的点的集合里面。重复上述过程。</p>
-<p>图解过程如下：</p>
-<p> 1.首先，确定起始顶点。我以顶点A作为起始点。根据查找法则，与点A相邻的点有点B和点H，比较AB与AH，我们选择点B，如下图。并将点B加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/1.png"></p>
-<p> 2.继续下一步，此时集合U中有{A,B}两个点，再分别以这两点为起始点，根据查找法则，找到边BC（当有多条边权值相等时，可选任意一条），如下图。并将点C加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/2.png"></p>
-<p> 3.继续，此时集合U中有{A,B,C}三个点，根据查找法则，我们找到了符合要求的边CI，如下图。并将点I加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/3.png"></p>
-<p> 4.继续，此时集合U中有{A,B,C,I}四个点，根绝查找法则，找到符合要求的边CF，如下图。并将点F加入到集合U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/4.png"></p>
-<p> 5.继续，依照查找法则我们找到边FG,如下图。并将点G加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/5.png"></p>
-<p> 6.继续，依照查找法则我们找到边GH,如下图。并将点H加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/6.png"></p>
-<p> 7.继续，依照!()查找法则我们找到边CD,如下图。并将点D加入到U中。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/7.png"></p>
-<p> 8.继续，依照查找法则我们找到边DE,如下图。并将点E加入到U中。此时，满足U = V，即找到了这颗最小生成树。 </p>
-<p><img src="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/8.png"></p>
-<p>Prime的主体代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">int</span> g[maxn][maxn],key[maxn],vis[maxn],last[maxn];</span><br><span class="line"><span class="keyword">int</span> t,n,m,tmplen,start;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Prime</span><span class="params">(<span class="keyword">int</span> start)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(key,<span class="number">0x3f</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(key));    <span class="comment">//初始化所有节点到源点的最短距离为一个很大的值</span></span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(vis));</span><br><span class="line">    key[start]=<span class="number">0</span>;   </span><br><span class="line">    last[start]=<span class="number">-1</span>;   <span class="comment">//初始化上一个节点为-1</span></span><br><span class="line">    <span class="keyword">int</span> k,minKey,minKeyNode;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        minKey=<span class="number">0x3f3f3f3f</span>;    <span class="comment">//找到最短的边</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;key[j]&lt;minKey)</span><br><span class="line">            &#123;</span><br><span class="line">                minKey=key[j];</span><br><span class="line">                minKeyNode=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[minKeyNode]=<span class="number">1</span>;       <span class="comment">//更新最短的边</span></span><br><span class="line">        ret+=key[minKeyNode];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;g[minKeyNode][j]!=<span class="number">0</span>&amp;&amp;g[minKeyNode][j]&lt;key[j])</span><br><span class="line">            &#123;</span><br><span class="line">                key[j]=g[minKeyNode][j];</span><br><span class="line">                last[j]=minKeyNode;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>Prime</strong>优化可将时间复杂度从 O(n²) 降到O(mlogn)。  </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prime</span><span class="params">(<span class="keyword">int</span> start)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dis,<span class="number">0x3f0</span>x3f0x3f,<span class="built_in"><span class="keyword">sizeof</span></span>(dis));</span><br><span class="line">    dis[start]=<span class="number">0</span>;</span><br><span class="line">    priority_queue&lt;PII,vector&lt;PII&gt;,cmp&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        PII temp=q.<span class="built_in">top</span>();</span><br><span class="line">        <span class="keyword">int</span> u=temp.first;</span><br><span class="line">        <span class="keyword">int</span> w=temp.second;</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">        vis[u]=<span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;G[u].<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> to=G[u][i].second;</span><br><span class="line">            <span class="keyword">if</span>(vis[to]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(dis[to]&gt;G[u][i].first+w)</span><br><span class="line">            &#123;</span><br><span class="line">                dis[to]=G[u][i].first+w;</span><br><span class="line">                q.<span class="built_in">push</span>(&#123;dis[to],to&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1633,7 +1884,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
