@@ -146,6 +146,273 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/03/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/03/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">jQuery学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-03 16:20:31" itemprop="dateCreated datePublished" datetime="2021-09-03T16:20:31+08:00">2021-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-05 16:29:07" itemprop="dateModified" datetime="2021-09-05T16:29:07+08:00">2021-09-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>​    </p>
+<hr>
+<ul>
+<li><p>jQuery包含以下特性：</p>
+<blockquote>
+<ul>
+<li>HTML元素获取</li>
+<li>HTML元素操作</li>
+<li>css操作</li>
+<li>HTML事件函数</li>
+<li>JavaScript特效和动画</li>
+<li>HTML DOM 遍历和修改</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>入口函数</p>
+<blockquote>
+<ul>
+<li><p>$()和jQuery()称之为jq选择器环境</p>
+</li>
+<li><p>区别 :</p>
+<blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  &gt;js:<span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">  &gt;jq:$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</span><br><span class="line">或者为$(<span class="function"><span class="keyword">function</span>)(<span class="params">&#123;&#125;</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>两者的功能都一致，都可以让获取元素的行为发生在渲染元素之后；</li>
+<li>js入口只允许存在一个，书写多个的话后面的会覆盖前面的。</li>
+<li>jq入口函数允许存在多个，且并行存在，都会生效。</li>
+<li>jq入口需要等待页面上的所有资源加载完毕，而jq入口只需要等待页面上的标签渲染完毕即可，因此jq入口速度更快。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>样例展示：</p>
+</li>
+</ul>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&quot;js&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&quot;jq&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&quot;jq简写形式&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>事件</p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//js代码</span></span></span><br><span class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> btn=<span class="built_in">document</span>.getElementById(<span class="string">&quot;btn&quot;</span>);</span></span><br><span class="line"><span class="javascript">      btn.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">&quot;js按钮被点击了！&quot;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript">  <span class="comment">//jq代码</span></span></span><br><span class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      $(<span class="string">&quot;#btn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">&quot;jq按钮被点击了！&quot;</span>)</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>整体操作</p>
+<blockquote>
+<ul>
+<li><p>在jq里面，通过$()返回的数组，允许开发者整体操纵，选择数组中的其中一个元素：js对象[下标]。</p>
+</li>
+<li><p>样例展示：</p>
+</li>
+</ul>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"> $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">     <span class="comment">//js代码</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> inputs=<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;input&quot;</span>);</span></span><br><span class="line"><span class="javascript">  inputs[<span class="number">0</span>].onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      alert(<span class="string">&quot;按钮1被点击了&quot;</span>)；;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  inputs[<span class="number">1</span>].onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      alert(<span class="string">&quot;按钮2被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">  <span class="comment">//jq代码</span></span></span><br><span class="line"><span class="javascript">  $(<span class="string">&quot;input&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      alert(<span class="string">&quot;按钮被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript"> &#125;)</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮1&quot;</span> /&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮2&quot;</span> /&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<ul>
+<li>单个标签事件绑定</li>
+</ul>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//通过eq获取下标</span></span></span><br><span class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      $(<span class="string">&quot;input&quot;</span>).eq(<span class="number">0</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">&quot;按钮1被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">      $(<span class="string">&quot;input&quot;</span>).eq(<span class="number">1</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">&quot;按钮2被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></blockquote>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>对象互转</p>
+<blockquote>
+<ul>
+<li><p>jQuery本质上也是js，但是使用jQuery的属性和方法必须保证对象时通过jQuery的方式获取的，使用js获取的对象是js对象，使用jQuery方式获取的是jQuery对象。如果想要交替使用，那么必须对象互转。</p>
+</li>
+<li><p>互转格式：</p>
+</li>
+</ul>
+<blockquote>
+<p>js对象-&gt;jq对象：$(js对象)；</p>
+<p>jq对象-&gt;js对象：jq对象[索引] 或者 jq对象.get(索引)</p>
+</blockquote>
+<ul>
+<li>样例展示</li>
+</ul>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// js转jq对象</span></span></span><br><span class="line"><span class="javascript">     $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> btn=<span class="built_in">document</span>.getElementById(<span class="string">&quot;btn&quot;</span>);</span></span><br><span class="line"><span class="javascript">         </span></span><br><span class="line"><span class="javascript">         $(btn).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">             alert(<span class="string">&quot;按钮被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">         &#125;)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// jq对象转js对象</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 方式一</span></span></span><br><span class="line"><span class="javascript">     $(<span class="string">&quot;#btn&quot;</span>).get(<span class="number">0</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&quot;按钮被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">     &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">     <span class="comment">//方式二</span></span></span><br><span class="line"><span class="javascript">       $(<span class="string">&quot;#btn&quot;</span>)[<span class="number">0</span>].onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">&quot;按钮被点击了&quot;</span>);</span></span><br><span class="line"><span class="javascript">       &#125;</span></span><br><span class="line"><span class="javascript">     &#125;)      </span></span><br><span class="line"><span class="javascript"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>控制标签属性</p>
+<blockquote>
+<ul>
+<li>单属性访问:</li>
+</ul>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq对象.attr(<span class="string">&quot;class&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>单属性修改：</li>
+</ul>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq对象.attr(<span class="string">&quot;class&quot;</span>,<span class="string">&quot;myClass&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多属性修改：</li>
+</ul>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq对象.attr(&#123;<span class="string">&quot;class&quot;</span>:<span class="string">&quot;myClaaa&quot;</span>,<span class="string">&quot;id&quot;</span>:<span class="string">&quot;myId&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>样例展示：</li>
+</ul>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//js代码</span></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> box=<span class="built_in">document</span>.getElementById(<span class="string">&quot;box&quot;</span>);</span></span><br><span class="line"><span class="javascript">        box.className=<span class="string">&quot;change&quot;</span>;</span></span><br><span class="line"><span class="javascript">        box.title=<span class="string">&quot;change&quot;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    <span class="comment">//jquery代码</span></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#box&quot;</span>).attr(<span class="string">&quot;class&quot;</span>:<span class="string">&quot;change&quot;</span>);</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#box&quot;</span>).attr(<span class="string">&quot;title&quot;</span>:<span class="string">&quot;change&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box&quot;</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span> <span class="attr">title</span>=<span class="string">&quot;title&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除属性:</li>
+</ul>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="string">&quot;#btn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#ck&quot;</span>).removeAttr(<span class="string">&quot;id&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;ck&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>获取属性我们也可以使用prop(),有时候在attr()获取不到的时候可以使用</li>
+</ul>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#btn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> result=$(<span class="string">&quot;#ck&quot;</span>),attr(<span class="string">&quot;checked&quot;</span>);</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">&quot;result=&quot;</span>+result);</span></span><br><span class="line"><span class="javascript">            </span></span><br><span class="line"><span class="javascript">            result=$(<span class="string">&quot;#ck&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>);</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">&quot;result=&quot;</span>+result);</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;ck&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;click&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>控制css</p>
+<blockquote>
+<ul>
+<li><p>单属性访问: jq对象.css(‘width’);</p>
+</li>
+<li><p>单属性修改：jq对象.css(‘width’,’100px’);</p>
+</li>
+<li><p>多属性修改：jq对象.css({‘width’:’100px’, ‘height’:’100px’});    </p>
+</li>
+<li><p>样例展示</p>
+</li>
+</ul>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//js代码</span></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> box=ducoment.getElementById(<span class="string">&quot;box&quot;</span>);</span></span><br><span class="line"><span class="javascript">        box.style.width=<span class="string">&quot;100px&quot;</span>;</span></span><br><span class="line"><span class="javascript">        box.style.height=<span class="string">&quot;100px&quot;</span>;</span></span><br><span class="line"><span class="javascript">        box.style.backgroundColor=<span class="string">&quot;pink&quot;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">    <span class="comment">//jq代码</span></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#box&quot;</span>).css(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">width</span>:<span class="string">&quot;100px&quot;</span>;</span></span><br><span class="line"><span class="javascript">            height:<span class="string">&quot;100px&quot;</span>;</span></span><br><span class="line"><span class="javascript">            backgroundColor:<span class="string">&quot;pink&quot;</span>;</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">        <span class="comment">//单属性</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#box&quot;</span>).css(<span class="string">&quot;height&quot;</span>:<span class="string">&quot;50px&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>val()函数</p>
+<blockquote>
+<ul>
+<li><p>针对表单元素的value属性的值进行修改，在jq里面单独封装了一个方法，本身使用attr()也是帮你正确获取的。</p>
+</li>
+<li><p>注意点：val()函数有参数时，修改value值，无参数时，返回value值。</p>
+</li>
+<li><p>样例展示</p>
+</li>
+</ul>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//js代码</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> btn=ducoment.getElementById(<span class="string">&quot;btn&quot;</span>);</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> text=<span class="built_in">document</span>.getElementById(<span class="string">&quot;text&quot;</span>);</span></span><br><span class="line"><span class="javascript">  btn.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">  	<span class="keyword">var</span> value=text.value;</span></span><br><span class="line"><span class="javascript">      alert(<span class="string">&quot;value=&quot;</span>+value);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//jq代码</span></span></span><br><span class="line"><span class="javascript"> 	$(<span class="string">&quot;#btn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//行不通</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> value=$(<span class="string">&quot;#text&quot;</span>).attr(<span class="string">&quot;value&quot;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="comment">//</span></span></span><br><span class="line"><span class="javascript">      value=$(<span class="string">&quot;#text&quot;</span>).prop(<span class="string">&quot;value&quot;</span>);</span></span><br><span class="line"><span class="javascript">      </span></span><br><span class="line"><span class="javascript">      value=$(<span class="string">&quot;#btn&quot;</span>).val();</span></span><br><span class="line"><span class="javascript">      alert(value);</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript">&gt;&#125;)</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;请输入内容...&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span> /&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>控制class</p>
+<blockquote>
+<p>jq对象.addClass()  </p>
+<p>jq对象.removeClass()</p>
+<p>jq对象.hasClass()</p>
+<p>jq对象.toggleClass()</p>
+<ul>
+<li>样例展示</li>
+</ul>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"> &gt;<span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">	<span class="selector-class">.box</span>&#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: pink;</span></span><br><span class="line"><span class="css">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.bgcolor</span>&#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: skyblue;</span></span><br><span class="line"><span class="css">	&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> btns=$(<span class="string">&quot;input&quot;</span>);</span></span><br><span class="line"><span class="javascript">		<span class="comment">//新增</span></span></span><br><span class="line"><span class="javascript">		btns.eq(<span class="number">0</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			$(<span class="string">&quot;.box&quot;</span>).addClass(<span class="string">&quot;bgcolor&quot;</span>);</span></span><br><span class="line"><span class="javascript">		&#125;)</span></span><br><span class="line"><span class="javascript">		<span class="comment">//移除</span></span></span><br><span class="line"><span class="javascript">		btns.eq(<span class="number">1</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			$(<span class="string">&quot;.box&quot;</span>).removeClass(<span class="string">&quot;bgcolor&quot;</span>);</span></span><br><span class="line"><span class="javascript">		&#125;)</span></span><br><span class="line"><span class="javascript">		<span class="comment">//切换</span></span></span><br><span class="line"><span class="javascript">		btns.eq(<span class="number">2</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			$(<span class="string">&quot;.box&quot;</span>).toggleClass(<span class="string">&quot;bgcolor&quot;</span>);</span></span><br><span class="line"><span class="javascript">		&#125;)</span></span><br><span class="line"><span class="javascript">		<span class="comment">//判断</span></span></span><br><span class="line"><span class="javascript">		btns.eq(<span class="number">3</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">var</span> res =$(<span class="string">&quot;.box&quot;</span>).hasClass(<span class="string">&quot;bgcolor&quot;</span>);</span></span><br><span class="line"><span class="javascript">			alert(<span class="string">&quot;result = &quot;</span>+res);</span></span><br><span class="line"><span class="javascript">		&#125;)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">	&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;新增class&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;移除class&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;切换class&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;判断是否有class&quot;</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"> &gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<hr>
+<p>学习链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sswqzx/article/details/82834407?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163080162116780264068041%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163080162116780264068041&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-82834407.first_rank_v2_pc_rank_v29&amp;utm_term=jQuery&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/sswqzx/article/details/82834407?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163080162116780264068041%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163080162116780264068041&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-82834407.first_rank_v2_pc_rank_v29&amp;utm_term=jQuery&amp;spm=1018.2226.3001.4187</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/01/DOM%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1660,161 +1927,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">树状数组</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-07-01 21:19:28 / Modified: 22:53:40" itemprop="dateCreated datePublished" datetime="2021-07-01T21:19:28+08:00">2021-07-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>对于一个的数组，如果需要求1~m的前缀和我们可以将其从下标1开始对m个数进行求和，对于值的修改，我们可以直接通过下标找到要修改的数，然后更新前缀和，对于一次操作显然没什么问题，但对于n 次操作，时间复杂度就达到了O(n^2)和O ( n ) ，这样的方法就显得不适用了。</p>
-<p><em><strong>树状数组</strong></em></p>
-<p>顾名思义，就是一个树状的数组，如下图。</p>
-<p><img src="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/1.png"></p>
-<p>现在我们在上图的基础上把它变形</p>
-<p><img src="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/2.png"></p>
-<p>我们把每一列的顶端节点定义为节点c[]数组</p>
-<p>如图：</p>
-<p><img src="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/3.jpg"></p>
-<p>图中c[i]代表该端点子树节点的权值之和，</p>
-<p>即：</p>
-<p>C[1]=A[1];</p>
-<p>C[2]=A[1]+A[2];</p>
-<p>C[3]=A[3];</p>
-<p>C[4]=A[1]+A[2]+A[3]+A[4];</p>
-<p>C[5]=A[5];</p>
-<p>C[6]=A[5]+A[6];</p>
-<p>C[7]=A[7];</p>
-<p>C[8]=A[1]+A[2]+A[3]+A[4]+A[5]+A[6]+A[7]+A[8];</p>
-<p>现在我们观察下图</p>
-<p><img src="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/4.png"></p>
-<p>将C[]数组的结点序号转化为<strong>二进制</strong></p>
-<p>1=(001)    C[1]=A[1];</p>
-<p>2=(010)    C[2]=A[1]+A[2];</p>
-<p>3=(011)    C[3]=A[3];</p>
-<p>4=(100)    C[4]=A[1]+A[2]+A[3]+A[4];</p>
-<p>5=(101)    C[5]=A[5];</p>
-<p>6=(110)    C[6]=A[5]+A[6];</p>
-<p>7=(111)    C[7]=A[7];</p>
-<p>8=(1000)   C[8]=A[1]+A[2]+A[3]+A[4]+A[5]+A[6]+A[7]+A[8];</p>
-<p> 对照式子可以发现  **C[i]=A[i-2^k+1]+A[i-2^k+2]+……A[i]; **</p>
-<p><strong>k为i的二进制中从最低位到高位连续零的长度</strong>   <strong>例如i=8时，k=3;</strong> </p>
-<p>现在引入lowbit(x) （一个神奇的东西）</p>
-<p>lowbit(x) 其实就是取出x的最低位1  换言之 **lowbit(x)=2^k  k的含义与上面相同 </p>
-<p>下面说代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> t)</span></span></span><br><span class="line"><span class="function">2. </span>&#123;</span><br><span class="line"><span class="number">3.</span> <span class="keyword">return</span> t&amp;(-t);</span><br><span class="line"><span class="number">4.</span> &#125;</span><br><span class="line"><span class="number">5.</span> <span class="comment">//-t 代表t的负数 计算机中负数使用对应的正数的补码来表示`</span></span><br><span class="line"><span class="number">6.</span> <span class="comment">//例如 :</span></span><br><span class="line"><span class="number">7.</span> <span class="comment">// t=6（0110） 此时 k=1</span></span><br><span class="line"><span class="number">8.</span> <span class="comment">//-t=-6=(1001+1)=(1010)</span></span><br><span class="line"><span class="number">9.</span> <span class="comment">// t&amp;(-t)=(0010)=2=2^1</span></span><br><span class="line">    </span><br><span class="line">  即： </span><br><span class="line">C[i]=A[i<span class="number">-2</span>^k+<span class="number">1</span>]+A[i<span class="number">-2</span>^k+<span class="number">2</span>]+......A[i];</span><br><span class="line"></span><br><span class="line">C[i]=A[i-<span class="built_in">lowbit</span>(i)+<span class="number">1</span>]+A[i-<span class="built_in">lowbit</span>(i)+<span class="number">2</span>]+......A[i];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面只是对树状数组的一个简单介绍，那么利用树状数组我们可以做什么呢？</p>
-<p><strong>1.区间查询</strong></p>
-<p>下面利用C[i]数组，求A数组中前i项的和 </p>
-<p>举个例子 i=7;</p>
-<p>sum[7]=A[1]+A[2]+A[3]+A[4]+A[5]+A[6]+A[7] ;  前i项和</p>
-<p>C[4]=A[1]+A[2]+A[3]+A[4];  C[6]=A[5]+A[6];  C[7]=A[7];</p>
-<p>可以推出:  sum[7]=C[4]+C[6]+C[7];</p>
-<p>序号写为二进制: sum[(111)]=C[(100)]+C[(110)]+C[(111)];</p>
-<p>代码实现</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        ans+=tree[x];</span><br><span class="line">        x-=<span class="built_in">lowbit</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><strong>2.单点更新</strong></p>
-<p>结合图我们可以发现， 更新过程是查询过程的逆过程 ，由叶子节点向上更新c[]数组</p>
-<p><img src="/2021/07/01/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/5.jpg"></p>
-<p>如上图所示：</p>
-<p>当更新A[1]时  需要向上更新C[1] ,C[2],C[4],C[8]</p>
-<p>把  C[1],  C[2],   C[4],   C[8] ，写为二进制 </p>
-<p>即：C[(001)],C[(010)],C[(100)],C[(1000)]</p>
-<p>1(001) ：    C[1]+=A[1]</p>
-<p>lowbit(1)=001   1+lowbit(1)=2(010)   C[2]+=A[1]</p>
-<p>lowbit(2)=010   2+lowbit(2)=4(100)   C[4]+=A[1]</p>
-<p>lowbit(4)=100   4+lowbit(4)=8(1000)  C[8]+=A[1]</p>
-<p>代码实现</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=n)</span><br><span class="line">    &#123;</span><br><span class="line">        tree[i]+=num;</span><br><span class="line">        i+=<span class="built_in">lowbit</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>3.单点查询</strong></p>
-<p>这里需要运用到<strong>差分</strong>。</p>
-<p>来介绍一下<strong>差分</strong></p>
-<p>设数组a[]={1,6,8,5,10}，那么差分数组b[]={1,5,2,-3,5}</p>
-<p>也就是说b[i]=a[i]-a[i-1];(a[0]=0;)，那么a[i]=b[1]+….+b[i];(这个很好证的)。</p>
-<p>假如区间[2,4]都加上2的话</p>
-<p>a数组变为a[]={1,8,10,7,10}，b数组变为b={1,7,2,-3,3};</p>
-<p>发现了没有，b数组只有b[2]和b[5]变了，因为区间[2,4]是同时加上2的,所以在区间内b[i]-b[i-1]是不变的.</p>
-<p>所以对区间[x,y]进行修改,只用修改b[x]与b[y+1]:</p>
-<p>b[x]=b[x]+k;b[y+1]=b[y+1]-k;</p>
-<p><strong>4.区间修改</strong></p>
-<p>紧接着上面对差分的介绍，我们继续介绍区间的修改。</p>
-<p>假如我们要修改区间[x,y]的值。</p>
-<p>由于 a[i]=b[1]+…+b[i]   <em>(b[1]=a[1]-a[0],a[0]=0)</em> 。 可发现a[i]只与b[j] (j&lt;=i)有关，若将b[j]加上k，其后所有值都将加k，因此只需改变b[i]就可实现b[i]到b[n]的区间修改。而将b[j+1]减去k，对a[j]无影响，其后所有值也减去k，恢复原值，即实现了区间修改操作。 因为求取a值用到的是前缀和，因此设t[i]为b[1]到b[i]的前缀,a[i]=t[i]=b[1]+…b[i].</p>
-<p>现在我们来看看例题：</p>
-<p>例题1：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3374">https://www.luogu.com.cn/problem/P3374</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> tree[maxn];</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (-x) &amp; x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (i &lt;= n)</span><br><span class="line">	&#123;</span><br><span class="line">		tree[i] += num;</span><br><span class="line">		i += <span class="built_in">lowbit</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> x)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x)</span><br><span class="line">	&#123;</span><br><span class="line">		ans += tree[x];</span><br><span class="line">		x -= <span class="built_in">lowbit</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		tree[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;val);</span><br><span class="line">		<span class="built_in">add</span>(i, val);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> t, x, y, k;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;t);</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (t == <span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;x,&amp;k);  <span class="comment">//单点更新</span></span><br><span class="line">				<span class="built_in">add</span>(x, k);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;x,&amp;y);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, <span class="built_in">getsum</span>(y) - <span class="built_in">getsum</span>(x - <span class="number">1</span>));  <span class="comment">//区间查询</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>例题2：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3374">https://www.luogu.com.cn/problem/P3374</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> tree[maxn];</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (-x) &amp; x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (i &lt;= n)</span><br><span class="line">	&#123;</span><br><span class="line">		tree[i] += num;</span><br><span class="line">		i += <span class="built_in">lowbit</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> x)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x)</span><br><span class="line">	&#123;</span><br><span class="line">		ans += tree[x];</span><br><span class="line">		x -= <span class="built_in">lowbit</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		tree[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> now , last = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;now);</span><br><span class="line">		<span class="built_in">add</span>(i, now - last);</span><br><span class="line">		last = now;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> t, x, y, k;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;t);</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (t == <span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;x, &amp;y, &amp;k);</span><br><span class="line">				<span class="built_in">add</span>(x, k);</span><br><span class="line">				<span class="built_in">add</span>(y + <span class="number">1</span>, -k);   <span class="comment">//区间修改</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, <span class="built_in">getsum</span>(x));  <span class="comment">//单点查询</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1884,7 +1996,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
