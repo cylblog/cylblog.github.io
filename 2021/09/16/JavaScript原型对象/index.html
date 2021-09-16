@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​       什么是原型  原型是JavaScript中的继承的基础，JavaScript的继承就是基于原型的继承。    ​       1.1函数的原型对象  1234567891011&gt;&lt;body&gt;  &lt;script&gt;      &#x2F;&#x2F;声明一个函数，这个函数会默认有一个属性叫prototype，浏览器会自动按照一定的规则      &#x2F;&#x2F;创建一个对象，这个对象就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript原型对象">
+<meta property="og:url" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​       什么是原型  原型是JavaScript中的继承的基础，JavaScript的继承就是基于原型的继承。    ​       1.1函数的原型对象  1234567891011&gt;&lt;body&gt;  &lt;script&gt;      &#x2F;&#x2F;声明一个函数，这个函数会默认有一个属性叫prototype，浏览器会自动按照一定的规则      &#x2F;&#x2F;创建一个对象，这个对象就是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/3.png">
+<meta property="og:image" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/2.png">
+<meta property="og:image" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/1.png">
+<meta property="og:image" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/4.png">
+<meta property="article:published_time" content="2021-09-16T02:37:16.934Z">
+<meta property="article:modified_time" content="2021-09-16T15:28:10.134Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/3.png">
+
+<link rel="canonical" href="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>JavaScript原型对象 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript原型对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-16 10:37:16 / Modified: 23:28:10" itemprop="dateCreated datePublished" datetime="2021-09-16T10:37:16+08:00">2021-09-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>​    </p>
+<hr>
+<ul>
+<li><p>什么是原型</p>
+<blockquote>
+<p>原型是JavaScript中的继承的基础，JavaScript的继承就是基于原型的继承。</p>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>1.1函数的原型对象</p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//声明一个函数，这个函数会默认有一个属性叫prototype，浏览器会自动按照一定的规则</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//创建一个对象，这个对象就是这个函数的原型对象，prototype属性指向这个原型对象，</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//这个原型对象有一个属性叫constructor指向了这个函数</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//需要注意的是原型对象只有属性：constructor。其他的都是从Object继承而来的</span></span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          </span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>1.2使用构造函数创建对象</p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  	<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          </span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//利用构造函创建一个对象，则这个对象会自动添加一个不可见的属性 prototype，</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//而这个属性指向了构造函数的原型对象</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> p=<span class="keyword">new</span> Person();</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>与原型有关的几个属性</p>
+<blockquote>
+<ul>
+<li><p>2.1prototype属性</p>
+<p>prototype属性存在于构造函数中（其实任意函数中都有，只是不是构造函数的时候我们不关注）它指向了这个构造函数的原型对象。</p>
+</li>
+</ul>
+<p>​    </p>
+<ul>
+<li><p>2.2constructor属性</p>
+<p>constructor属性存在于原型对象中，它指向了构造函数。</p>
+<p>​    </p>
+</li>
+<li><p>代码展示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript">     alert(Person.prototype.constructor==Person);<span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">        val p= <span class="keyword">new</span> Person();</span></span><br><span class="line"><span class="javascript">        <span class="comment">//使用一个instanceof可以判断一个对象的类型</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//typeof一般用来获取简单类型和函数，而引用类型一般使用instanceof，因为引用类型</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//用typeof总返回object</span></span></span><br><span class="line"><span class="javascript">        alert(p <span class="keyword">instanceof</span> Person);</span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">我们可以根据需要用Person.prototype 属性来指定新的对象，来作为Person的原型对象。</span><br><span class="line">但是这个时候有个问题，那就是新的对象的constructor属性不再指向Person构造函数。</span><br><span class="line">例如下面的代码</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        </span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    Person.prototype=&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">name</span>:<span class="string">&quot;pink&quot;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">age</span>:<span class="number">18</span></span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span></span><br><span class="line"><span class="javascript">    alert(p1.name)<span class="comment">//pink</span></span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript">    alert(p1 <span class="keyword">instanceof</span> Person);<span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">    alert(Person.prototype.constructor===Person);<span class="comment">//false;</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//此时你需要在Person.prototype中添加这样的一行代码，让新的对象的constructor属性指向Person构造函数</span></span></span><br><span class="line"><span class="javascript">    Person.prototype = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">constructor</span> : Person</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+</li>
+<li><p>2.3    __proto__属性</p>
+<blockquote>
+<p>这个属性是实例对象指向原型对象的指针，隐式原型，是每个对象都会有的一个属性。</p>
+<p>而prototype是构造函数的原型对象，显式原型，只有函数才会有。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  &gt;function fn()&#123;</span><br><span class="line">num = 20; </span><br><span class="line">  &gt;&#125;</span><br><span class="line">  &gt;//为构造函数添加原型对象</span><br><span class="line">  &gt;fn.prototype.num = 30;</span><br><span class="line"></span><br><span class="line">  &gt;var obj = new fn();</span><br><span class="line">  &gt;//此时打印出来的obj本身有一个属性num=20， 在它的原型对象__proto__中有num=30</span><br><span class="line">  &gt;console.log(obj);</span><br><span class="line">  &gt;console.log(obj.__proto__.num == fn.prototype.num )</span><br><span class="line">  &gt;//结果是true</span><br><span class="line">  &gt;这说明了实例对象的__proto__是有关联对的并且__proto__是指向构造函数的原型对象的，所以两个值相等</span><br></pre></td></tr></table></figure>
+
+<p>运行结果及代码如下：</p>
+<p><img src="/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/3.png"></p>
+<p>​                </p>
+<p><img src="/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/2.png"></p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<ul>
+<li><p>由上面我们可以引出原型链的概念</p>
+<blockquote>
+<ul>
+<li><p>原型链的作用：</p>
+</li>
+<li><p>继承</p>
+</li>
+<li><p>prototype用来实现基于原型的继承与属性的共享</p>
+</li>
+<li><p>避免了代码冗杂，公用的 属性和方法，可以放到原型对象中，这样，通过构造函数实例化的所有对象都可以使用该对象的构造函数中的属性和方法</p>
+</li>
+<li><p>减少了内存占用</p>
+</li>
+</ul>
+<p> ​    </p>
+<ul>
+<li><p>原型链的特点：</p>
+</li>
+<li><p>就近原则，当我们要使用一个值，程序会优先查找离自己最近的，也就是本身没有的，如果自己没有，他就会沿着原型链向上查找如果还没有找到，它还会沿着原型链继续向上查找，知道Object</p>
+</li>
+<li><p>引用类型，当我们使用或者修改原型链上的值时，其实使用的是同一个值</p>
+</li>
+<li><p>JS中的每个函数都存在原型对象属性prototype，并且所有函数的默认原型都是Object的实例</p>
+</li>
+<li><p>每个继承父函数的实例对象都包含一个内部属性__proto__，该属性包含一个指针，指向父函数的prototype，若父函数的原型对象的__proto__属性为再上一层函数，在此过程中就形成了原型链。</p>
+</li>
+</ul>
+</blockquote>
+<p>原型链示意图如下：</p>
+<p><img src="/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/1.png"></p>
+</li>
+</ul>
+<p>​    </p>
+<ul>
+<li>最后再来看一下js是如何实现继承的：</li>
+</ul>
+<p><img src="/2021/09/16/JavaScript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/4.png"></p>
+<p>这里， 我们只需要手动的将父类的this指向子类即可。</p>
+<p>​    </p>
+<hr>
+<p>学习参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38613992/article/details/103667168">https://blog.csdn.net/qq_38613992/article/details/103667168</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012468376/article/details/53121081?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-53121081.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/u012468376/article/details/53121081?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=javascript%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-53121081.first_rank_v2_pc_rank_v29&amp;spm=1018.2226.3001.4187</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/03/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="jQuery学习笔记">
+      <i class="fa fa-chevron-left"></i> jQuery学习笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
