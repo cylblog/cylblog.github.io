@@ -179,10 +179,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-11-20 22:28:48 / 修改时间：23:57:25" itemprop="dateCreated datePublished" datetime="2021-11-20T22:28:48+08:00">2021-11-20</time>
+              <time title="创建时间：2021-11-20 22:28:48" itemprop="dateCreated datePublished" datetime="2021-11-20T22:28:48+08:00">2021-11-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-21 00:17:21" itemprop="dateModified" datetime="2021-11-21T00:17:21+08:00">2021-11-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -209,88 +215,14 @@
 <li><code>beforeCreate()</code></li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Son&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="attr">msg</span>:<span class="string">&#x27;hello vue.js&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">showMsg</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.msg);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">props</span>:[<span class="string">&#x27;info&#x27;</span>],</span><br><span class="line">    <span class="function"><span class="title">beforeCreate</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.msg);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.info);</span><br><span class="line">        <span class="built_in">this</span>.showMsg()</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这个阶段初始化事件和生命周期函数，此时的props,data,methods都处于不可用状态，因此上述代码报错</span></span><br></pre></td></tr></table></figure>
-
-<!---more--->
-
-<p>​    </p>
-<ul>
-<li><code>created()</code></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Test&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="attr">msg</span>:<span class="string">&#x27;hello vue.js&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">            <span class="function"><span class="title">showMsg</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.msg);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">props</span>:[<span class="string">&#x27;info&#x27;</span>],</span><br><span class="line">    <span class="function"><span class="title">created</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.msg);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.info);</span><br><span class="line">        <span class="built_in">this</span>.showMsg()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//此时控制台会输出如下信息：</span></span><br><span class="line"><span class="comment">//hello vue.js</span></span><br><span class="line"><span class="comment">//这是父组件传过来的数据</span></span><br><span class="line"><span class="comment">//hello vue.js</span></span><br><span class="line"><span class="comment">//这个阶段在初始化props/data/methods,因此组件的props/data/methods已经创建完毕，都处于可用的状态，但是组件的模板尚未生成，自然也就无法操作DOM结构。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-<blockquote>
-<p>我们会经常在这个阶段调用methods中的方法，请求服务器的数据，并且把请求的数据转存在data中，供template模板渲染的时候使用。例如下面的例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>总共有&#123;&#123;books.length&#125;&#125;本书<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Test&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="attr">books</span>:[]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">           <span class="function"><span class="title">initBooksList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">                xhr.open(<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;http://www.liulongbin.top:3006/api/getbooks&#x27;</span>)</span><br><span class="line">                xhr.send()             </span><br><span class="line">                xhr.addEventListener(<span class="string">&#x27;load&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                    <span class="keyword">const</span> result = <span class="built_in">JSON</span>.parse(xhr.responseText)</span><br><span class="line">                    <span class="built_in">console</span>.log(result);</span><br><span class="line">                    <span class="built_in">this</span>.books = result.data</span><br><span class="line">                &#125;)</span><br><span class="line">           &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">created</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.initBooksList()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>界面结果：</p>
-<p><img src="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/1.png"></p>
-<p>​    </p>
-<hr>
-<ul>
-<li><code>beforeMount()</code></li>
-</ul>
-<p><img src="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/2.png"></p>
-<pre><code>    &gt;在`created`之后，此时会基于数据和模板，在内存中编译生成HTML结构，也就是虚拟DOM。
-    &gt;
-    &gt;到了`beforeMount`这个阶段，此时`将要`把内存中编译好的虚拟DOM渲染到浏览器中，此时浏览器中还没有当前组件的DOM结构。图中的意思就是用内存中编译好的DOM结构替换掉指定的DOM元素。
-</code></pre>
-<ul>
-<li><code>mounted</code></li>
-</ul>
-<blockquote>
-<p>这个阶段已经把内存中的虚拟DOM成功的渲染到了浏览器之中，此时浏览器中已经包含了当前组件的DOM结构，因此这个阶段也是最早可以操作DOM的阶段。</p>
-<p>但是界面中呈现的是经过Vue编译的DOM，对DOM操作均有效（尽可能避免）。</p>
-</blockquote>
-<hr>
-<p><img src="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/3.png"></p>
-<p>​    </p>
-<p>​    </p>
-<ul>
-<li><code>beforeUpdate()</code></li>
-</ul>
-<blockquote>
-<p>这个阶段根据变化过后的最新数据，将要去页面重新渲染组件的DOM结构。</p>
-<p>此时数据是最新的，但页面不是最新的，即页面和数据未保持同步</p>
-</blockquote>
-<p>​    </p>
-<ul>
-<li><code>updated</code></li>
-</ul>
-<blockquote>
-<p>已经根据最新的数据，变成了组件DOM结构重新渲染在界面上。</p>
-<p>此时数据是最新的，页面也是最新的，即数据和页面保持一致。</p>
-</blockquote>
-<hr>
-<p><img src="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/4.png"></p>
-<p>​    </p>
-<ul>
-<li><code>beforeDestory</code></li>
-</ul>
-<blockquote>
-<p>将要销毁此组件，此时vm中所有的data，methods，指令等等都处于可用状态，马上要执行销毁过程。</p>
-<p>一般在此阶段：关闭定时器，取消订阅，解绑自定义事件等等。组件还处于正常工作状态。</p>
-</blockquote>
-<p>​    </p>
-<ul>
-<li><code>Destory</code></li>
-</ul>
-<blockquote>
-<p>开始这个阶段之前，销毁当前组件的数据侦听、子组件、事件监听等。</p>
-<p>在<code>Destory</code>这个阶段，组件已经被完全销毁，此组件在浏览器中对应的DOM结构已被完全移除。</p>
-</blockquote>
-<p>​    </p>
-<hr>
-<p><code>总结</code>：</p>
-<p>常用的生命钩子：</p>
-<p>​      1.<code>mounted</code>：发送<code>ajax</code>请求，启动定时器，绑定自定义事件，订阅消息等</p>
-<p>​      2.<code>beforeDestroy</code>：清除定时器，解绑自定义时间，取消订阅消息</p>
-<p>​    关于销毁<code>Vue</code>实例：</p>
-<p>​      1.销毁后的借助<code>Vue</code>开发者看不到任何信息</p>
-<p>​      2.销毁后的自定义事件会失效，但原生的DOM事件 （例如v-click） 依然有效</p>
-<p>​      3.一般不会在<code>beforeDestroy</code>操作数据，因为即便操作数据，也不会再触发任何流程了</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
