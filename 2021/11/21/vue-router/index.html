@@ -21,19 +21,27 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="路由的概念   路由，其实就是一组映射关系。在前端路由中，一般只有一个页面，也就是SPA(single page appliaction)。通过点击页面上的按钮来决定页面中要展示的内容，每一个按钮对应一个要展示的内容。所以页面上有两个部分，一个是点击部分，另一个是点击之后显示内容的部分。  routes：用一个数组中将每一条路由的关系组合起来，用来定义一组路由的匹配关系。 router：相当于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2021/06/15/hello-world/index.html">
+<meta property="og:title" content="vue-router（一）">
+<meta property="og:url" content="http://example.com/2021/11/21/vue-router/index.html">
 <meta property="og:site_name" content="YouYou">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="路由的概念   路由，其实就是一组映射关系。在前端路由中，一般只有一个页面，也就是SPA(single page appliaction)。通过点击页面上的按钮来决定页面中要展示的内容，每一个按钮对应一个要展示的内容。所以页面上有两个部分，一个是点击部分，另一个是点击之后显示内容的部分。  routes：用一个数组中将每一条路由的关系组合起来，用来定义一组路由的匹配关系。 router：相当于">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-06-15T13:04:27.562Z">
-<meta property="article:modified_time" content="2021-09-19T11:38:58.568Z">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/1.png">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/2.png">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/4.png">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/3.png">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/5.png">
+<meta property="og:image" content="http://example.com/2021/11/21/vue-router/6.png">
+<meta property="article:published_time" content="2021-11-21T07:22:46.787Z">
+<meta property="article:modified_time" content="2021-11-28T11:34:11.738Z">
 <meta property="article:author" content="Redamancy">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/21/vue-router/1.png">
 
-<link rel="canonical" href="http://example.com/2021/06/15/hello-world/">
+<link rel="canonical" href="http://example.com/2021/11/21/vue-router/">
 
 
 <script id="page-configurations">
@@ -46,7 +54,7 @@
   };
 </script>
 
-  <title>Hello World | YouYou</title>
+  <title>vue-router（一） | YouYou</title>
   
 
 
@@ -161,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/21/vue-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
@@ -174,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          vue-router（一）
         </h1>
 
         <div class="post-meta">
@@ -184,15 +192,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-06-15 21:04:27" itemprop="dateCreated datePublished" datetime="2021-06-15T21:04:27+08:00">2021-06-15</time>
+              <time title="创建时间：2021-11-21 15:22:46" itemprop="dateCreated datePublished" datetime="2021-11-21T15:22:46+08:00">2021-11-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-19 19:38:58" itemprop="dateModified" datetime="2021-09-19T19:38:58+08:00">2021-09-19</time>
+                <time title="修改时间：2021-11-28 19:34:11" itemprop="dateModified" datetime="2021-11-28T19:34:11+08:00">2021-11-28</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -212,21 +229,101 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+        <hr>
+<ul>
+<li>路由的概念</li>
+</ul>
+<blockquote>
+<p>路由，其实就是一组映射关系。在前端路由中，一般只有一个页面，也就是<code>SPA(single page appliaction)</code>。通过点击页面上的按钮来决定页面中要展示的内容，每一个按钮对应一个要展示的内容。所以页面上有两个部分，一个是点击部分，另一个是点击之后显示内容的部分。</p>
+<ul>
+<li>routes：用一个数组中将每一条路由的关系组合起来，用来定义一组路由的匹配关系。</li>
+<li>router：相当于一个管理者，用来管理routes。</li>
+</ul>
+</blockquote>
+<p>​    </p>
 <span id="more"></span>
 
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>​    </p>
+<hr>
+<ul>
+<li>路由的基本使用</li>
+</ul>
+<ol>
+<li><p>安装:<code>npm i vue-router -S</code></p>
+</li>
+<li><p>配置路由：在src目录下创建router目录，并在router下创建一个inde.js文件</p>
+</li>
+</ol>
+<p><img src="/2021/11/21/vue-router/1.png"></p>
+<p>​    </p>
+<ol start="3">
+<li><p><code>redirect重定向</code></p>
+<p><img src="/2021/11/21/vue-router/2.png">        </p>
+</li>
+</ol>
+<p>​    </p>
+<ol start="3">
+<li><p>路由的跳转</p>
+<p><img src="/2021/11/21/vue-router/4.png"></p>
+<p>​    </p>
+<ul>
+<li> router-link是一个组件，它会默认被渲染成一个带有链接的a标签，通过to属性指定链接地址。注意：被选中的router-link自动添加一个class属性值<code>router-link-active</code></li>
+</ul>
+<p>​    </p>
+<ul>
+<li>to:导航地址，需要填写配置在router/index.js中的path值，如果默认导航到首页，则只需要写成to=’/‘</li>
+</ul>
+<p>​    </p>
+<ul>
+<li><p>router-view用于匹配到渲染的组件，可以给router-view设置过渡</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition name=<span class="string">&quot;fade&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">router-view</span> &gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span></span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>​    </p>
+<ul>
+<li>组件过渡过程中会有四个css类名进行切换，这四个类名与transition的name属性相关，比如name=”fade”，则有：</li>
+</ul>
+<blockquote>
+<p>fade-enter: 进入过渡的开始状态，元素被插入时生效，只应用一帧后立刻删除。 </p>
+<p>fade-enter-active: 进入过渡的结束状态，元素被插入时就生效，在过渡过程完成后移除。 </p>
+<p>fade-leave: 离开过渡的开始状态，元素被删除时触发，只应用一帧后立刻删除。 </p>
+<p>fade-leave-acive: 离开过渡的结束状态，元素被删除时生效，离开过渡完成后被删除。 </p>
+<p>还可以在transition中进行设置过渡模式：</p>
+<p>in-out(默认): 新元素先进入过渡，完成之后当前元素过渡离开。</p>
+<p>out-in: 当前元素先进行过渡离开，离开完成后新元素过渡进入。 </p>
+</blockquote>
+<p>​    </p>
+<ul>
+<li><p>router-view还可以配合<code>&lt;keep-live&gt;</code>使用，<code>&lt;keep-live&gt;</code>可以缓存数据，这样不会每次进入路由时，之前那个路由的数据被清除。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span></span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<hr>
+<ul>
+<li>路由的嵌套</li>
+</ul>
+<blockquote>
+<p>嵌套路由，主要是由我们的页面结构所决定的。当我们进入到home页面的时候，它下面还有分类，如手机系列，平板系列，电脑系列。当我们点击各个分类的时候，它还是需要路由到各个部分，如点击手机，它肯定到对应到手机的部分。</p>
+</blockquote>
+<p>​    </p>
+<p><img src="/2021/11/21/vue-router/3.png"></p>
+<p>​        </p>
+<hr>
+<ul>
+<li>动态路由</li>
+</ul>
+<blockquote>
+<p>上面我们定义的路由，都是严格匹配的，只有router-link 中的to属性和 js 中一条路由route中 path 一模一样，才能显示相应的组件component. 但有时现实却不是这样的，当我们去访问网站并登录成功后，它会显示 欢迎你，+ 你的名字。不同的用户登录， 只是显示“你的名字” 部分不同，其它部分是一样的。 </p>
+<p>这样我们在配置路由的时候，就不能写死, 就是路由中的path属性，不能写死，那要怎么设置? 导航到 user 组件，路径中肯定有user, id 不同，那就给路径一个动态部分来匹配不同的id.  在vue-router中，动态部分 以 : 开头，那么路径就变成了 /user/:id。</p>
+</blockquote>
+<p>​    1. 在user组件中如下：</p>
+<p><img src="/2021/11/21/vue-router/5.png"></p>
+<p>​    </p>
+<ol start="2">
+<li>在router中如下：</li>
+</ol>
+<p><img src="/2021/11/21/vue-router/6.png"></p>
+<hr>
 
     </div>
 
@@ -235,17 +332,20 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/06/20/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="next" title="最小生成树">
-      最小生成树 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/11/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="prev" title="Vue生命周期">
+      <i class="fa fa-chevron-left"></i> Vue生命周期
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -309,7 +409,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
