@@ -21,29 +21,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="RegExp对象  正则表达式是描述字符模式的对象 正则表达式用于对字符串模式匹配及检索替换，是对字符串指向模式匹配的强大工具">
+  <meta name="description" content="​       预解析的步骤    首先会把所有的var和function提升到当前作用域的最前面 变量提升：就是把所有变量声明提升到当前作用域的最前面，但是不提升赋值操作。 函数提升：函数的声明被提前，使用函数声明形式创建的函数function函数名()&amp;#123;&amp;#125;，它会在所有代码执行之前被创建，所以我们可以在函数声明前来调用函数。使用函数表达式创建的函数函数名 &#x3D; function">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript RegExp对象">
-<meta property="og:url" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:title" content="简单记录JavaScript中的预解析和变量声明案例">
+<meta property="og:url" content="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="YouYou">
-<meta property="og:description" content="RegExp对象  正则表达式是描述字符模式的对象 正则表达式用于对字符串模式匹配及检索替换，是对字符串指向模式匹配的强大工具">
+<meta property="og:description" content="​       预解析的步骤    首先会把所有的var和function提升到当前作用域的最前面 变量提升：就是把所有变量声明提升到当前作用域的最前面，但是不提升赋值操作。 函数提升：函数的声明被提前，使用函数声明形式创建的函数function函数名()&amp;#123;&amp;#125;，它会在所有代码执行之前被创建，所以我们可以在函数声明前来调用函数。使用函数表达式创建的函数函数名 &#x3D; function">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/1.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/2.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/3.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/4.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/5.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/8.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/6.png">
-<meta property="og:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/7.png">
-<meta property="article:published_time" content="2021-10-02T05:54:27.406Z">
-<meta property="article:modified_time" content="2021-10-02T08:29:01.774Z">
+<meta property="og:image" content="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/1.png">
+<meta property="article:published_time" content="2021-12-25T10:37:17.459Z">
+<meta property="article:modified_time" content="2021-12-25T11:07:55.532Z">
 <meta property="article:author" content="Redamancy">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/1.png">
+<meta name="twitter:image" content="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/1.png">
 
-<link rel="canonical" href="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/">
+<link rel="canonical" href="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -56,7 +49,7 @@
   };
 </script>
 
-  <title>JavaScript RegExp对象 | YouYou</title>
+  <title>简单记录JavaScript中的预解析和变量声明案例 | YouYou</title>
   
 
 
@@ -171,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
@@ -184,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JavaScript RegExp对象
+          简单记录JavaScript中的预解析和变量声明案例
         </h1>
 
         <div class="post-meta">
@@ -195,7 +188,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-10-02 13:54:27 / 修改时间：16:29:01" itemprop="dateCreated datePublished" datetime="2021-10-02T13:54:27+08:00">2021-10-02</time>
+              <time title="创建时间：2021-12-25 18:37:17 / 修改时间：19:07:55" itemprop="dateCreated datePublished" datetime="2021-12-25T18:37:17+08:00">2021-12-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,86 +218,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<ul>
-<li><p>RegExp对象</p>
-<ul>
-<li>正则表达式是描述字符模式的对象</li>
-<li>正则表达式用于对字符串模式匹配及检索替换，是对字符串指向模式匹配的强大工具</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-
+        <p>​    </p>
 <hr>
 <ul>
-<li><p>语法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> patt = <span class="keyword">new</span> <span class="built_in">RegExp</span>(pattern,modifiers);</span><br><span class="line"><span class="comment">//或者更简单的方式</span></span><br><span class="line"><span class="keyword">var</span> patt = <span class="regexp">/pattern/m</span>odidiers;</span><br></pre></td></tr></table></figure>
-
+<li>预解析的步骤</li>
+</ul>
+<blockquote>
 <ul>
-<li><p>pattern描述了表达式的模式</p>
-</li>
-<li><p>modifiers(修饰符)用于指定全局匹配、区分大小写的匹配和多行匹配</p>
-</li>
-<li><p>注意：当使用构造函数创建正则对象时，需要常规的字符转义规则（在前面嘉反斜杆\）</p>
-<p>例如：下面例子时等价的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;\\w+&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> re = <span class="regexp">/\w+/</span>;</span><br></pre></td></tr></table></figure></li>
+<li>首先会把所有的var和function提升到当前作用域的最前面</li>
+<li>变量提升：就是把所有变量声明提升到当前作用域的最前面，但是不提升赋值操作。</li>
+<li>函数提升：函数的声明被提前，使用函数声明形式创建的函数<code>function函数名()&#123;&#125;</code>，它会在所有代码执行之前被创建，所以我们可以在函数声明前来调用函数。使用函数表达式创建的函数<code>函数名 = function()&#123;&#125;</code>不会被声明提前，所以不能在函数声明前调用。</li>
 </ul>
-<p>案例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建方式</span></span><br><span class="line"><span class="keyword">var</span> reg1 = <span class="regexp">/abc/g</span>;</span><br><span class="line"><span class="keyword">var</span> reg2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&#x27;abc&#x27;</span>,<span class="string">&#x27;g&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种方式的参数也可以是正则表达式</span></span><br><span class="line"><span class="comment">//指向不同的内存地址</span></span><br><span class="line"><span class="keyword">var</span> reg3 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(reg1);</span><br><span class="line"><span class="comment">//执行的相同的内存地址</span></span><br><span class="line"><span class="keyword">var</span> reg3 = <span class="built_in">RegExp</span>(reg1);</span><br></pre></td></tr></table></figure></li>
-</ul>
+</blockquote>
 <p>​    </p>
-<hr>
+<p>​    <span id="more"></span></p>
 <ul>
-<li><p>修饰符</p>
-<ul>
-<li>修饰符用于执行区分大小写和全局匹配</li>
+<li>例子</li>
 </ul>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/1.png"></p>
-</li>
-</ul>
-<ul>
-<li><p>方括号</p>
-<ul>
-<li>方括号用于查找某个范围内的字符</li>
-</ul>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/2.png"></p>
-<p>实例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/[abc]/</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;abcdefg&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg))</span><br><span class="line"><span class="comment">//结果是abc</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>元字符</p>
-<ul>
-<li>元字符是拥有特殊含义的字符</li>
-</ul>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/3.png"></p>
-<p>实例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\bab/g</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;abab\nabefgab&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg))</span><br><span class="line"><span class="comment">//结果是[“ab”, “ab”]，</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\bab/g</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">`ab</span></span><br><span class="line"><span class="string">		ab</span></span><br><span class="line"><span class="string">		abefgab`</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg))</span><br><span class="line"><span class="comment">//结果是 [“ab”, “ab”, “ab”]</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>量词</p>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/4.png"></p>
-<p>实例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匹配a,但是这个a后面不能紧跟着b，则</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/a(?!b)/g</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;abcdaab&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg))</span><br><span class="line"><span class="comment">//结果为[“a”]</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>RegExp对象方法</p>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/5.png"></p>
-<p>实例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/ab/g</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;ababab&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex)</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex)</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex)</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex)</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec)</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个方法会配合一个类似于游标的东西来使用，也就是他每次只会返回匹配到的第一个字串，然后游标向后移动，继续来检索将要匹配的字符串，而lastIndex就是这个游标，</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> fun2();</span><br><span class="line"> <span class="built_in">console</span>.log(c);</span><br><span class="line"> <span class="built_in">console</span>.log(b);</span><br><span class="line"> <span class="built_in">console</span>.log(a);</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">fun2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="comment">//相当于var a = 6; b = 6; c = 6;  </span></span><br><span class="line">     <span class="comment">//在函数内部，直接赋值没有声明，那么当做全局变量看 !!!</span></span><br><span class="line">     <span class="comment">//如果需要集体声明，那么需要使用 var a = 6, b = 6, c= 6;</span></span><br><span class="line">     <span class="keyword">var</span> a = b = c = <span class="number">6</span>;</span><br><span class="line">     <span class="built_in">console</span>.log(a);</span><br><span class="line">     <span class="built_in">console</span>.log(b);</span><br><span class="line">     <span class="built_in">console</span>.log(c);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//预解析结果如下：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;     <span class="comment">//函数提升</span></span><br><span class="line">    <span class="keyword">var</span> a;<span class="comment">//变量提升</span></span><br><span class="line">    a = b = c = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">    <span class="built_in">console</span>.log(c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(c);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>结果为：<img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/8.png"></p>
-</li>
-</ul>
+<p>执行结果：</p>
+<p><img src="/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/1.png"></p>
+<p>​    </p>
+<p>​    </p>
 <ul>
-<li><p>支持正则表达式的String对象的方法</p>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/6.png"></p>
-</li>
+<li>另外记录一下一个变量声明的案例。</li>
 </ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="css">      <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">      <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">      <span class="attribute">border</span>: <span class="number">1px</span> solid pink;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> div = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;div&#x27;</span>)</span></span><br><span class="line"><span class="javascript">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; div.length; i++)&#123;</span></span><br><span class="line"><span class="javascript">      div[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        div[i].style.background = <span class="string">&#x27;pink&#x27;</span></span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">//	for(var i = 0 ; i &lt; div.length; i++)&#123;</span></span></span><br><span class="line"><span class="javascript"> <span class="comment">//     div[i].onclick = function()&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//        div[i].style.background = &#x27;pink&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//      &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//    &#125;</span></span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
 <ul>
-<li><p>RegExp对象属性</p>
-<p><img src="/2021/10/02/JavaScript%E7%9A%84RegExp%E5%AF%B9%E8%B1%A1/7.png"></p>
-</li>
+<li>如果使用var来声明的话循环的i会被当作全局变量，但是如果使用let来声明的话，由于let具有局部作用域，所以可以正常执行。</li>
+<li>同时由于<code>onclick</code>属于异步任务，执行结束后全局变量i此时变成了3，所以点击之后没有效果。</li>
 </ul>
 
     </div>
@@ -324,13 +269,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/09/22/JavaScript%E4%B8%AD%E7%9A%84%E5%BC%82%E6%AD%A5/" rel="prev" title="JavaScript中的异步">
-      <i class="fa fa-chevron-left"></i> JavaScript中的异步
+    <a href="/2021/12/19/css%E5%AE%9E%E7%8E%B0%E4%B8%89%E8%A7%92/" rel="prev" title="css实现三角">
+      <i class="fa fa-chevron-left"></i> css实现三角
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/10/10/JavaScript%E4%B9%8BEventLoop/" rel="next" title="JavaScript之EventLoop">
-      JavaScript之EventLoop <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
