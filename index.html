@@ -156,6 +156,133 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">简记Vue中的nextTick原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-30 21:02:17 / 修改时间：22:07:13" itemprop="dateCreated datePublished" datetime="2021-12-30T21:02:17+08:00">2021-12-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>​    </p>
+<hr>
+<ul>
+<li>在了解<code>nextTick</code>原理之前，我们首先来看一下两个例子</li>
+</ul>
+<ol>
+<li>当我们在给数据赋值之后想要获取文字高度却发现文字的高度为0</li>
+</ol>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/1.png"></p>
+<p>​    结果却为0：</p>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/2.png"></p>
+<p>​    </p>
+<p>​    </p>
+<ol start="2">
+<li>通过父组件给子组件传递props后，无法及时展示子组件的数据</li>
+</ol>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/4.png"></p>
+<p>​    </p>
+<p>结果：</p>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/3.png"></p>
+<p>​        </p>
+<hr>
+<ul>
+<li>上述两个例子我们都在data更新之后立即同步的去获取数据，但是在Vue中，DOM的更新是异步执行的。那么Vue中DOM的更新是如何执行的呢？</li>
+</ul>
+<p>我们来看看官网的解释：</p>
+<ol>
+<li>Vue只要监听到数据变化，就会开启一个队列，并且缓冲在同一事件中发生的所有数据变更。如果同一个wather被多次触发，只会被推入队列一次。这种的缓冲时去除重复数据避免不必要的计算和DOM操作是非常重要的。</li>
+</ol>
+<p>​    </p>
+<ol start="2">
+<li>然后，在下一个事件<code>tick</code>中，Vue刷新队列并执行实际(已去重)工作，Vue在内部对异步队列尝试使用原生的 <code>Promise.then</code>、<code>MutationObserver</code> 和 <code>setImmediate</code>，如果执行环境不支持，则会采用 <code>setTimeout(fn, 0)</code> 代替 。</li>
+</ol>
+<p>​    </p>
+<ol start="3">
+<li> 例如，当你设置 <code>vm.someData = &#39;new value&#39;</code>，该组件不会立即重新渲染。当刷新队列时，组件会在下一个事件循环“tick”中更新。</li>
+</ol>
+<p>​    </p>
+<p>注意：这里我们先打断一下，聊一下上面的第二点中为什么是按照<code>Promise</code>&gt;<code>MutationObserver</code>&gt;<code>setImmediate</code>的顺序执行。这是由于在当前事件循环中<code>mircotask</code>具有比<code>macrotask</code>更高的优先级。但是由于<code>Promise</code>是ES6语法，有些浏览器并不能很好地兼容，于是Vue采取了<code>macrotask</code>来处理。</p>
+<p>​        </p>
+<ul>
+<li>Vue中的异步更新操作提高了性能。因为如果在主线程中更新DOM的话，循环100次就需要更新100次；如果我们在事件循环之后再来更新DOM的话，只需要更新一次即可。</li>
+</ul>
+<p>现在我们来对之前的两个例子进行修改，只需要将同步获取数据的操作放在<code>this.$nextTick</code>中即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">this</span>.$nextTick(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;.message&#x27;</span>).offsetHeight)</span><br><span class="line">                    		    </span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​            </p>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/6.png"></p>
+<p>​    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">this</span>.$nextTick(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.$refs.myChild.showName()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2021/12/30/%E7%AE%80%E8%AE%B0Vue%E4%B8%AD%E7%9A%84nextTick%E5%8E%9F%E7%90%86/5.png"></p>
+<p>​        </p>
+<p>总结：</p>
+<ol>
+<li>nextTick是采用了Vue异步执行的方式来更新DOM。</li>
+<li>microtask具有更高的优先级，能确保队列中的微任务在一次事件循环前被执行完毕。</li>
+<li>由于兼容性问题，Vue做了mircotask向macrotask的降级方案。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/25/JavaScript%E4%B8%AD%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -938,87 +1065,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/es6%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
-      <meta itemprop="name" content="Redamancy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YouYou">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/24/es6%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">es6语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-24 20:22:28 / 修改时间：20:51:35" itemprop="dateCreated datePublished" datetime="2021-10-24T20:22:28+08:00">2021-10-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<ul>
-<li><p>解构赋值</p>
-<ul>
-<li>对象解构赋值</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">var</span> &#123;name, age&#125; = obj</span><br><span class="line"><span class="comment">//这里会生成两个变量，name来源于obj.name,age来源于obj.age</span></span><br><span class="line"><span class="keyword">var</span> &#123;<span class="attr">name</span>:title&#125; = obj</span><br><span class="line"><span class="comment">//生成一个变量：title:来源于obj.name</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li></ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/24/es6%E8%AF%AD%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1090,7 +1136,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1138,7 +1184,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
