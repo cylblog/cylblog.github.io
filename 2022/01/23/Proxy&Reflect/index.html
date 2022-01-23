@@ -21,20 +21,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="解构赋值  对象解构赋值  123456var obj &#x3D; &amp;#123;name:&amp;#x27;张三&amp;#x27;,age:18&amp;#125;var &amp;#123;name, age&amp;#125; &#x3D; obj&#x2F;&#x2F;这里会生成两个变量，name来源于obj.name,age来源于obj.agevar &amp;#123;name:title&amp;#125; &#x3D; obj&#x2F;&#x2F;生成一个变量：title:来源于obj.name">
+  <meta name="description" content="​      Proxy1let proxy &#x3D; new Proxy(target, handler)      target ：是要进行包装的对象，可以是对象，函数。 handler：代理配置，带有捕捉器的对象。比如get捕捉器用于读取target的属性，set捕捉器用于写入target的属性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="es6语法">
-<meta property="og:url" content="http://example.com/2021/10/24/es6%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:title" content="Proxy &amp; Reflect">
+<meta property="og:url" content="http://example.com/2022/01/23/Proxy&Reflect/index.html">
 <meta property="og:site_name" content="YouYou">
-<meta property="og:description" content="解构赋值  对象解构赋值  123456var obj &#x3D; &amp;#123;name:&amp;#x27;张三&amp;#x27;,age:18&amp;#125;var &amp;#123;name, age&amp;#125; &#x3D; obj&#x2F;&#x2F;这里会生成两个变量，name来源于obj.name,age来源于obj.agevar &amp;#123;name:title&amp;#125; &#x3D; obj&#x2F;&#x2F;生成一个变量：title:来源于obj.name">
+<meta property="og:description" content="​      Proxy1let proxy &#x3D; new Proxy(target, handler)      target ：是要进行包装的对象，可以是对象，函数。 handler：代理配置，带有捕捉器的对象。比如get捕捉器用于读取target的属性，set捕捉器用于写入target的属性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-24T12:22:28.678Z">
-<meta property="article:modified_time" content="2021-10-24T12:51:35.963Z">
+<meta property="og:image" content="http://example.com/2022/01/23/Proxy&Reflect/1.png">
+<meta property="article:published_time" content="2022-01-23T05:20:12.662Z">
+<meta property="article:modified_time" content="2022-01-23T06:27:31.175Z">
 <meta property="article:author" content="Redamancy">
-<meta property="article:tag" content="ES6">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/23/Proxy&Reflect/1.png">
 
-<link rel="canonical" href="http://example.com/2021/10/24/es6%E8%AF%AD%E6%B3%95/">
+<link rel="canonical" href="http://example.com/2022/01/23/Proxy&Reflect/">
 
 
 <script id="page-configurations">
@@ -47,7 +49,7 @@
   };
 </script>
 
-  <title>es6语法 | YouYou</title>
+  <title>Proxy & Reflect | YouYou</title>
   
 
 
@@ -162,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/es6%E8%AF%AD%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/23/Proxy&Reflect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
@@ -175,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          es6语法
+          Proxy & Reflect
         </h1>
 
         <div class="post-meta">
@@ -186,7 +188,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-10-24 20:22:28 / 修改时间：20:51:35" itemprop="dateCreated datePublished" datetime="2021-10-24T20:22:28+08:00">2021-10-24</time>
+              <time title="创建时间：2022-01-23 13:20:12 / 修改时间：14:27:31" itemprop="dateCreated datePublished" datetime="2022-01-23T13:20:12+08:00">2022-01-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,46 +218,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<ul>
-<li><p>解构赋值</p>
-<ul>
-<li>对象解构赋值</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">var</span> &#123;name, age&#125; = obj</span><br><span class="line"><span class="comment">//这里会生成两个变量，name来源于obj.name,age来源于obj.age</span></span><br><span class="line"><span class="keyword">var</span> &#123;<span class="attr">name</span>:title&#125; = obj</span><br><span class="line"><span class="comment">//生成一个变量：title:来源于obj.name</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <p>​    </p>
+<hr>
+<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler)   </span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>target ：是要进行包装的对象，可以是对象，函数。</li>
+<li>handler：代理配置，带有捕捉器的对象。比如get捕捉器用于读取target的属性，set捕捉器用于写入target的属性。</li>
+</ul>
 <span id="more"></span>
 
-<ul>
-<li>函数参数的解构赋值</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj.name)</span><br><span class="line">    <span class="built_in">console</span>.log(obj.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params">&#123;name,age&#125;</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj.name)</span><br><span class="line">    <span class="built_in">console</span>.log(obj.age)    </span><br><span class="line">&#125;</span><br><span class="line">f1(&#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>对proxy进行操作，如果在handler中存在响应的捕捉器，则他们运行，否则直接对target进行处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> target = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;&#125;)</span><br><span class="line">proxy.test = <span class="number">5</span>    <span class="comment">//写入到proxy对象</span></span><br><span class="line"><span class="built_in">console</span>.log(target.test)   </span><br><span class="line"><span class="built_in">console</span>.log(proxy.test)   <span class="comment">//可以从proxy中读取也可以从target中读取</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> proxy)  <span class="built_in">console</span>.log(key)   </span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>补充：属性的简写</li>
+<p>由于没有捕捉器，所有对proxy的操作都直接转发给了target。</p>
+<ol>
+<li>写入操作proxy.test = 会将值写入到target</li>
+<li>读取操作proxy.test会从target返回对应的值。</li>
+<li>迭代proxy会从target返回对应的值。</li>
+</ol>
+<p><img src="/2022/01/23/Proxy&Reflect/1.png"></p>
+<h5 id="get捕捉器"><a href="#get捕捉器" class="headerlink" title="get捕捉器"></a>get捕捉器</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">numbers = <span class="keyword">new</span> <span class="built_in">Proxy</span>(numbers,&#123;</span><br><span class="line">    <span class="function"><span class="title">get</span>(<span class="params">target,prop</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prop <span class="keyword">in</span> target)&#123;</span><br><span class="line">            <span class="keyword">return</span> target[prop]</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<h5 id="set捕捉器"><a href="#set捕捉器" class="headerlink" title="set捕捉器"></a>set捕捉器</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = []</span><br><span class="line">numbers = <span class="keyword">new</span> <span class="built_in">Proxy</span>(numbers,&#123;</span><br><span class="line">    <span class="function"><span class="title">set</span>(<span class="params">target,prop,val</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> val === <span class="string">&#x27;number&#x27;</span>)&#123;</span><br><span class="line">            target[prop] = val</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">numbers.push(<span class="number">1</span>)</span><br><span class="line">numbers.push(<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>​    </p>
+<h4 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h4><p>Reflect是一个内建对象，可以简化Proxy的创建。 用法与Proxy类似，但是从在某方面比Proxy更加好用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.set(person,<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;zs&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(person);   </span><br><span class="line"><span class="keyword">const</span> name = <span class="built_in">Reflect</span>.get(person, <span class="string">&#x27;name&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(name)   <span class="comment">//zs</span></span><br></pre></td></tr></table></figure>
+
+<p>当从继承另一个对象的时候，传入另一个参数receiver可以保证见正确的this传递给getter。</p>
+<p>​    </p>
+<h4 id="vue3响应式的改变"><a href="#vue3响应式的改变" class="headerlink" title="vue3响应式的改变"></a>vue3响应式的改变</h4><h5 id="先来聊聊vue2的响应式"><a href="#先来聊聊vue2的响应式" class="headerlink" title="先来聊聊vue2的响应式"></a>先来聊聊vue2的响应式</h5><ul>
+<li>对于对象：无法动态的向一个对象添加或删除一个响应式的属性。</li>
+<li>对于数组：无法检测到直接通过数组下标设置的一个数组项；无法检测动态修改的数组长度。</li>
+<li>其实针对上述两种缺点vue2都有对应的api可以解决。</li>
+<li>vue2实现响应式是基于Object.DefineProperty()。</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> c = &#123;a, b&#125;</span><br><span class="line"><span class="comment">//b对象有一个属性a，a属性值来源于a变量</span></span><br><span class="line"><span class="comment">//还有一个属性b，b属性来源于b变量</span></span><br><span class="line"><span class="built_in">console</span>.log(b)</span><br></pre></td></tr></table></figure></li>
-</ul>
+<h5 id="vue3响应式基于Proxy"><a href="#vue3响应式基于Proxy" class="headerlink" title="vue3响应式基于Proxy"></a>vue3响应式基于Proxy</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简单的模拟</span></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(user,  &#123;</span><br><span class="line">	<span class="function"><span class="title">get</span>(<span class="params">target,props,receiver</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target,propName,receiver)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">set</span>(<span class="params">target,props,value,receiver</span>)</span>&#123;</span><br><span class="line">    	<span class="built_in">Reflect</span>.set(target,prop,value,receiver)</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="title">deleteProperty</span>(<span class="params">target,props</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">Reflect</span>.deleteProperty(target,props,receiver)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
-<ul>
-<li><p>函数的扩展</p>
-<ul>
-<li>rest参数</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">...args</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(args); <span class="comment">//数组[1,2,3,4]</span></span><br><span class="line">&#125;</span><br><span class="line">f1(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment">//arguments是伪数组，而rest参数是真数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line">f2(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment">//打印结果</span></span><br><span class="line"><span class="comment">//[ 1, 2, 3, 4 ]</span></span><br><span class="line"><span class="comment">//[Arguments] &#123; &#x27;0&#x27;: 1, &#x27;1&#x27;: 2, &#x27;2&#x27;: 3, &#x27;3&#x27;: 4 &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<ul>
-<li><p>对象扩展</p>
-<ul>
-<li><p>对象扩展运算符</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;...obj1&#125;</span><br><span class="line"><span class="keyword">var</span> obj3 = &#123;...obj1,<span class="attr">sex</span>:<span class="string">&#x27;男&#x27;</span>&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj3)</span><br><span class="line"><span class="comment">//结果如下</span></span><br><span class="line"><span class="comment">//&#123; name: &#x27;张三&#x27;, age: 18, sex: &#x27;男&#x27; &#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>Object.assign():实现对象的浅拷贝</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用法：Object.assign(target,source)</span></span><br><span class="line"><span class="comment">//把source拷贝到target中，并返回目标对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">sex</span>:<span class="string">&#x27;男&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">let</span> result = <span class="built_in">Object</span>.assign(obj,obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj,obj ===result);</span><br><span class="line"><span class="comment">//打印结果</span></span><br><span class="line"><span class="comment">//&#123; name: &#x27;张三&#x27;, age: 18, sex: &#x27;男&#x27; &#125; true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//用法二：</span></span><br><span class="line"><span class="comment">//如果不想修改原对象Object.assign(&#123;&#125;,target,source)</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">sex</span>:<span class="string">&#x27;男&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">let</span> result = <span class="built_in">Object</span>.assign(&#123;&#125;,obj,obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj,obj ===result);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br><span class="line"><span class="comment">//&#123; name: &#x27;张三&#x27;, age: 18 &#125; false</span></span><br><span class="line"><span class="comment">//&#123; name: &#x27;张三&#x27;, age: 18, sex: &#x27;男&#x27; &#125;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
+<p>能力有限，写的比较简单，见谅~~</p>
 
     </div>
 
@@ -265,7 +271,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ES6/" rel="tag"># ES6</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           </div>
 
         
@@ -274,13 +280,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/16/JavaScript%E4%B9%8B%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" rel="prev" title="JavaScript之防抖和节流">
-      <i class="fa fa-chevron-left"></i> JavaScript之防抖和节流
+    <a href="/2022/01/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" rel="prev" title="Vue自定义指令">
+      <i class="fa fa-chevron-left"></i> Vue自定义指令
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/10/31/JavaScript%E4%B8%AD%E7%9A%84%E6%8B%B7%E8%B4%9D/" rel="next" title="JavaScript中的拷贝">
-      JavaScript中的拷贝 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -344,6 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy"><span class="nav-number">1.</span> <span class="nav-text">Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#get%E6%8D%95%E6%8D%89%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">get捕捉器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set%E6%8D%95%E6%8D%89%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">set捕捉器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reflect"><span class="nav-number">2.</span> <span class="nav-text">Reflect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E7%9A%84%E6%94%B9%E5%8F%98"><span class="nav-number">3.</span> <span class="nav-text">vue3响应式的改变</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E8%81%8A%E8%81%8Avue2%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">先来聊聊vue2的响应式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%9F%BA%E4%BA%8EProxy"><span class="nav-number">3.2.</span> <span class="nav-text">vue3响应式基于Proxy</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
