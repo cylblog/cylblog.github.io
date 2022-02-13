@@ -21,25 +21,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。">
+  <meta name="description" content="前置知识 浏览器使用流式布局。 浏览器会把HTML解析成DOM，把CSS解析成CSSDOM，DOM和CSSDOM合并就产生了Render Tree。 有了Render Tree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。 由于浏览器使用流失布局，对Render Tree的计算通常只需要计算一遍即可，但table及其内部元素除外，他们可能需要多次计算，通常">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript闭包">
-<meta property="og:url" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/index.html">
+<meta property="og:title" content="重绘和重排">
+<meta property="og:url" content="http://example.com/2022/02/13/%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%B5%81/index.html">
 <meta property="og:site_name" content="YouYou">
-<meta property="og:description" content="最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。">
+<meta property="og:description" content="前置知识 浏览器使用流式布局。 浏览器会把HTML解析成DOM，把CSS解析成CSSDOM，DOM和CSSDOM合并就产生了Render Tree。 有了Render Tree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。 由于浏览器使用流失布局，对Render Tree的计算通常只需要计算一遍即可，但table及其内部元素除外，他们可能需要多次计算，通常">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png">
-<meta property="og:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png">
-<meta property="article:published_time" content="2021-07-19T12:27:06.285Z">
-<meta property="article:modified_time" content="2021-09-19T11:39:24.173Z">
+<meta property="article:published_time" content="2022-02-13T06:51:03.720Z">
+<meta property="article:modified_time" content="2022-02-13T06:58:32.912Z">
 <meta property="article:author" content="Redamancy">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="浏览器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png">
 
-<link rel="canonical" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
+<link rel="canonical" href="http://example.com/2022/02/13/%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%B5%81/">
 
 
 <script id="page-configurations">
@@ -52,7 +47,7 @@
   };
 </script>
 
-  <title>JavaScript闭包 | YouYou</title>
+  <title>重绘和重排 | YouYou</title>
   
 
 
@@ -167,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/13/%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
@@ -180,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JavaScript闭包
+          重绘和重排
         </h1>
 
         <div class="post-meta">
@@ -189,24 +184,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-07-19 20:27:06" itemprop="dateCreated datePublished" datetime="2021-07-19T20:27:06+08:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-19 19:39:24" itemprop="dateModified" datetime="2021-09-19T19:39:24+08:00">2021-09-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
+              <time title="创建时间：2022-02-13 14:51:03 / 修改时间：14:58:32" itemprop="dateCreated datePublished" datetime="2022-02-13T14:51:03+08:00">2022-02-13</time>
             </span>
 
           
@@ -227,58 +207,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近在学习前端的相关知识，在学习JavaScript的时候发现了一个难题：闭包。于是去B站搜了一下视频，视频很短，反复看了几遍之后发现好像懂了这个问题。于是我怀揣着激动的心，用颤抖的手写了这篇博客。</p>
-<span id="more"></span>
-
-
-
-<ul>
-<li><p>首先来大概了解一下什么是闭包：</p>
-<p>有权访问另一个函数中的变量的函数（注意：变量所在的函数就是闭包函数）。</p>
-<p>我们都知道,一般变量都是有作用域的，我们为什么要这么麻烦呢？直接定义一个全局变量不行吗？</p>
+        <h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><ol>
+<li>浏览器使用流式布局。</li>
+<li>浏览器会把HTML解析成DOM，把CSS解析成CSSDOM，DOM和CSSDOM合并就产生了Render Tree。</li>
+<li>有了Render Tree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。</li>
+<li>由于浏览器使用流失布局，对Render Tree的计算通常只需要计算一遍即可，但table及其内部元素除外，他们可能需要多次计算，通常需要花3倍于同等元素的时间，这也是为什么避免使用table布局的原因之一。</li>
+</ol>
+<h3 id="什么是重绘和重排"><a href="#什么是重绘和重排" class="headerlink" title="什么是重绘和重排"></a>什么是重绘和重排</h3><ul>
+<li><p>重绘：当一个元素的外观发生改变，但没有改变布局，重新把元素外观绘制出来的过程。</p>
+</li>
+<li><p>重排：当DOM的变化影响了元素的在浏览器中的位置时，浏览器重新计算元素的位置，将其放置在正确的位置的过程叫做重排。</p>
+<p>仅仅改变元素的外观，肯定不会引起网页重新生成布局，但浏览器完成重排之后，将会重新绘制受到此次重排影响的部分。</p>
+<p><code>重绘</code>不一定会引起重排，但是<code>重排</code>一定会出现重绘。</p>
 </li>
 </ul>
-<ul>
-<li>原因大致有两个：</li>
-</ul>
+<p>​    </p>
+<h3 id="如何触发重绘和重排"><a href="#如何触发重绘和重排" class="headerlink" title="如何触发重绘和重排"></a>如何触发重绘和重排</h3><p>任何改变用来构建渲染树的信息都会导致一次重绘或重排。</p>
 <ol>
-<li>全局变量不好控制，可以在任何地方进行读写，意味着可能会被不相干的程序改写。</li>
-<li>全局变量占用内存的生命周期长，一般局部变量（定义在函数中的变量），在函数调用完成之后与之对应的执行环境会被推出执行栈，回收机制会每隔一段时间进行一次回收操作，释放不需要被占用的内存。执行环境出栈就是在告诉回收机制“这些变量我不需要了，可以回收了”。而全局变量因为随时可以被任何程序在任何地方读写，所以回收机制很难统计何时需要释放全局变量所占用的内存，也就导致全局变量一般只在全局执行环境被销毁时才释放。</li>
+<li>通过<code>visibility：hidden</code>隐藏一个DOM节点会触发重绘，因为元素继续占有原来的位置。</li>
+<li><code>display：none</code>会触发重排，因为元素不再占有原来的位置。</li>
+<li>调整窗口的大小、改变字号、滚动引起重排。</li>
+<li>添加或删除可见的DOM属性引起重排。</li>
+<li>元素尺寸或位置发生改变引起重排。</li>
+<li>……</li>
 </ol>
-<p>没错，闭包真是利用了变量由于只是无法回收，但是可以使用，为了使用，不让系统回收。</p>
-<ul>
-<li>因此我们可以得知闭包的作用：延长变量的作用范围。</li>
-</ul>
-<ul>
-<li> 接下来我一起看一下全局变量和闭包使用的区别：</li>
-</ul>
-<p><strong>声明为全局变量</strong></p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/1.png"></p>
-<p>我们查看在控制台的输出结果，如图：</p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/2.png"></p>
-<p><strong>声明为局部变量</strong></p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/3.png"></p>
-<p>注意：</p>
-<p><em>当我们通过doCounterFn间接调用doCounter时，虽然doCounterFn的作用域链上并不存在变量second，但doCounter被执行时依旧能访问它的作用域链上的变量，也就是它声明时所在的作用域内的任何变量。</em></p>
-<p><em>通过counter和doCounter两个函数的嵌套，形成作用域的嵌套，被嵌套的函数需要对所在作用域进行访问，再将被嵌套的函数在另一个作用域中调用，这一整个过程就是我们所说的闭包。</em></p>
-<p>再次查看控制台输出信息：</p>
-<p><img src="/2021/07/19/JavaScript%E9%97%AD%E5%8C%85/4.png"></p>
-<p>我们从上面可以看到闭包可以达到和声明为全局变量一样的效果！</p>
-<ul>
-<li>通过上面我们还可以得知闭包形成的条件：</li>
-</ul>
-<ol>
-<li>需要访问作用域</li>
-<li>函数嵌套</li>
-<li>被嵌套函数在另一个作用域中被调用</li>
+<h3 id="如何避免重绘或重排"><a href="#如何避免重绘或重排" class="headerlink" title="如何避免重绘或重排"></a>如何避免重绘或重排</h3><ol>
+<li>集中改变样式，不要一条一条地修改DOM的样式。</li>
+<li>不要把DOM节点的属性值放在循环里当成循环里的变量。</li>
+<li>将动画效果应用到使用position为fixed或absolute的元素上。</li>
+<li>不使用table布局，因为可能很小的一个改动会造成整个table的重新布局。</li>
+<li>动画开启GPU加速，translate使用3D变化。</li>
+<li>尽可能在DOM树的最末端改变样式。</li>
+<li>…</li>
 </ol>
-<p>所以，当我们需要重复使用一个对象，但又想保护这个对象不被污染其它代码污染时我们可以选择使用闭包。</p>
-<ul>
-<li>关于闭包的缺点：比起普通函数，闭包占用内存多，因此建议在使用完毕后，可以手动赋空标记回收。</li>
-</ul>
-<p>最后，附上视频链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413">https://www.bilibili.com/video/BV16V41127v1?from=search&amp;seid=18430031698830390413</a>  </p>
-<p>视频虽短，干货满满，建议大家反复观看(<em>^__^</em>) ！</p>
 
     </div>
 
@@ -288,7 +249,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag"># 浏览器</a>
           </div>
 
         
@@ -297,13 +258,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/07/15/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="prev" title="线段树">
-      <i class="fa fa-chevron-left"></i> 线段树
+    <a href="/2022/02/05/Git/" rel="prev" title="Git使用">
+      <i class="fa fa-chevron-left"></i> Git使用
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/07/26/%E6%B5%85%E6%9E%90JavaScript%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="next" title="浅析JavaScript箭头函数">
-      浅析JavaScript箭头函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -367,6 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92"><span class="nav-number">2.</span> <span class="nav-text">什么是重绘和重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A6%E5%8F%91%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92"><span class="nav-number">3.</span> <span class="nav-text">如何触发重绘和重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E7%BB%98%E6%88%96%E9%87%8D%E6%8E%92"><span class="nav-number">4.</span> <span class="nav-text">如何避免重绘或重排</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
