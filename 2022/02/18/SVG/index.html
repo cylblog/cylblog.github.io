@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​     什么是SVG SVG是可伸缩矢量图形  SVG用来定义用于网络的基于矢量的图形  SVG使用XML格式定义图形  SVG图像在放大或改变尺寸的情况下图形质量不会有所损失 ….">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识SVG">
+<meta property="og:url" content="http://example.com/2022/02/18/SVG/index.html">
+<meta property="og:site_name" content="YouYou">
+<meta property="og:description" content="​     什么是SVG SVG是可伸缩矢量图形  SVG用来定义用于网络的基于矢量的图形  SVG使用XML格式定义图形  SVG图像在放大或改变尺寸的情况下图形质量不会有所损失 ….">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/1.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/2.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/3.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/4.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/5.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/6.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/7.png">
+<meta property="og:image" content="http://example.com/2022/02/18/SVG/8.png">
+<meta property="article:published_time" content="2022-02-18T12:15:23.659Z">
+<meta property="article:modified_time" content="2022-02-18T14:16:47.616Z">
+<meta property="article:author" content="Redamancy">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/02/18/SVG/1.png">
+
+<link rel="canonical" href="http://example.com/2022/02/18/SVG/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>初识SVG | YouYou</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">!important
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YouYou</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/18/SVG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          初识SVG
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-18 20:15:23 / 修改时间：22:16:47" itemprop="dateCreated datePublished" datetime="2022-02-18T20:15:23+08:00">2022-02-18</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>​    </p>
+<h3 id="什么是SVG"><a href="#什么是SVG" class="headerlink" title="什么是SVG"></a>什么是SVG</h3><ul>
+<li><p>SVG是可伸缩矢量图形</p>
+</li>
+<li><p>SVG用来定义用于网络的基于矢量的图形</p>
+</li>
+<li><p>SVG使用XML格式定义图形</p>
+</li>
+<li><p>SVG图像在放大或改变尺寸的情况下图形质量不会有所损失</p>
+<p>….</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<p>​    </p>
+<h3 id="SVG的优势"><a href="#SVG的优势" class="headerlink" title="SVG的优势"></a>SVG的优势</h3><ul>
+<li><p>SVG与JPEG和GIF图像相比起来，尺寸更小，且可压缩性更强</p>
+</li>
+<li><p>SVG可在图像质量不下降的情况下被放大</p>
+</li>
+<li><p>SVG图像中的文本是可选的，同时也是可搜索的（很适合制作地图）</p>
+<p>…</p>
+</li>
+</ul>
+<p>​    </p>
+<h3 id="SVG如何引入"><a href="#SVG如何引入" class="headerlink" title="SVG如何引入"></a>SVG如何引入</h3><h4 id="SVG文件可以通过以下标签嵌入HTML文档：-lt-embed-gt-lt-object-gt-lt-iframe-gt"><a href="#SVG文件可以通过以下标签嵌入HTML文档：-lt-embed-gt-lt-object-gt-lt-iframe-gt" class="headerlink" title="SVG文件可以通过以下标签嵌入HTML文档：&lt;embed&gt;  &lt;object&gt;  &lt;iframe&gt;"></a>SVG文件可以通过以下标签嵌入HTML文档：<code>&lt;embed&gt;</code> <code> &lt;object&gt;</code> <code> &lt;iframe&gt;</code></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">&quot;cicle1.svg&quot;</span> <span class="attr">type</span> <span class="attr">type</span>=<span class="string">&quot;image/svg+xml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">&quot;circle1.svg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/svg+xml&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;circle1.svg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<h4 id="在火狐、谷歌浏览器中可以直接在HTML中嵌入SVG代码"><a href="#在火狐、谷歌浏览器中可以直接在HTML中嵌入SVG代码" class="headerlink" title="在火狐、谷歌浏览器中可以直接在HTML中嵌入SVG代码"></a>在火狐、谷歌浏览器中可以直接在HTML中嵌入SVG代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;100&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;50&quot;</span> <span class="attr">r</span>=<span class="string">&quot;40&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;2&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    </p>
+<h4 id="链接到SVG文件"><a href="#链接到SVG文件" class="headerlink" title="链接到SVG文件"></a>链接到SVG文件</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;circle1.svg&quot;</span>&gt;</span>SVG 文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<h3 id="创建图形"><a href="#创建图形" class="headerlink" title="创建图形"></a>创建图形</h3><h4 id="SVG矩形"><a href="#SVG矩形" class="headerlink" title="SVG矩形"></a>SVG矩形</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;150&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span> </span></span><br><span class="line"><span class="tag">     <span class="attr">style</span>=<span class="string">&quot;fill: blue;</span></span></span><br><span class="line"><span class="string"><span class="tag">     stroke: pink; stroke-width:4 ;</span></span></span><br><span class="line"><span class="string"><span class="tag">     fill-opacity: 0.5; stroke-opacity: 0.9;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rect</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/1.png"></p>
+<p>​    </p>
+<h4 id="SVG圆形"><a href="#SVG圆形" class="headerlink" title="SVG圆形"></a>SVG圆形</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;100&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;50&quot;</span> <span class="attr">r</span>=<span class="string">&quot;40&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;2&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;red&quot;</span>&gt;</span>			<span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/2.png"></p>
+<p>​    </p>
+<h4 id="SVG椭圆"><a href="#SVG椭圆" class="headerlink" title="SVG椭圆"></a>SVG椭圆</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ellipse</span> <span class="attr">cx</span>=<span class="string">&quot;300&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;80&quot;</span> <span class="attr">rx</span>=<span class="string">&quot;100&quot;</span> <span class="attr">ry</span>=<span class="string">&quot;50&quot;</span> <span class="attr">style</span>=<span class="string">&quot;fill:yellow; stroke:black; 		stroke-width: 3;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ellipse</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line">//cx、cy分别对应椭圆中心的x坐标和y坐标；rx、ry分别定义水平半径和垂直半径</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/3.png"></p>
+<p>​    </p>
+<h4 id="SVG直线"><a href="#SVG直线" class="headerlink" title="SVG直线"></a>SVG直线</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;200&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;200&quot;</span> <span class="attr">style</span>=<span class="string">&quot;stroke:rgb(0,0,255); stroke-width:2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">line</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​        </p>
+<p><img src="/2022/02/18/SVG/4.png"></p>
+<p>​    </p>
+<h4 id="SVG多边形"><a href="#SVG多边形" class="headerlink" title="SVG多边形"></a>SVG多边形</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;210&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">&quot;200,10 250,190 160 210&quot;</span> <span class="attr">style</span>=<span class="string">&quot;fill:lime; stroke:purple;stroke-	width:1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">polygon</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/5.png"></p>
+<p>​    </p>
+<h4 id="SVG多线段"><a href="#SVG多线段" class="headerlink" title="SVG多线段"></a>SVG多线段</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;210&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">polyline</span> <span class="attr">points</span>=<span class="string">&quot;20,20 40,25 60,40 80,120 120,150 200,180&quot;</span> <span class="attr">style</span>=<span class="string">&quot;fill: 			none;stroke: black;stroke-width: 3;&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">polyline</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/6.png"></p>
+<p>​    </p>
+<h4 id="SVG路径"><a href="#SVG路径" class="headerlink" title="SVG路径"></a>SVG路径</h4><p>下面的命令可以用于路径数据</p>
+<ul>
+<li>M = moveto</li>
+<li>L = lineto</li>
+<li>H = horizontal lineto</li>
+<li>V = vertical lineto</li>
+<li>C = curveto</li>
+<li>S = smooth curveto</li>
+<li>Q = quadratic Bézier curve</li>
+<li>T = smooth quadratic Bézier curveto</li>
+<li>A = elliptical Arc</li>
+<li>Z = closepath</li>
+</ul>
+<p> <strong>注意：</strong>以上所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位。 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M150 0 L75 200 L225 200 Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/7.png"></p>
+<p>​    </p>
+<h4 id="SVG文本"><a href="#SVG文本" class="headerlink" title="SVG文本"></a>SVG文本</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;15&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;red&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;rotate(45 20,40)&quot;</span>&gt;</span>I LOVE SVG<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p><img src="/2022/02/18/SVG/8.png"></p>
+<p>​    </p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/13/%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%B5%81/" rel="prev" title="重绘和重排">
+      <i class="fa fa-chevron-left"></i> 重绘和重排
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDMwMS8zMDc3Mg=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSVG"><span class="nav-number">1.</span> <span class="nav-text">什么是SVG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVG%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">2.</span> <span class="nav-text">SVG的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVG%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">SVG如何引入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E6%96%87%E4%BB%B6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8B%E6%A0%87%E7%AD%BE%E5%B5%8C%E5%85%A5HTML%E6%96%87%E6%A1%A3%EF%BC%9A-lt-embed-gt-lt-object-gt-lt-iframe-gt"><span class="nav-number">3.1.</span> <span class="nav-text">SVG文件可以通过以下标签嵌入HTML文档：&lt;embed&gt;  &lt;object&gt;  &lt;iframe&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E7%81%AB%E7%8B%90%E3%80%81%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E5%9C%A8HTML%E4%B8%AD%E5%B5%8C%E5%85%A5SVG%E4%BB%A3%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">在火狐、谷歌浏览器中可以直接在HTML中嵌入SVG代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E5%88%B0SVG%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">链接到SVG文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9B%BE%E5%BD%A2"><span class="nav-number">4.</span> <span class="nav-text">创建图形</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E7%9F%A9%E5%BD%A2"><span class="nav-number">4.1.</span> <span class="nav-text">SVG矩形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E5%9C%86%E5%BD%A2"><span class="nav-number">4.2.</span> <span class="nav-text">SVG圆形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E6%A4%AD%E5%9C%86"><span class="nav-number">4.3.</span> <span class="nav-text">SVG椭圆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E7%9B%B4%E7%BA%BF"><span class="nav-number">4.4.</span> <span class="nav-text">SVG直线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E5%A4%9A%E8%BE%B9%E5%BD%A2"><span class="nav-number">4.5.</span> <span class="nav-text">SVG多边形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E5%A4%9A%E7%BA%BF%E6%AE%B5"><span class="nav-number">4.6.</span> <span class="nav-text">SVG多线段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E8%B7%AF%E5%BE%84"><span class="nav-number">4.7.</span> <span class="nav-text">SVG路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E6%96%87%E6%9C%AC"><span class="nav-number">4.8.</span> <span class="nav-text">SVG文本</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Redamancy"
+      src="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+  <p class="site-author-name" itemprop="name">Redamancy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cylblog" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cylblog" rel="noopener" target="_blank"><i class="fa fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/chen-youliang" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;chen-youliang" rel="noopener" target="_blank"><i class="fa fa-gitee fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Redamancy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+  
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":85,"height":170},"mobile":{"show":false},"log":false});</script></body>
+</html>
