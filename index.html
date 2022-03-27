@@ -156,6 +156,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/node%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/27/node%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="post-title-link" itemprop="url">node事件循环</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-27 18:49:17 / 修改时间：20:41:55" itemprop="dateCreated datePublished" datetime="2022-03-27T18:49:17+08:00">2022-03-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="node"><a href="#node" class="headerlink" title="node"></a>node</h3><p>JavaScript是一门单线程语言，主线程中的代码必须依次执行，后面的代码必须等待前面的代码执行完毕，这样容易造成阻塞。而回调函数的使用使得部分代码可以让出主线程，node事件循环就是解决了这样的一个问题。</p>
+<ul>
+<li>node事件循环机制是基于libuv实现的。</li>
+<li>libuv是一个高性能、事件驱动、非阻塞型I/O类库，并且提供了跨平台。</li>
+<li>node事件循环也分为宏任务和微任务。</li>
+<li>宏任务有：setTimeout、setInterval、setImmediate、I/O操作等。</li>
+<li>微任务有：Promise、process.nextTick()（优先级更高）</li>
+</ul>
+<p>node事件循环的流程图：</p>
+<p><img src="/2022/03/27/node%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/1.png"></p>
+<ul>
+<li>timers:本阶段执行已被setTimeout()和setInterval()调度的回调函数，即由这两个函数启动的回调函数。</li>
+<li>pending callbacks：本阶段执行某些系统操作的回调函数。</li>
+<li>idle，prepare：仅系统内部使用，只需知道即可。</li>
+<li>poll：检索新的I/O事件，执行于I/O相关的回调（ 几乎所有情况下），其余情况 node 将在适当的时候在此阻塞。</li>
+<li>check：setImmediate()回调函数在这里执行，setTimediate()并不是立马执行而是当事件poll中没有新的事件处理就会执行该部分。</li>
+<li>执行一些关闭的回调函数，如：socket.on()…</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="comment">//默认为1ms</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;setImmediate&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//readFile先执行，但是执行之间大于1ms，因此后输出</span></span><br><span class="line">fs.readFile(<span class="string">&#x27;./data.md&#x27;</span>,<span class="function">(<span class="params">err,data</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)    <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;readFile success&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve.then(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;callback&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2 callback 1 setImmediate readFile success</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="运行起点"><a href="#运行起点" class="headerlink" title="运行起点"></a>运行起点</h3><ul>
+<li>Node.js启动时，也就是node启动是就会发起一个新的事件循环。</li>
+<li>setTimeout回调函数。</li>
+<li>setInterval回调函数。</li>
+<li>也可能时一次I/O后的回调函数。</li>
+</ul>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p><img src="/2022/03/27/node%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/2.png"></p>
+<blockquote>
+<p>在同一个事件循环中，先执行完微任务队列再执行去执行宏任务队列。</p>
+</blockquote>
+<h3 id="版本不同"><a href="#版本不同" class="headerlink" title="版本不同"></a>版本不同</h3><h4 id="timers-阶段的执行时机变化"><a href="#timers-阶段的执行时机变化" class="headerlink" title="timers 阶段的执行时机变化"></a>timers 阶段的执行时机变化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;timeout1&#x27;</span>)</span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;promise resolve&#x27;</span>))</span><br><span class="line">    process.nextTick(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;next tick1&#x27;</span>))</span><br><span class="line">&#125;);</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;timeout2&#x27;</span>)</span><br><span class="line">    process.nextTick(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;next tick2&#x27;</span>))</span><br><span class="line">&#125;);</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;timeout3&#x27;</span>));</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;timeout4&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在 node11 之前，因为每一个 eventLoop 阶段完成后会去检查 nextTick 队列，如果里面有任务，会让这部分任务优先执行，因此上述代码是先进入 check 阶段，执行所有 setImmediate，完成之后执行 nextTick 队列，最后执行微任务队列，因此输出为<code>timeout1=&gt;timeout2=&gt;timeout3=&gt;timeout4=&gt;next tick1=&gt;next tick2=&gt;promise resolve</code></p>
+</li>
+<li><p>在 node11 之后，process.nextTick 是微任务的一种,因此上述代码是先进入 check 阶段，执行一个 setImmediate 宏任务，然后执行其微任务队列，再执行下一个宏任务及其微任务,因此输出为<code>timeout1=&gt;next tick1=&gt;promise resolve=&gt;timeout2=&gt;next tick2=&gt;timeout3=&gt;timeout4</code></p>
+</li>
+</ul>
+<h4 id="check-阶段的执行时机变化"><a href="#check-阶段的执行时机变化" class="headerlink" title="check 阶段的执行时机变化"></a>check 阶段的执行时机变化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;immediate1&#x27;</span>));</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;immediate2&#x27;</span>)</span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;promise resolve&#x27;</span>))</span><br><span class="line">&#125;);</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;immediate3&#x27;</span>));</span><br><span class="line">setImmediate(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;immediate4&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>node11: immediate1=&gt;immediate2=&gt;promise resolve=&gt;immediate3=&gt;immediate4 </p>
+<p>node10： immediate1=&gt;immediate2=&gt;immediate3=&gt;immediate4=&gt;promise resolve </p>
+<p>总结就是： 如果是 node11 版本一旦执行一个阶段里的一个宏任务(setTimeout,setInterval和setImmediate)就立刻执行对应的微任务队列，这一点和浏览器事件循环相似。</p>
+<h4 id="node-和-浏览器-eventLoop的主要区别"><a href="#node-和-浏览器-eventLoop的主要区别" class="headerlink" title="node 和 浏览器 eventLoop的主要区别"></a>node 和 浏览器 eventLoop的主要区别</h4><p> 可以看出最主要的区别在于浏览器中的微任务是在每个相应的宏任务中执行的，而nodejs中的微任务是在不同阶段之间执行的。 </p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/Pinia/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -934,82 +1041,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
-      <meta itemprop="name" content="Redamancy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YouYou">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">Vue自定义指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-15 13:45:31 / 修改时间：14:56:47" itemprop="dateCreated datePublished" datetime="2022-01-15T13:45:31+08:00">2022-01-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>​    </p>
-<p>在Vue中，出了核心的内置指令之外，还允许我们进行自定义指令。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1081,7 +1112,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1094,7 +1125,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
