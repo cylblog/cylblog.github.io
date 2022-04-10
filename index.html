@@ -156,6 +156,218 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/npm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/10/npm/" class="post-title-link" itemprop="url">npm</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-10 23:21:36 / 修改时间：23:27:09" itemprop="dateCreated datePublished" datetime="2022-04-10T23:21:36+08:00">2022-04-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="npm-vs-yarn"><a href="#npm-vs-yarn" class="headerlink" title="npm vs yarn"></a>npm vs yarn</h3><ol>
+<li>首先我们要知道npm是在yarn之前就有的，那为什么会有yarn的出现呢？</li>
+</ol>
+<ul>
+<li>每当 Yarn 或 npm 需要安装包时，它们都会执行一系列任务。在 npm 中，这些任务是按包顺序执行的，这意味着它会等待一个包完全安装，然后再继续下一个，也就是会造成阻塞。相比之下，Yarn 并行执行这些任务，从而提高了性能。</li>
+</ul>
+<ol start="2">
+<li>生成锁定文件</li>
+</ol>
+<ul>
+<li>yarn的出现带来了yarn.lock文件，这个文件可以帮助我们在固定依赖包的版本号，这样我们就不会出现在另一台机器安装包的时候安装不同版本的情况。而npm也在yarn的之后增加了package.lock.json。功能类似。</li>
+</ul>
+<ol start="3">
+<li>命令对比</li>
+</ol>
+<ul>
+<li>  <code>npm install</code>| <code>yarn</code>: 安装依赖</li>
+<li>  <code>npm install [package]</code>| <code>yarn add [package]</code>: 安装一个包</li>
+<li>  <code>npm install --save-dev [package]</code>| <code>yarn add - -dev [package]</code>: 安装一个包作为开发依赖</li>
+<li>  <code>npm uninstall [package]</code>| <code>yarn remove [package]</code>: 卸载一个包</li>
+<li>  <code>npm uninstall --save-dev [package]</code>| <code>yarn remove [package]</code>: 卸载开发依赖包</li>
+<li>  <code>npm update</code>| <code>yarn upgrade</code>: 更新依赖</li>
+<li>  <code>npm update [package]</code>| <code>yarn upgrade [package]</code>: 更新一个包</li>
+</ul>
+<h3 id="npm中的版本号"><a href="#npm中的版本号" class="headerlink" title="npm中的版本号"></a>npm中的版本号</h3><p><code>major.minor.patch</code>分别代表主版本号.次版本号.修补版本号。</p>
+<ul>
+<li>~6.7.1表示匹配所有的6.7.x</li>
+<li>^4.1.2表示匹配所有的4.x.x</li>
+<li>*表示安装最新的版本</li>
+<li>直接写，例如6.6.6就是特定的版本号</li>
+</ul>
+<p>更新或者安装有以下方式：</p>
+<ul>
+<li>npm install 忽略模糊版本</li>
+<li>npm update 更新模糊版本至最新</li>
+</ul>
+<h3 id="devDependencies-vs-dependencies真的一样吗"><a href="#devDependencies-vs-dependencies真的一样吗" class="headerlink" title="devDependencies vs dependencies真的一样吗"></a>devDependencies vs dependencies真的一样吗</h3><p>首先我们了解一下npm install的作用：<br>将依赖项安装在本地node_modules文件夹中。</p>
+<p>在全局模式下（即，在命令后附加-g或–global），它将当前程序包上下文（即当前工作目录）安装为全局程序包。</p>
+<p>默认情况下，npm install将安装所有列为<a target="_blank" rel="noopener" href="https://docs.npmjs.com/configuring-npm/package-json">package.json</a>中的依赖项的模块。</p>
+<p>使用–production标志（或将NODE_ENV环境变量设置为production时），npm将不会安装devDependencies中列出的模块。</p>
+<p>要在NODE_ENV环境变量设置为<strong>production</strong>时安装<strong>dependencies</strong>和<strong>devDependencies</strong>中列出的所有模块，可以使用–production = false。</p>
+<ol>
+<li><p>要向你的<code>package.json</code>‘s添加条目<code>dependencies</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save</span><br><span class="line">npm install &lt;package_name&gt; -S</span><br></pre></td></tr></table></figure></li>
+<li><p>要向你的<code>package.json</code>‘s添加条目<code>devDependencies</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save-dev</span><br><span class="line">npm install &lt;package_name&gt; -D</span><br></pre></td></tr></table></figure></li>
+<li><p>如果npm的时候都不加的话那么只会安装到dependencies下</p>
+</li>
+</ol>
+<p>我们执行npm install的时候会默认安装devDependencies和dependencies中的所有依赖。所以-S或者-D都无所谓？其实不然。</p>
+<ul>
+<li>对于dependencies中的包，我们自己npm的时候会下载最新的包，如果是别人引用我的包的时候也会下载下来。</li>
+<li>但是对于devDependencies中的包，别人引用我们的包的时候不会被下载。</li>
+</ul>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/10/Tree/" class="post-title-link" itemprop="url">B树和B+树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-10 20:43:34 / 修改时间：23:13:34" itemprop="dateCreated datePublished" datetime="2022-04-10T20:43:34+08:00">2022-04-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><p>定义：假设一个m阶 的B树</p>
+<ul>
+<li>每个节点最多有m-1个关键字。</li>
+<li>根节点最少可以只有1个关键字。</li>
+<li>非根节点至少有m/2个关键字。</li>
+<li>每个节点中的关键字都按照从大到小的顺序排列，每个关键字额左子树中的所有关键字都小于他，它，而右子树中的所有关键字都大于它。</li>
+<li>所有叶子节点都位于同一层，或者说根节点到每个叶子节点的长度都相同。</li>
+<li>每个节点都有索引和数据，也就是key和value。</li>
+</ul>
+<h4 id="B树的插入"><a href="#B树的插入" class="headerlink" title="B树的插入"></a>B树的插入</h4><p>插入的时候需要先判断当前节点的key数量是都小于等于m-1，如果满足，直接插入；如果不满足，以该节点的中间的key划分节点为左右两部分，中间的节点放到父节点中即可。</p>
+<p>例如，对于下面的一颗5阶B树：</p>
+<p>先插入22 32 40 45：</p>
+<p><img src="/2022/04/10/Tree/1.png"></p>
+<p>再插入24，发现节点树超过m-1：</p>
+<p><img src="/2022/04/10/Tree/2.png"></p>
+<h4 id="B树的删除"><a href="#B树的删除" class="headerlink" title="B树的删除"></a>B树的删除</h4><p>如果删除之后，节点数量还是大于m/2，那么直接删除。</p>
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>与B树的相同点：</p>
+<ul>
+<li>根节点至少一个元素。</li>
+<li>非根节点元素范围：m/2 &lt;= k &lt;=m-1。</li>
+</ul>
+<p>不同点：</p>
+<ul>
+<li>B+树有两种类型：内部节点和叶子节点。内部节点就是非叶子结点，内部节点不存储数据，只存储索引，数据都存储在叶子节点。</li>
+<li>内部节点中的key都按照从大到小的顺序排序，对于内部节点中的每一个key，左树中的所有key都小于它，右子树中的所有key都大于它。叶子节点中的记录也按照key从大到小排列。</li>
+<li>每个叶子节点都存储有相邻叶子节点的指针，叶子节点本身按关键字的大小从小到大顺序链接。</li>
+<li>父节点存有右孩子的第一个元素的索引。</li>
+</ul>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><p>当节点元素数量大于m-1的时候，按中间元素分裂成左右部分，中间元素分裂到父节点当做索引存储，但是，中间元素还是分裂右边这一部分的。</p>
+<p>先插入6 12 20 33</p>
+<p><img src="/2022/04/10/Tree/3.png"></p>
+<p>插入一个18：</p>
+<p><img src="/2022/04/10/Tree/4.png"></p>
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h4><p>B+树相对于B树的优点：</p>
+<ul>
+<li>单一节点存储的元素更多，使得查询的次数更少，所以更适合作为MySQL的底层数据结构。</li>
+<li>所有的查询都要找到叶子节点，查询性能是稳定的；而对于B树，每个节点都可以查询到数据。</li>
+<li>所有叶子节点形成了一个有序链表，更便于查找。</li>
+</ul>
+<hr>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903944292925447#heading-6">https://juejin.cn/post/6844903944292925447#heading-6</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/webpack%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAvue%E8%84%9A%E6%89%8B%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -966,169 +1178,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/05/Git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
-      <meta itemprop="name" content="Redamancy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YouYou">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/05/Git/" class="post-title-link" itemprop="url">Git使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-02-05 19:07:14 / 修改时间：19:11:36" itemprop="dateCreated datePublished" datetime="2022-02-05T19:07:14+08:00">2022-02-05</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h3 id="代码提交规范"><a href="#代码提交规范" class="headerlink" title="代码提交规范"></a>代码提交规范</h3><h4 id="master分支"><a href="#master分支" class="headerlink" title="master分支"></a>master分支</h4><p>主分支，只能从release分支或hotfix分支并入。</p>
-<h4 id="develop分支"><a href="#develop分支" class="headerlink" title="develop分支"></a>develop分支</h4><p>开发分支，包含即将发布的代码</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/05/Git/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/27/Webpack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
-      <meta itemprop="name" content="Redamancy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YouYou">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/27/Webpack/" class="post-title-link" itemprop="url">Webpack</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-27 11:07:13 / 修改时间：14:55:40" itemprop="dateCreated datePublished" datetime="2022-01-27T11:07:13+08:00">2022-01-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">前端工程化</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="什么是Webpack"><a href="#什么是Webpack" class="headerlink" title="什么是Webpack"></a>什么是Webpack</h2><h4 id="前端资源由什么构成"><a href="#前端资源由什么构成" class="headerlink" title="前端资源由什么构成"></a>前端资源由什么构成</h4><p>图片文件、css文件、js文件等等</p>
-<h4 id="旧时代管理前端资源的方式"><a href="#旧时代管理前端资源的方式" class="headerlink" title="旧时代管理前端资源的方式"></a>旧时代管理前端资源的方式</h4><p>方式：手动管理</p>
-<p>缺点：</p>
-<ul>
-<li><p>依赖手工，比如由50个js文件，操作会十分频繁。</p>
-</li>
-<li><p>当代码之间有依赖的时候，就得严格按依赖顺序写。</p>
-</li>
-<li><p>比较难接入less、sass工具。</p>
-</li>
-</ul>
-<p>…</p>
-<h4 id="webpack本质是一种前端资源编译、打包工具"><a href="#webpack本质是一种前端资源编译、打包工具" class="headerlink" title="webpack本质是一种前端资源编译、打包工具"></a>webpack本质是一种前端资源编译、打包工具</h4><ul>
-<li><p>将多分资源打包成一个bundle文件。</p>
-</li>
-<li><p>支持babel、ESLint、TS、less、sass。</p>
-</li>
-</ul>
-<p>….</p>
-<p>​</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/27/Webpack/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1200,7 +1249,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1213,7 +1262,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

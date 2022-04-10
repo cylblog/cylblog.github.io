@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="npm vs yarn 首先我们要知道npm是在yarn之前就有的，那为什么会有yarn的出现呢？   每当 Yarn 或 npm 需要安装包时，它们都会执行一系列任务。在 npm 中，这些任务是按包顺序执行的，这意味着它会等待一个包完全安装，然后再继续下一个，也就是会造成阻塞。相比之下，Yarn 并行执行这些任务，从而提高了性能。   生成锁定文件   yarn的出现带来了yarn.lock文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm">
+<meta property="og:url" content="http://example.com/2022/04/10/npm/index.html">
+<meta property="og:site_name" content="YouYou">
+<meta property="og:description" content="npm vs yarn 首先我们要知道npm是在yarn之前就有的，那为什么会有yarn的出现呢？   每当 Yarn 或 npm 需要安装包时，它们都会执行一系列任务。在 npm 中，这些任务是按包顺序执行的，这意味着它会等待一个包完全安装，然后再继续下一个，也就是会造成阻塞。相比之下，Yarn 并行执行这些任务，从而提高了性能。   生成锁定文件   yarn的出现带来了yarn.lock文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-10T15:21:36.551Z">
+<meta property="article:modified_time" content="2022-04-10T15:27:09.233Z">
+<meta property="article:author" content="Redamancy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/04/10/npm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>npm | YouYou</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="middlecontent" title class="global-width sidebar-right">
+    
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YouYou</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/npm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+      <meta itemprop="name" content="Redamancy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YouYou">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          npm
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-10 23:21:36 / 修改时间：23:27:09" itemprop="dateCreated datePublished" datetime="2022-04-10T23:21:36+08:00">2022-04-10</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="npm-vs-yarn"><a href="#npm-vs-yarn" class="headerlink" title="npm vs yarn"></a>npm vs yarn</h3><ol>
+<li>首先我们要知道npm是在yarn之前就有的，那为什么会有yarn的出现呢？</li>
+</ol>
+<ul>
+<li>每当 Yarn 或 npm 需要安装包时，它们都会执行一系列任务。在 npm 中，这些任务是按包顺序执行的，这意味着它会等待一个包完全安装，然后再继续下一个，也就是会造成阻塞。相比之下，Yarn 并行执行这些任务，从而提高了性能。</li>
+</ul>
+<ol start="2">
+<li>生成锁定文件</li>
+</ol>
+<ul>
+<li>yarn的出现带来了yarn.lock文件，这个文件可以帮助我们在固定依赖包的版本号，这样我们就不会出现在另一台机器安装包的时候安装不同版本的情况。而npm也在yarn的之后增加了package.lock.json。功能类似。</li>
+</ul>
+<ol start="3">
+<li>命令对比</li>
+</ol>
+<ul>
+<li>  <code>npm install</code>| <code>yarn</code>: 安装依赖</li>
+<li>  <code>npm install [package]</code>| <code>yarn add [package]</code>: 安装一个包</li>
+<li>  <code>npm install --save-dev [package]</code>| <code>yarn add - -dev [package]</code>: 安装一个包作为开发依赖</li>
+<li>  <code>npm uninstall [package]</code>| <code>yarn remove [package]</code>: 卸载一个包</li>
+<li>  <code>npm uninstall --save-dev [package]</code>| <code>yarn remove [package]</code>: 卸载开发依赖包</li>
+<li>  <code>npm update</code>| <code>yarn upgrade</code>: 更新依赖</li>
+<li>  <code>npm update [package]</code>| <code>yarn upgrade [package]</code>: 更新一个包</li>
+</ul>
+<h3 id="npm中的版本号"><a href="#npm中的版本号" class="headerlink" title="npm中的版本号"></a>npm中的版本号</h3><p><code>major.minor.patch</code>分别代表主版本号.次版本号.修补版本号。</p>
+<ul>
+<li>~6.7.1表示匹配所有的6.7.x</li>
+<li>^4.1.2表示匹配所有的4.x.x</li>
+<li>*表示安装最新的版本</li>
+<li>直接写，例如6.6.6就是特定的版本号</li>
+</ul>
+<p>更新或者安装有以下方式：</p>
+<ul>
+<li>npm install 忽略模糊版本</li>
+<li>npm update 更新模糊版本至最新</li>
+</ul>
+<h3 id="devDependencies-vs-dependencies真的一样吗"><a href="#devDependencies-vs-dependencies真的一样吗" class="headerlink" title="devDependencies vs dependencies真的一样吗"></a>devDependencies vs dependencies真的一样吗</h3><p>首先我们了解一下npm install的作用：<br>将依赖项安装在本地node_modules文件夹中。</p>
+<p>在全局模式下（即，在命令后附加-g或–global），它将当前程序包上下文（即当前工作目录）安装为全局程序包。</p>
+<p>默认情况下，npm install将安装所有列为<a target="_blank" rel="noopener" href="https://docs.npmjs.com/configuring-npm/package-json">package.json</a>中的依赖项的模块。</p>
+<p>使用–production标志（或将NODE_ENV环境变量设置为production时），npm将不会安装devDependencies中列出的模块。</p>
+<p>要在NODE_ENV环境变量设置为<strong>production</strong>时安装<strong>dependencies</strong>和<strong>devDependencies</strong>中列出的所有模块，可以使用–production = false。</p>
+<ol>
+<li><p>要向你的<code>package.json</code>‘s添加条目<code>dependencies</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save</span><br><span class="line">npm install &lt;package_name&gt; -S</span><br></pre></td></tr></table></figure></li>
+<li><p>要向你的<code>package.json</code>‘s添加条目<code>devDependencies</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save-dev</span><br><span class="line">npm install &lt;package_name&gt; -D</span><br></pre></td></tr></table></figure></li>
+<li><p>如果npm的时候都不加的话那么只会安装到dependencies下</p>
+</li>
+</ol>
+<p>我们执行npm install的时候会默认安装devDependencies和dependencies中的所有依赖。所以-S或者-D都无所谓？其实不然。</p>
+<ul>
+<li>对于dependencies中的包，我们自己npm的时候会下载最新的包，如果是别人引用我的包的时候也会下载下来。</li>
+<li>但是对于devDependencies中的包，别人引用我们的包的时候不会被下载。</li>
+</ul>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/10/Tree/" rel="prev" title="B树和B+树">
+      <i class="fa fa-chevron-left"></i> B树和B+树
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDMwMS8zMDc3Mg=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-vs-yarn"><span class="nav-number">1.</span> <span class="nav-text">npm vs yarn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm%E4%B8%AD%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">npm中的版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devDependencies-vs-dependencies%E7%9C%9F%E7%9A%84%E4%B8%80%E6%A0%B7%E5%90%97"><span class="nav-number">3.</span> <span class="nav-text">devDependencies vs dependencies真的一样吗</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Redamancy"
+      src="https://th.bing.com/th/id/OIP.Fhs6UNZPqiCVqcsJCaohvgAAAA?pid=ImgDet&rs=1">
+  <p class="site-author-name" itemprop="name">Redamancy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cylblog" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cylblog" rel="noopener" target="_blank"><i class="fa fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/chen-youliang" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;chen-youliang" rel="noopener" target="_blank"><i class="fa fa-gitee fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Redamancy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+  
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":85,"height":170},"mobile":{"show":false},"log":false});</script></body>
+</html>
